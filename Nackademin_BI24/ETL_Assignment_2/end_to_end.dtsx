@@ -1,0 +1,3389 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/18/2025 9:30:04 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MAALINS"
+  DTS:CreatorName="MAALINS\maali"
+  DTS:DTSID="{A0A04757-AF4C-417A-B592-D47E1ABCE02C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1053"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="82"
+  DTS:VersionGUID="{A16872BC-A068-4222-AA87-63E8EBC1F863}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Loan_Account]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{DFE14981-A15C-4F5B-B082-7381DA6ACE7B}"
+      DTS:ObjectName="Loan_Account">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1053"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\maali\Documents\nackademin\Datafångst\OneDrive_1_2025-05-13\Assignment 2 End-to-End ETL\Raw_Loan_Accounts.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="loan_account_id"
+              DTS:DTSID="{BA6AAFAC-BF11-4DEB-A115-7700423057FF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="source_system"
+              DTS:DTSID="{89C06A62-BFE3-4AB3-831B-A626D22E8303}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="AccountNumber"
+              DTS:DTSID="{F5DFF025-7E10-4D44-AF87-7BF6F1F538C8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="currency"
+              DTS:DTSID="{75E0BC38-8DF2-432E-BB1D-449F17B75F4E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="org_id"
+              DTS:DTSID="{C772EF06-01D4-4202-BAF8-A3C8551D127C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="org_name"
+              DTS:DTSID="{1CEE0438-6307-4CD0-BAD0-9EDF6D57868A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="product_id"
+              DTS:DTSID="{C729D4CC-7BED-43E7-B139-F848B1CCC5D6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="InsertedTmstp"
+              DTS:DTSID="{447A501A-E877-4B34-9E25-19F44072078B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ValidFromDate"
+              DTS:DTSID="{AE899E11-0487-46DA-BF30-0865FAEA1058}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ValidToDate"
+              DTS:DTSID="{4B1F1468-D126-4DCC-84F3-35DEC6669C7E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CreatedDate"
+              DTS:DTSID="{B8243F37-A31B-4B62-AC73-141516D7CEC5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ModifiedDate"
+              DTS:DTSID="{92FEF3DA-BC11-4724-BC84-39343B4C92B3}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MAALINS.Endtoend]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{51AB962C-75DF-4DE2-86A2-98631479BAA7}"
+      DTS:ObjectName="MAALINS.Endtoend">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=MAALINS;Initial Catalog=End_to_end;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{51AB962C-75DF-4DE2-86A2-98631479BAA7}MAALINS.ETL_SSIS 1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MAALINS.ETL_SSIS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1D6492C1-DE5C-4DBB-903C-82D970DE7201}"
+      DTS:ObjectName="MAALINS.ETL_SSIS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=MAALINS;Initial Catalog=ETL_SSIS;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{1D6492C1-DE5C-4DBB-903C-82D970DE7201}MAALINS.ETL_SSIS;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MAALINS.master]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{89F2AF15-0E9F-4F0E-8301-CE71743E55AE}"
+      DTS:ObjectName="MAALINS.master">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=MAALINS;Initial Catalog=master;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{89F2AF15-0E9F-4F0E-8301-CE71743E55AE}MAALINS.ETL_SSIS 1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Raw_Loan_Balance]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{F4C1EFB5-91A6-4D1E-9FAF-19BB341F5156}"
+      DTS:ObjectName="Raw_Loan_Balance">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1053"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\maali\Documents\nackademin\Datafångst\OneDrive_1_2025-05-13\Assignment 2 End-to-End ETL\Raw_Loan_Balances.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="loan_account_id"
+              DTS:DTSID="{4F6CDD3D-6709-4143-9D8C-5FDF642BE2BE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="balance_date"
+              DTS:DTSID="{6F37312B-097B-4C17-A1D9-31367601309B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Balance"
+              DTS:DTSID="{AE33C6C2-B425-4876-A604-2A5B42665E7C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BalanceSek"
+              DTS:DTSID="{F1740B38-6C03-4529-8309-471C0684F654}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="net_txn_amt"
+              DTS:DTSID="{1A3280D6-7C96-4117-A8D2-E4C2BFAE97F3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="net_txn_amt_sek"
+              DTS:DTSID="{7BB56376-8523-4CF1-BAEA-75AACCDB24CC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="txn_count"
+              DTS:DTSID="{4AB65B60-5BAE-4511-B025-652D5085CD61}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="imported_at"
+              DTS:DTSID="{9BCC8FDB-16F8-4ACF-9683-A1B37A04C36A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="adjusted_at"
+              DTS:DTSID="{A193263C-0ABB-4D19-A129-8360CFD6AF96}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="source_file"
+              DTS:DTSID="{DC2F50A5-196C-469A-A7B7-9FB752356F80}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Raw_Loan_Transactions]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{DEFA121D-B178-44A9-83CF-9E8ED9A94B9C}"
+      DTS:ObjectName="Raw_Loan_Transactions">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1053"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\maali\Documents\nackademin\Datafångst\OneDrive_1_2025-05-13\Assignment 2 End-to-End ETL\Raw_Loan_Transactions.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="loan_account_id"
+              DTS:DTSID="{A89E1B6F-6551-4B23-A3DA-65EFA1778243}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="txn_date"
+              DTS:DTSID="{C1860943-FC93-401F-A392-0A6A0503F442}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="txn_type_id"
+              DTS:DTSID="{F3AC18AA-5D58-4446-9DA9-DEAC671896F0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="currency_id"
+              DTS:DTSID="{16773921-8655-4331-9EC0-3212840C86FA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="txn_amount"
+              DTS:DTSID="{016C8CB6-F852-40BA-B8E9-26738A07AE2B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="txn_amount_sek"
+              DTS:DTSID="{39ACE273-A8EE-4456-9239-3D4A09DB0B78}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="created_at"
+              DTS:DTSID="{2F2E72AA-1C94-48B3-87EA-7885D4EA18E5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="modified_at"
+              DTS:DTSID="{FDB94BD3-4AA3-4F8F-872C-15ACF18010BB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="source_system"
+              DTS:DTSID="{4C7CF785-B1E6-49A6-B82D-CB9596468110}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Advanced Cleaning and Enrichment"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{0CAA19B4-0F66-4641-807F-9F06FD4D6BED}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Advanced Cleaning and Enrichment"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Advanced Cleaning and Enrichment 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{79b37583-6c9c-4608-9642-b76f8f030e3c}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Advanced Cleaning and Enrichment 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Advanced Cleaning and Enrichment 1 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4952be19-da9a-4806-9112-2fda366aefa3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Advanced Cleaning and Enrichment 1 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Basic Cleaning and Structuring"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E7A678A6-647C-4255-A817-544F601B2B29}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Basic Cleaning and Structuring"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Basic Cleaning and Structuring\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input].Columns[InsertedTmstp]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="InsertedTmstp"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Valid Times]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Valid Times"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">![ISNULL](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL(InsertedTmstp)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Invalid Times]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Invalid Times"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(InsertedTmstp)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Basic Cleaning and Structuring\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Basic Cleaning and Structuring\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\Data Conversion.Inputs[Data Conversion Input].Columns[AccountNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="AccountNumber"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[AccountNumber]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\Data Conversion.Inputs[Data Conversion Input].Columns[currency]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="currency"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[currency]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[AccountNumber_conv]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[AccountNumber_conv]"
+                      name="AccountNumber_conv"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[AccountNumber]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[currency_conv]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="5"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[currency_conv]"
+                      name="currency_conv"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[currency]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Basic Cleaning and Structuring\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Basic Cleaning and Structuring\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\Derived Column.Inputs[Derived Column Input].Columns[InsertedTmstp]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="InsertedTmstp"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\Derived Column.Inputs[Derived Column Input].Columns[AccountNumber_conv]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="AccountNumber_conv"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[AccountNumber_conv]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]}) || [LEN]([TRIM](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]})) == 0 ? NULL(DT_DBTIME) : [FINDSTRING](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]},",",1) &gt; 0 ? (DT_DBTIME)([SUBSTRING](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]},1,[FINDSTRING](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]},",",1) - 1) + ":" + [SUBSTRING](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]},[FINDSTRING](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]},",",1) + 1,[LEN](#{Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]})) + ":00") : NULL(DT_DBTIME)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(InsertedTmstp) || LEN(TRIM(InsertedTmstp)) == 0 ? NULL(DT_DBTIME) : FINDSTRING(InsertedTmstp,",",1) &gt; 0 ? (DT_DBTIME)(SUBSTRING(InsertedTmstp,1,FINDSTRING(InsertedTmstp,",",1) - 1) + ":" + SUBSTRING(InsertedTmstp,FINDSTRING(InsertedTmstp,",",1) + 1,LEN(InsertedTmstp)) + ":00") : NULL(DT_DBTIME)</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Basic Cleaning and Structuring\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1053"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Basic Cleaning and Structuring\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Loan_Account]"
+                  connectionManagerRefId="Package.ConnectionManagers[Loan_Account]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      name="loan_account_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_system]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]"
+                      name="source_system"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[AccountNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[AccountNumber]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[AccountNumber]"
+                      name="AccountNumber"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[currency]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[currency]"
+                      name="currency"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[org_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_id]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[org_id]"
+                      name="org_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[org_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_name]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[org_name]"
+                      name="org_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[product_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[product_id]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[product_id]"
+                      name="product_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[InsertedTmstp]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]"
+                      name="InsertedTmstp"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ValidFromDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidFromDate]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ValidFromDate]"
+                      name="ValidFromDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ValidToDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidToDate]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ValidToDate]"
+                      name="ValidToDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[CreatedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CreatedDate]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[CreatedDate]"
+                      name="CreatedDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ModifiedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ModifiedDate]"
+                      length="50"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="loan_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_system]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="source_system" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[AccountNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="AccountNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="org_id" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="org_name" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[product_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[InsertedTmstp]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="InsertedTmstp" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidFromDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ValidFromDate" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidToDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ValidToDate" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CreatedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CreatedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ModifiedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ModifiedDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Basic Cleaning and Structuring\load to staging table"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="load to staging table"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Loan_Accounts_staging]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Basic Cleaning and Structuring\load to staging table.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MAALINS.Endtoend]"
+                  connectionManagerRefId="Package.ConnectionManagers[MAALINS.Endtoend]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="IgnoreFailure"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[loan_account_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="loan_account_id"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[loan_account_id]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[source_system]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="source_system"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[source_system]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[org_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="org_id"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[org_id]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[org_id]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[org_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="org_name"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[org_name]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[org_name]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[product_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="product_id"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[product_id]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[product_id]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[InsertedTmstp]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="InsertedTmstp"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[InsertedTmstp]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[ValidFromDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ValidFromDate"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[ValidFromDate]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ValidFromDate]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[ValidToDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ValidToDate"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[ValidToDate]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ValidToDate]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[CreatedDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="CreatedDate"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[CreatedDate]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[ModifiedDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output].Columns[ModifiedDate]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[currency_conv]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="currency_conv"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[currency]"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[currency_conv]" />
+                    <inputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].Columns[AccountNumber_conv]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="AccountNumber_conv"
+                      externalMetadataColumnId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[AccountNumber]"
+                      lineageId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output].Columns[AccountNumber_conv]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[loan_account_id]"
+                      dataType="i4"
+                      name="loan_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[source_system]"
+                      dataType="i4"
+                      name="source_system" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[AccountNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="AccountNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[org_id]"
+                      dataType="i4"
+                      name="org_id" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[org_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="org_name" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[product_id]"
+                      dataType="i4"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[InsertedTmstp]"
+                      dataType="dbTime2"
+                      name="InsertedTmstp"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[ValidFromDate]"
+                      dataType="dbDate"
+                      name="ValidFromDate" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[ValidToDate]"
+                      dataType="dbDate"
+                      name="ValidToDate" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                      dataType="dbDate"
+                      name="CreatedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input].ExternalColumns[ModifiedDate]"
+                      dataType="dbDate"
+                      name="ModifiedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Basic Cleaning and Structuring\load to staging table.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\load to staging table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Basic Cleaning and Structuring\load to staging table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Basic Cleaning and Structuring\load to staging table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Basic Cleaning and Structuring.Paths[Data Conversion Output]"
+              endId="Package\Basic Cleaning and Structuring\Derived Column.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\Basic Cleaning and Structuring\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Basic Cleaning and Structuring.Paths[Derived Column Output]"
+              endId="Package\Basic Cleaning and Structuring\Conditional Split.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Basic Cleaning and Structuring\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Basic Cleaning and Structuring.Paths[Flat File Source Output]"
+              endId="Package\Basic Cleaning and Structuring\Data Conversion.Inputs[Data Conversion Input]"
+              name="Flat File Source Output"
+              startId="Package\Basic Cleaning and Structuring\Flat File Source.Outputs[Flat File Source Output]" />
+            <path
+              refId="Package\Basic Cleaning and Structuring.Paths[Valid Times]"
+              endId="Package\Basic Cleaning and Structuring\load to staging table.Inputs[OLE DB Destination Input]"
+              name="Valid Times"
+              startId="Package\Basic Cleaning and Structuring\Conditional Split.Outputs[Valid Times]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Basic Cleaning and Structuring 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{fd7bf322-c232-4001-a834-ffa33669d9ca}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Basic Cleaning and Structuring 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Basic Cleaning and Structuring 1 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{c343e91a-cc58-4e76-b4cd-282b85ad2a47}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Basic Cleaning and Structuring 1 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Error Log table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7776F586-41B7-407F-AEFE-FA6B4E40288B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Error Log table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{51AB962C-75DF-4DE2-86A2-98631479BAA7}"
+          SQLTask:SqlStatementSource="CREATE TABLE Error_Log (&#xA;    ErrorID INT IDENTITY(1,1) PRIMARY KEY,&#xA;    TableName VARCHAR(50),&#xA;    ColumnName VARCHAR(50),&#xA;    InvalidValue VARCHAR(100),&#xA;    LoanAccountID INT,&#xA;    ErrorMessage VARCHAR(500),&#xA;    ErrorDateTime DATETIME DEFAULT GETDATE()&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Raw Loan_Account"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{824D825A-DAED-48D6-A192-F84D139A9AC6}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Raw Loan_Account"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Raw Loan_Account\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1053"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Raw Loan_Account\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Loan_Account]"
+                  connectionManagerRefId="Package.ConnectionManagers[Loan_Account]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      name="loan_account_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_system]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]"
+                      name="source_system"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[AccountNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[AccountNumber]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[AccountNumber]"
+                      name="AccountNumber"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[currency]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[currency]"
+                      name="currency"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[org_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_id]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[org_id]"
+                      name="org_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[org_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_name]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[org_name]"
+                      name="org_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[product_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[product_id]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[product_id]"
+                      name="product_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[InsertedTmstp]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[InsertedTmstp]"
+                      name="InsertedTmstp"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[ValidFromDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidFromDate]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[ValidFromDate]"
+                      name="ValidFromDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[ValidToDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidToDate]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[ValidToDate]"
+                      name="ValidToDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[CreatedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CreatedDate]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[CreatedDate]"
+                      name="CreatedDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[ModifiedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="IgnoreFailure"
+                      externalMetadataColumnId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ModifiedDate]"
+                      length="50"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="loan_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_system]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="source_system" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[AccountNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="AccountNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="org_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[org_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="org_name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[product_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[InsertedTmstp]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="InsertedTmstp" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidFromDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ValidFromDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ValidToDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ValidToDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[CreatedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="CreatedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ModifiedDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ModifiedDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Raw Loan_Account\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load RAW Loan_Account_Balance"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{FA21CAEA-439B-4400-B2C6-8C37A361D79F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load RAW Loan_Account_Balance"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load RAW Loan_Account_Balance\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1053"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Raw_Loan_Balance]"
+                  connectionManagerRefId="Package.ConnectionManagers[Raw_Loan_Balance]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      name="loan_account_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[balance_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[balance_date]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[balance_date]"
+                      name="balance_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[Balance]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Balance]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[Balance]"
+                      name="Balance"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[BalanceSek]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[BalanceSek]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[BalanceSek]"
+                      name="BalanceSek"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[net_txn_amt]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[net_txn_amt]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[net_txn_amt]"
+                      name="net_txn_amt"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[net_txn_amt_sek]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[net_txn_amt_sek]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[net_txn_amt_sek]"
+                      name="net_txn_amt_sek"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[txn_count]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_count]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[txn_count]"
+                      name="txn_count"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[imported_at]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[imported_at]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[imported_at]"
+                      name="imported_at"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[adjusted_at]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adjusted_at]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[adjusted_at]"
+                      name="adjusted_at"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[source_file]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_file]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].Columns[source_file]"
+                      name="source_file"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="loan_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[balance_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="balance_date" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Balance]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Balance" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[BalanceSek]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BalanceSek" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[net_txn_amt]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="net_txn_amt" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[net_txn_amt_sek]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="net_txn_amt_sek" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_count]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="txn_count" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[imported_at]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="imported_at" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[adjusted_at]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="adjusted_at" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_file]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="source_file" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load RAW Loan_Account_Balance\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load RAW Loan_Account_Transaction"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{48B34315-D118-4057-A2C5-5C307D8481D8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load RAW Loan_Account_Transaction"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load RAW Loan_Account_Transaction\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1053"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Raw_Loan_Transactions]"
+                  connectionManagerRefId="Package.ConnectionManagers[Raw_Loan_Transactions]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[loan_account_id]"
+                      name="loan_account_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_date]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_date]"
+                      name="txn_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_type_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_type_id]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_type_id]"
+                      name="txn_type_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[currency_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[currency_id]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[currency_id]"
+                      name="currency_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_amount]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_amount]"
+                      name="txn_amount"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_amount_sek]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_amount_sek]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[txn_amount_sek]"
+                      name="txn_amount_sek"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[created_at]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[created_at]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[created_at]"
+                      name="created_at"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[modified_at]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[modified_at]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[modified_at]"
+                      name="modified_at"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_system]"
+                      length="50"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].Columns[source_system]"
+                      name="source_system"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[loan_account_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="loan_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="txn_date" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_type_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="txn_type_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[currency_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="currency_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="txn_amount" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[txn_amount_sek]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="txn_amount_sek" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[created_at]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="created_at" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[modified_at]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="modified_at" />
+                    <externalMetadataColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[source_system]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="source_system" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load RAW Loan_Account_Transaction\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to Loan_Account_Balance_Cleansed"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1b24fe64-d415-4755-98e6-c384a62169e9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to Loan_Account_Balance_Cleansed"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to Loan_Account_Balance_Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{d2401baa-bcc7-46b4-82e6-b53798538360}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to Loan_Account_Balance_Staging"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to Loan_Account_Cleansed"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3052B4E8-839C-4FC0-9B22-CB3B23A0933C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to Loan_Account_Cleansed"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to Loan_Account_Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{70883690-D014-4EAB-BAFF-5778DD3D8FFB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to Loan_Account_Staging"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to Loan_Account_Transactions_Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{ad23f9fc-0233-427f-8249-33db4dd59ead}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to Loan_Account_Transactions_Staging"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to Loan_Account_Transaction_Cleansed"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{b4f4f854-d721-418d-ae84-fb29984b5ac2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to Loan_Account_Transaction_Cleansed"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{F8FDE852-CC7B-4D4A-9AB8-E49825924F16}"
+      DTS:From="Package\Load RAW Loan_Account_Balance"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Basic Cleaning and Structuring 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 11]"
+      DTS:CreationName=""
+      DTS:DTSID="{A831F1EB-B8C4-4B97-AED3-9BCAF2164769}"
+      DTS:From="Package\Basic Cleaning and Structuring 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 11"
+      DTS:To="Package\Load to Loan_Account_Balance_Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 12]"
+      DTS:CreationName=""
+      DTS:DTSID="{31BEFD4B-425A-4696-92E1-00E99E0E9D6D}"
+      DTS:From="Package\Load to Loan_Account_Balance_Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 12"
+      DTS:To="Package\Advanced Cleaning and Enrichment 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 13]"
+      DTS:CreationName=""
+      DTS:DTSID="{449DC712-739F-4162-8322-1F4223195103}"
+      DTS:From="Package\Advanced Cleaning and Enrichment 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 13"
+      DTS:To="Package\Load to Loan_Account_Balance_Cleansed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 14]"
+      DTS:CreationName=""
+      DTS:DTSID="{65DE7E9D-A4A2-43E9-A1D8-1C0292E8DAB8}"
+      DTS:From="Package\Load RAW Loan_Account_Transaction"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 14"
+      DTS:To="Package\Basic Cleaning and Structuring 1 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 15]"
+      DTS:CreationName=""
+      DTS:DTSID="{9A9F1F8E-90F1-4239-8E7C-0B32BAE342CA}"
+      DTS:From="Package\Basic Cleaning and Structuring 1 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 15"
+      DTS:To="Package\Load to Loan_Account_Transactions_Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 16]"
+      DTS:CreationName=""
+      DTS:DTSID="{D9853959-8BF0-4548-9E0E-5E0847DF5E33}"
+      DTS:From="Package\Load to Loan_Account_Transactions_Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 16"
+      DTS:To="Package\Advanced Cleaning and Enrichment 1 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 17]"
+      DTS:CreationName=""
+      DTS:DTSID="{04D3CFE2-DC3A-4DED-8C9B-A429B202F3E5}"
+      DTS:From="Package\Advanced Cleaning and Enrichment 1 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 17"
+      DTS:To="Package\Load to Loan_Account_Transaction_Cleansed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 18]"
+      DTS:CreationName=""
+      DTS:DTSID="{8E38BE60-6FF6-4D92-8FFC-61C521DC7356}"
+      DTS:From="Package\Basic Cleaning and Structuring"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 18"
+      DTS:To="Package\Create Error Log table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{A8396676-B28F-40AA-88E1-D3C8176FCF9B}"
+      DTS:From="Package\Load Raw Loan_Account"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Basic Cleaning and Structuring" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{696E3922-C9E1-43E5-B46B-0F08E130BC19}"
+      DTS:From="Package\Basic Cleaning and Structuring"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Load to Loan_Account_Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{613FA3AA-C0D7-483C-8268-7D1540287D67}"
+      DTS:From="Package\Load to Loan_Account_Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Advanced Cleaning and Enrichment" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{0F10C1C8-87BF-461B-93A4-E4DEA2ACAF3C}"
+      DTS:From="Package\Advanced Cleaning and Enrichment"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Load to Loan_Account_Cleansed" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\Load Raw Loan_Account"
+          TopLeft="238.684548128947,43.6806722354407" />
+        <NodeLayout
+          Size="238.4,41.6"
+          Id="Package\Load RAW Loan_Account_Balance"
+          TopLeft="613.34762019511,123.774509700249" />
+        <NodeLayout
+          Size="256.8,41.6"
+          Id="Package\Load RAW Loan_Account_Transaction"
+          TopLeft="1091.97727395928,113.323529317253" />
+        <NodeLayout
+          Size="221.6,41.6"
+          Id="Package\Basic Cleaning and Structuring"
+          TopLeft="221.750000146351,201.691176293798" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="334.017274137649,85.2806722354407">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,116.410504058357"
+              Start="0,0"
+              End="0,108.910504058357">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,108.910504058357" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Advanced Cleaning and Enrichment"
+          TopLeft="208.357142974984,373.749999672394" />
+        <NodeLayout
+          Size="231.2,41.6"
+          Id="Package\Load to Loan_Account_Cleansed"
+          TopLeft="213.71428584353,460.808823278889" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="330.035714409257,415.349999672394">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.4588236064955"
+              Start="0,0"
+              End="0,37.9588236064955">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.9588236064955" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="221.6,41.6"
+          Id="Package\Basic Cleaning and Structuring 1"
+          TopLeft="626.114286982405,200.926470412115" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="734.730953588758,165.374509700249">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.5519607118661"
+              Start="0,0"
+              End="0,28.0519607118661">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.0519607118661" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\Load to Loan_Account_Staging"
+          TopLeft="221.750000146351,278.161764462063" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="332.253571560667,319.761764462063">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.9882352103308"
+              Start="0,0"
+              End="0,46.4882352103308">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.4882352103308" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="333.150000146351,243.291176293798">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.8705881682648"
+              Start="0,0"
+              End="0,27.3705881682648">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.3705881682648" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="266.4,41.6"
+          Id="Package\Load to Loan_Account_Balance_Staging"
+          TopLeft="606.60714414845,293.80588233786" />
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Advanced Cleaning and Enrichment 1"
+          TopLeft="611.178572514608,369.320588154021" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 11]"
+          TopLeft="738.360715565428,242.526470412115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.2794119257441"
+              Start="0,0"
+              End="0,43.7794119257441">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.7794119257441" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 12]"
+          TopLeft="736.692858331529,335.40588233786">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.9147058161614"
+              Start="0,0"
+              End="0,26.4147058161614">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.4147058161614" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="273.6,41.6"
+          Id="Package\Load to Loan_Account_Balance_Cleansed"
+          TopLeft="594.107144121841,456.305882195422" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 13]"
+          TopLeft="732.242858318224,410.920588154021">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.3852940414009"
+              Start="0,0"
+              End="0,37.8852940414009">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.8852940414009" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="240,41.6"
+          Id="Package\Basic Cleaning and Structuring 1 1"
+          TopLeft="1102.25000159921,188.658823606496" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 14]"
+          TopLeft="1221.31363777925,154.923529317253">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.7352942892425"
+              Start="0,0"
+              End="0,26.2352942892425">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.2352942892425" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="289.6,41.6"
+          Id="Package\Load to Loan_Account_Transactions_Staging"
+          TopLeft="1073.6785736588,283.291176464723" />
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Advanced Cleaning and Enrichment 1 1"
+          TopLeft="1102.14285948903,372.188235210331" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 15]"
+          TopLeft="1220.36428762901,230.258823606496">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.0323528582274"
+              Start="0,0"
+              End="0,45.5323528582274">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5323528582274" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 16]"
+          TopLeft="1221.51071657392,324.891176464723">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.2970587456076"
+              Start="0,0"
+              End="0,39.7970587456076">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.7970587456076" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="291.2,41.6"
+          Id="Package\Load to Loan_Account_Transaction_Cleansed"
+          TopLeft="1082.25000229105,451.526470434905" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 17]"
+          TopLeft="1226.19643089004,413.788235210331">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.7382352245747"
+              Start="0,0"
+              End="0,30.2382352245747">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.2382352245747" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="182.4,41.6"
+          Id="Package\Create Error Log table"
+          TopLeft="10.2040816543749,205.378151080482" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 18]"
+          TopLeft="221.750000146351,224.33466368714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-29.1459184919759,0"
+              Start="0,0"
+              End="-21.6459184919759,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-21.6459184919759,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Raw Loan_Account">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Load Raw Loan_Account\Flat File Source"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Load RAW Loan_Account_Balance">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Load RAW Loan_Account_Balance\Flat File Source"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Load RAW Loan_Account_Transaction">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Load RAW Loan_Account_Transaction\Flat File Source"
+          TopLeft="114.999998286366,52.9999992102385" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Basic Cleaning and Structuring">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Basic Cleaning and Structuring\Flat File Source"
+          TopLeft="37.9999994337559,5.99999991059305" />
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\Basic Cleaning and Structuring\Derived Column"
+          TopLeft="392.999994143844,58.9999991208315" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Basic Cleaning and Structuring\Conditional Split"
+          TopLeft="219.999996721745,155.999997675419" />
+        <EdgeLayout
+          Id="Package\Basic Cleaning and Structuring.Paths[Derived Column Output]"
+          TopLeft="469.399994143844,100.599999120831">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-172.199997422099,55.3999985545874"
+              Start="0,0"
+              End="-172.199997422099,47.8999985545874">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6999992772937" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.6999992772937"
+                    Point2="0,27.6999992772937"
+                    Point3="-4,27.6999992772937" />
+                  <mssgle:LineSegment
+                    End="-168.199997422099,27.6999992772937" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-168.199997422099,27.6999992772937"
+                    Point2="-172.199997422099,27.6999992772937"
+                    Point3="-172.199997422099,31.6999992772937" />
+                  <mssgle:LineSegment
+                    End="-172.199997422099,47.8999985545874" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\Basic Cleaning and Structuring\load to staging table"
+          TopLeft="128.99999807775,271.999995946884" />
+        <EdgeLayout
+          Id="Package\Basic Cleaning and Structuring.Paths[Valid Times]"
+          TopLeft="272.799996721745,197.599997675419">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-56.5999986439944,74.3999982714653"
+              Start="0,0"
+              End="-56.5999986439944,66.8999982714653">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.2178454517951" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.2178454517951"
+                    Point2="0,30.2178454517951"
+                    Point3="-4,30.2178454517951" />
+                  <mssgle:LineSegment
+                    End="-52.5999986439944,30.2178454517951" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-52.5999986439944,30.2178454517951"
+                    Point2="-56.5999986439944,30.2178454517951"
+                    Point3="-56.5999986439944,34.2178454517951" />
+                  <mssgle:LineSegment
+                    End="-56.5999986439944,66.8999982714653" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-54.5807610407472,35.2178454517951,52.5615234375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Basic Cleaning and Structuring\Data Conversion"
+          TopLeft="44.7307686461852,76.6588519497194" />
+        <EdgeLayout
+          Id="Package\Basic Cleaning and Structuring.Paths[Flat File Source Output]"
+          TopLeft="113.199999433756,47.5999999105931">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.13076921242926,29.0588520391263"
+              Start="0,0"
+              End="9.13076921242926,21.5588520391263">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.5294260195632" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.5294260195632"
+                    Point2="0,14.5294260195632"
+                    Point3="4,14.5294260195632" />
+                  <mssgle:LineSegment
+                    End="5.13076921242926,14.5294260195632" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.13076921242926,14.5294260195632"
+                    Point2="9.13076921242926,14.5294260195632"
+                    Point3="9.13076921242926,18.5294260195632" />
+                  <mssgle:LineSegment
+                    End="9.13076921242926,21.5588520391263" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Basic Cleaning and Structuring.Paths[Data Conversion Output]"
+          TopLeft="199.930768646185,97.4588519497194">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="193.069225497659,-17.6588528288879"
+              Start="0,0"
+              End="185.569225497659,-17.6588528288879">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="92.5346127488293,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="92.5346127488293,0"
+                    Point2="96.5346127488293,0"
+                    Point3="96.5346127488293,-4" />
+                  <mssgle:LineSegment
+                    End="96.5346127488293,-13.6588528288879" />
+                  <mssgle:CubicBezierSegment
+                    Point1="96.5346127488293,-13.6588528288879"
+                    Point2="96.5346127488293,-17.6588528288879"
+                    Point3="100.534612748829,-17.6588528288879" />
+                  <mssgle:LineSegment
+                    End="185.569225497659,-17.6588528288879" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Basic Cleaning and Structuring\load to staging table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

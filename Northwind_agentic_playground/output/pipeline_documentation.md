@@ -1,0 +1,107 @@
+# Pipeline documentation
+
+Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> AnalysisAgent -> InsightAgent -> BIExportAgent -> DocumentationAgent
+
+## Semantic model
+
+{
+  "business_name": "Northwind sales semantic model",
+  "model_type": "star_schema",
+  "fact_table": "order_details",
+  "granularity": "order_line",
+  "dimensions": [
+    {
+      "name": "dim_orders",
+      "key": "orderID",
+      "source_table": "orders"
+    },
+    {
+      "name": "dim_products",
+      "key": "productID",
+      "source_table": "products"
+    },
+    {
+      "name": "dim_customers",
+      "key": "customerID",
+      "source_table": "customers"
+    },
+    {
+      "name": "dim_employees",
+      "key": "employeeID",
+      "source_table": "employees"
+    },
+    {
+      "name": "dim_categories",
+      "key": "categoryID",
+      "source_table": "categories"
+    },
+    {
+      "name": "dim_suppliers",
+      "key": "supplierID",
+      "source_table": "suppliers"
+    },
+    {
+      "name": "dim_shippers",
+      "key": "shipVia",
+      "source_table": "shippers"
+    }
+  ],
+  "measures": [
+    {
+      "name": "sales_amount",
+      "type": "decimal",
+      "definition": "unitPrice * quantity * (1 - discount)"
+    },
+    {
+      "name": "order_quantity",
+      "type": "integer",
+      "definition": "SUM(quantity)"
+    },
+    {
+      "name": "distinct_orders",
+      "type": "integer",
+      "definition": "DISTINCTCOUNT(orderID)"
+    },
+    {
+      "name": "avg_line_value",
+      "type": "decimal",
+      "definition": "sales_amount / order_quantity"
+    }
+  ],
+  "segmentations": [
+    {
+      "name": "customer_value_segment",
+      "entity": "customer",
+      "logic": "Based on total revenue per customer: High Value >= 75th percentile, Medium Value >= 50th percentile, Low Value else",
+      "labels": [
+        "High Value",
+        "Medium Value",
+        "Low Value"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "fact_table": "order_details",
+      "fact_key": "orderID",
+      "dimension_table": "orders",
+      "dimension_key": "orderID",
+      "relationship_type": "one_to_many"
+    },
+    {
+      "fact_table": "order_details",
+      "fact_key": "productID",
+      "dimension_table": "products",
+      "dimension_key": "productID",
+      "relationship_type": "one_to_many"
+    }
+  ]
+}
+
+## Summary
+
+{}
+
+## Insights
+
+{}
