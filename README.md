@@ -1,6 +1,6 @@
 # Malin Jacobsson — Portfolio
 
-> Se den publika versionen: öppna `index.html` lokalt eller publicera på GitHub Pages via guiden i [`HUR-LÄGG-UPP-PÅ-GITHUB.md`](HUR-LÄGG-UPP-PÅ-GITHUB.md).
+> Förhandsvisning: öppna `index.html` lokalt i en webbläsare. När du är redo att publicera som hemsida, följ guiden i [`HUR-LÄGG-UPP-PÅ-GITHUB.md`](HUR-LÄGG-UPP-PÅ-GITHUB.md).
 
 Den här mappen innehåller mitt samlade arbete inom BI, dataanalys, SQL, Power BI, ML och AI-agenter.
 
