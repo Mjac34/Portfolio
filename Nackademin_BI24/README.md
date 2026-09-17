@@ -9,8 +9,8 @@ This folder contains the best assignments from Nackademin's Business Intelligenc
 | `ETL_Assignment_1/` | Real-world banking ETL: SQL staging/cleansing + assignment brief. |
 | `ETL_Assignment_2/` | End-to-end Python ETL pipeline, SSIS package, data-cleansing notebooks and a Power BI report (`MJ Fin.pbix`). |
 | `SQL/` | Individual and group SQL assignments, plus a database-design `.drawio` diagram. |
-| `Data_Visualization/` | Pizza-sales Power BI report with a written motivation (`motiveringdatavisualisering_Malin_jacobsson_BI24.pdf`). |
-| `PowerBI/` | FBC and HKV Power BI reports from the BI-cycles/HR-economy modules. |
+| `MyBank/` | Fictional bank database in T-SQL: schema, seed data, views, stored procedures (credit checks, annuity loan payments) and showcase queries. Runnable via `01`–`05` scripts. |
+
 
 ## Note
 

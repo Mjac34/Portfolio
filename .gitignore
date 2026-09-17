@@ -14,3 +14,9 @@ desktop.ini
 # IDE
 .vscode/
 .idea/
+
+# Personal schoolwork (not for public portfolio)
+Nackademin_BI24/MyBank/Dagbok_malin_jacobsson.pdf
+
+# draw.io auto-backups
+.$*.bkp
