@@ -16,35 +16,40 @@
         "first_half_revenue": 73587.23,
         "second_half_revenue": 171997.39,
         "delta": 98410.16,
-        "share_of_change": 0.285
+        "share_of_change": 0.285,
+        "cumulative_share_of_change": 0.285
       },
       {
         "name": "Germany",
         "first_half_revenue": 84790.69,
         "second_half_revenue": 145493.94,
         "delta": 60703.24,
-        "share_of_change": 0.176
+        "share_of_change": 0.176,
+        "cumulative_share_of_change": 0.461
       },
       {
         "name": "Brazil",
         "first_half_revenue": 33192.46,
         "second_half_revenue": 73733.32,
         "delta": 40540.86,
-        "share_of_change": 0.117
+        "share_of_change": 0.117,
+        "cumulative_share_of_change": 0.578
       },
       {
         "name": "Austria",
         "first_half_revenue": 49754.71,
         "second_half_revenue": 78249.13,
         "delta": 28494.42,
-        "share_of_change": 0.083
+        "share_of_change": 0.083,
+        "cumulative_share_of_change": 0.661
       },
       {
         "name": "Sweden",
         "first_half_revenue": 14051.89,
         "second_half_revenue": 40443.24,
         "delta": 26391.35,
-        "share_of_change": 0.076
+        "share_of_change": 0.076,
+        "cumulative_share_of_change": 0.737
       }
     ],
     "category": [
@@ -53,35 +58,40 @@
         "first_half_revenue": 82406.97,
         "second_half_revenue": 152100.32,
         "delta": 69693.36,
-        "share_of_change": 0.202
+        "share_of_change": 0.202,
+        "cumulative_share_of_change": 0.202
       },
       {
         "name": "Seafood",
         "first_half_revenue": 36808.93,
         "second_half_revenue": 94452.81,
         "delta": 57643.89,
-        "share_of_change": 0.167
+        "share_of_change": 0.167,
+        "cumulative_share_of_change": 0.369
       },
       {
         "name": "Beverages",
         "first_half_revenue": 106022.28,
         "second_half_revenue": 161845.9,
         "delta": 55823.62,
-        "share_of_change": 0.162
+        "share_of_change": 0.162,
+        "cumulative_share_of_change": 0.53
       },
       {
         "name": "Meat/Poultry",
         "first_half_revenue": 56815.36,
         "second_half_revenue": 106207.0,
         "delta": 49391.64,
-        "share_of_change": 0.143
+        "share_of_change": 0.143,
+        "cumulative_share_of_change": 0.674
       },
       {
         "name": "Produce",
         "first_half_revenue": 34406.56,
         "second_half_revenue": 65578.02,
         "delta": 31171.46,
-        "share_of_change": 0.09
+        "share_of_change": 0.09,
+        "cumulative_share_of_change": 0.764
       }
     ],
     "customer_segment": [
@@ -90,21 +100,24 @@
         "first_half_revenue": 307217.26,
         "second_half_revenue": 545444.5,
         "delta": 238227.25,
-        "share_of_change": 0.69
+        "share_of_change": 0.69,
+        "cumulative_share_of_change": 0.69
       },
       {
         "name": "Low Value",
         "first_half_revenue": 45331.34,
         "second_half_revenue": 101073.04,
         "delta": 55741.7,
-        "share_of_change": 0.161
+        "share_of_change": 0.161,
+        "cumulative_share_of_change": 0.851
       },
       {
         "name": "Medium Value",
         "first_half_revenue": 107713.54,
         "second_half_revenue": 159013.36,
         "delta": 51299.81,
-        "share_of_change": 0.149
+        "share_of_change": 0.149,
+        "cumulative_share_of_change": 1.0
       }
     ],
     "product": [
@@ -113,35 +126,40 @@
         "first_half_revenue": 22088.34,
         "second_half_revenue": 58280.33,
         "delta": 36191.99,
-        "share_of_change": 0.105
+        "share_of_change": 0.105,
+        "cumulative_share_of_change": 0.105
       },
       {
         "name": "Raclette Courdavault",
         "first_half_revenue": 23184.7,
         "second_half_revenue": 47971.0,
         "delta": 24786.3,
-        "share_of_change": 0.072
+        "share_of_change": 0.072,
+        "cumulative_share_of_change": 0.177
       },
       {
         "name": "Manjimup Dried Apples",
         "first_half_revenue": 12497.4,
         "second_half_revenue": 29322.25,
         "delta": 16824.85,
-        "share_of_change": 0.049
+        "share_of_change": 0.049,
+        "cumulative_share_of_change": 0.225
       },
       {
         "name": "C\u00f4te de Blaye",
         "first_half_revenue": 62807.86,
         "second_half_revenue": 78588.88,
         "delta": 15781.01,
-        "share_of_change": 0.046
+        "share_of_change": 0.046,
+        "cumulative_share_of_change": 0.271
       },
       {
         "name": "Uncle Bob's Organic Dried Pears",
         "first_half_revenue": 3211.8,
         "second_half_revenue": 18832.5,
         "delta": 15620.7,
-        "share_of_change": 0.045
+        "share_of_change": 0.045,
+        "cumulative_share_of_change": 0.316
       }
     ]
   },

@@ -718,6 +718,10 @@ class FlowAnalysisAgent(Agent):
                 "share_of_change": round((l - e) / total_change, 3) if total_change else None,
             })
         drivers.sort(key=lambda d: abs(d["delta"]), reverse=True)
+        running = 0.0
+        for d in drivers:
+            running += d["delta"]
+            d["cumulative_share_of_change"] = round(running / total_change, 3) if total_change else None
         return drivers[: self.top_n]
 
     def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -901,10 +905,11 @@ class LLMInsightAgent(Agent):
 
 class NarrativeCheckAgent(Agent):
     """Verifies the LLM narrative: every number it mentions must trace back to
-    the computed pipeline context (±3% tolerance for rounding, k-notation and
-    percent formatting). Turns 'never invents a number' from intent into a
-    checked property. Numbers below IGNORE_BELOW are skipped (list ordinals,
-    enumeration noise).
+    the computed pipeline context (±3% relative tolerance for rounding,
+    k-notation and percent formatting). Turns 'never invents a number' from
+    intent into a checked property. Bare small integers are skipped (list
+    ordinals); figures carrying a unit, decimal point or currency sign are
+    always checked.
     """
 
     TOLERANCE = 0.03
@@ -970,7 +975,11 @@ class NarrativeCheckAgent(Agent):
                     value *= 1e3
                 elif suffix in ("m", "M"):
                     value *= 1e6
-                if abs(value) < self.IGNORE_BELOW:
+                # Bare small integers are skipped (list ordinals); figures with a
+                # unit (%), a decimal point or a currency sign are still checked.
+                preceding = narrative[max(0, m.start() - 1):m.start()]
+                has_unit = bool(suffix) or "." in number_part or preceding in "$€£"
+                if abs(value) < self.IGNORE_BELOW and not has_unit:
                     continue
                 checked += 1
                 hit = any(

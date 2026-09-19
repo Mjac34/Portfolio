@@ -1,6 +1,6 @@
 # Pipeline documentation
 
-Run id: `79b7198a1f30`
+Run id: `3924ee25ea20`
 
 Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CRMCustomerProfileAgent -> AnalysisAgent -> InsightAgent -> FlowAnalysisAgent -> LLMInsightAgent -> NarrativeCheckAgent -> BIExportAgent -> DocumentationAgent
 
@@ -319,35 +319,40 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
         "first_half_revenue": 73587.23,
         "second_half_revenue": 171997.39,
         "delta": 98410.16,
-        "share_of_change": 0.285
+        "share_of_change": 0.285,
+        "cumulative_share_of_change": 0.285
       },
       {
         "name": "Germany",
         "first_half_revenue": 84790.69,
         "second_half_revenue": 145493.94,
         "delta": 60703.24,
-        "share_of_change": 0.176
+        "share_of_change": 0.176,
+        "cumulative_share_of_change": 0.461
       },
       {
         "name": "Brazil",
         "first_half_revenue": 33192.46,
         "second_half_revenue": 73733.32,
         "delta": 40540.86,
-        "share_of_change": 0.117
+        "share_of_change": 0.117,
+        "cumulative_share_of_change": 0.578
       },
       {
         "name": "Austria",
         "first_half_revenue": 49754.71,
         "second_half_revenue": 78249.13,
         "delta": 28494.42,
-        "share_of_change": 0.083
+        "share_of_change": 0.083,
+        "cumulative_share_of_change": 0.661
       },
       {
         "name": "Sweden",
         "first_half_revenue": 14051.89,
         "second_half_revenue": 40443.24,
         "delta": 26391.35,
-        "share_of_change": 0.076
+        "share_of_change": 0.076,
+        "cumulative_share_of_change": 0.737
       }
     ],
     "category": [
@@ -356,35 +361,40 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
         "first_half_revenue": 82406.97,
         "second_half_revenue": 152100.32,
         "delta": 69693.36,
-        "share_of_change": 0.202
+        "share_of_change": 0.202,
+        "cumulative_share_of_change": 0.202
       },
       {
         "name": "Seafood",
         "first_half_revenue": 36808.93,
         "second_half_revenue": 94452.81,
         "delta": 57643.89,
-        "share_of_change": 0.167
+        "share_of_change": 0.167,
+        "cumulative_share_of_change": 0.369
       },
       {
         "name": "Beverages",
         "first_half_revenue": 106022.28,
         "second_half_revenue": 161845.9,
         "delta": 55823.62,
-        "share_of_change": 0.162
+        "share_of_change": 0.162,
+        "cumulative_share_of_change": 0.53
       },
       {
         "name": "Meat/Poultry",
         "first_half_revenue": 56815.36,
         "second_half_revenue": 106207.0,
         "delta": 49391.64,
-        "share_of_change": 0.143
+        "share_of_change": 0.143,
+        "cumulative_share_of_change": 0.674
       },
       {
         "name": "Produce",
         "first_half_revenue": 34406.56,
         "second_half_revenue": 65578.02,
         "delta": 31171.46,
-        "share_of_change": 0.09
+        "share_of_change": 0.09,
+        "cumulative_share_of_change": 0.764
       }
     ],
     "customer_segment": [
@@ -393,21 +403,24 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
         "first_half_revenue": 307217.26,
         "second_half_revenue": 545444.5,
         "delta": 238227.25,
-        "share_of_change": 0.69
+        "share_of_change": 0.69,
+        "cumulative_share_of_change": 0.69
       },
       {
         "name": "Low Value",
         "first_half_revenue": 45331.34,
         "second_half_revenue": 101073.04,
         "delta": 55741.7,
-        "share_of_change": 0.161
+        "share_of_change": 0.161,
+        "cumulative_share_of_change": 0.851
       },
       {
         "name": "Medium Value",
         "first_half_revenue": 107713.54,
         "second_half_revenue": 159013.36,
         "delta": 51299.81,
-        "share_of_change": 0.149
+        "share_of_change": 0.149,
+        "cumulative_share_of_change": 1.0
       }
     ],
     "product": [
@@ -416,35 +429,40 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
         "first_half_revenue": 22088.34,
         "second_half_revenue": 58280.33,
         "delta": 36191.99,
-        "share_of_change": 0.105
+        "share_of_change": 0.105,
+        "cumulative_share_of_change": 0.105
       },
       {
         "name": "Raclette Courdavault",
         "first_half_revenue": 23184.7,
         "second_half_revenue": 47971.0,
         "delta": 24786.3,
-        "share_of_change": 0.072
+        "share_of_change": 0.072,
+        "cumulative_share_of_change": 0.177
       },
       {
         "name": "Manjimup Dried Apples",
         "first_half_revenue": 12497.4,
         "second_half_revenue": 29322.25,
         "delta": 16824.85,
-        "share_of_change": 0.049
+        "share_of_change": 0.049,
+        "cumulative_share_of_change": 0.225
       },
       {
         "name": "C\u00f4te de Blaye",
         "first_half_revenue": 62807.86,
         "second_half_revenue": 78588.88,
         "delta": 15781.01,
-        "share_of_change": 0.046
+        "share_of_change": 0.046,
+        "cumulative_share_of_change": 0.271
       },
       {
         "name": "Uncle Bob's Organic Dried Pears",
         "first_half_revenue": 3211.8,
         "second_half_revenue": 18832.5,
         "delta": 15620.7,
-        "share_of_change": 0.045
+        "share_of_change": 0.045,
+        "cumulative_share_of_change": 0.316
       }
     ]
   },
@@ -467,22 +485,21 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
 ## AI narrative
 
 ## Executive Summary  
-Revenue surged 75 % in the second half of the period, rising from **$460,262** to **$805,531** (+$345,269). The uplift was driven primarily by the **High‑Value customer segment** (69 % of the change) and strong performance in the **USA** and **Germany** markets, while both volume and price mix contributed positively.
+The Northwind pipeline delivered a **75 % revenue surge**, climbing from **$460,262** in the first half to **$805,531** in the second half (+$345,269). Growth was powered primarily by the **High‑Value customer segment (69 % of the uplift)** and strong performance in the **USA, Germany and Brazil** markets, while both volume (10,771 additional units) and higher average selling price ($22.70 → $25.95) contributed to the lift.
 
 ### Key Insights  
-- **Customer segment impact:** High‑Value customers generated a $238,227 increase (≈ 69 % of total growth); Low‑ and Medium‑Value segments added $55,742 and $51,300 respectively.  
-- **Geographic drivers:** USA contributed $98,410 (28.5 % of change) and Germany $60,703 (17.6 %). Brazil, Austria, and Sweden together added another ~ 27 % of the lift.  
-- **Category performance:** Dairy Products (+$69,693, 20.2 % of change) and Seafood (+$57,644, 16.7 %) were the top‑growing categories, followed closely by Beverages and Meat/Poultry.  
-- **Product mix:** Thüringer Rostbratwurst (+$36,192, 10.5 % of change) and Raclette Courdavault (+$24,786, 7.2 %) were the biggest product contributors to the revenue jump.  
-- **Volume vs. price:** Quantity rose from 20,273 to 31,044 units; average net price increased from $22.70 to $25.95. The volume effect ($244,536) outweighed the price‑mix effect ($100,733).  
-- **Customer concentration:** The top‑5 customers’ share grew from **31.1 %** to **34.8 %**, indicating rising reliance on a small group.  
-- **Churn risk:** While 73 customers are low‑risk, 16 are Medium, High, or Critical, representing a potential revenue threat.
+- **Customer segment impact:** High‑Value customers generated **$238,227** of the increase, dwarfing Low‑Value ($55,742) and Medium‑Value ($51,300) contributions.  
+- **Geographic drivers:** USA (+$98,410, 28.5 % of change) and Germany (+$60,703, 17.6 %) together accounted for **~46 %** of the revenue jump. Brazil, Austria and Sweden added another **~27 %**.  
+- **Category performance:** Dairy Products (+$69,693, 20.2 %) and Seafood (+$57,644, 16.7 %) were the top‑growing categories, followed closely by Beverages and Meat/Poultry.  
+- **Product winners:** *Thüringer Rostbratwurst* led product‑level growth (+$36,192, 10.5 % of change), with *Raclette Courdavault* and *Manjimup Dried Apples* also posting sizable deltas.  
+- **Volume vs. price mix:** The bulk of the uplift came from **higher sales volume** (volume effect $244,536) rather than price mix ($100,733). Average discount remained flat (≈5.6 %).  
+- **Rising concentration:** The top‑5 customers’ share rose from **31.1 % to 34.8 %**, indicating growing reliance on a small client set.
 
 ### Recommended Actions  
-1. **Deepen engagement with High‑Value customers** in the USA, Germany, Brazil, and Austria through tailored promotions and loyalty programs to sustain the momentum.  
-2. **Mitigate concentration risk** by cross‑selling high‑growth products (e.g., Thüringer Rostbratwurst, Raclette Courdavault) to mid‑tier and at‑risk accounts, and by developing new accounts in under‑penetrated regions.  
-3. **Continue price optimization** while keeping discounts stable (≈ 5.6 % both halves); monitor price‑mix effects and explore modest price adjustments for top‑performing categories.
+1. **Deepen High‑Value relationships** – launch targeted upsell/loyalty programs for the 20 “Champions” and 7 “Loyal Customers” to sustain and expand their spend.  
+2. **Scale winning categories in growth markets** – replicate the Dairy and Seafood success in the USA, Germany, and Brazil through localized promotions and inventory planning.  
+3. **Mitigate concentration risk** – invest in acquiring and nurturing mid‑tier customers (Low/Medium Value) and address the 5 “Critical” churn risks with proactive outreach and tailored offers.
 
 ## Narrative check
 
-29/31 numbers matched; unmatched: 27 %, 16
+All 29 numbers in the narrative match computed values (tolerance ±3%).

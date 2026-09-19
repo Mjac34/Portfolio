@@ -115,10 +115,12 @@
       <code>question_log.jsonl</code> — a meta log of what the data gets asked. The dashboard surfaces all of it in a
       "Why did revenue change?" and a "Pipeline health" section.</p>
       <p class="note"><code>NarrativeCheckAgent</code> makes "the LLM never invents a number" a checked property, not
-      just an intention: every figure in the executive summary must match a computed value within ±3% (rounding and
-      k-notation tolerated). Example from a real run: the narrative wrote "USA and Germany ≈46% of the change" —
-      a sum the LLM computed itself (28.5% + 17.6%) — and the check correctly flagged it as not present in the
-      outputs.</p>
+      just an intention: every figure in the executive summary must trace back to a computed value — provenance,
+      not attribution. A real run flagged "USA and Germany ≈46% of the change": correct arithmetic the LLM did
+      itself (28.5% + 17.6%), but not a number that existed in the outputs. The fix wasn't to weaken the check —
+      cumulative driver shares are now computed deterministically, so that figure can be cited, not derived.</p>
+      <h3>Latest narrative check — actual output</h3>
+      <pre id="check-excerpt" style="background:#f8fafc; border:1px solid var(--border); border-radius:0.5rem; padding:1rem; font-size:0.78rem; overflow-x:auto; white-space:pre-wrap;">loading…</pre>
       <h3>Latest audit trail excerpt</h3>
       <pre id="audit-excerpt" style="background:#f8fafc; border:1px solid var(--border); border-radius:0.5rem; padding:1rem; font-size:0.78rem; overflow-x:auto; white-space:pre-wrap;">loading…</pre>
     </section>
@@ -133,7 +135,10 @@
       <ul class="note" style="line-height:1.7;">
         <li>Static CSV input — the orchestrator supervises runs but doesn't watch for new data (batch, not streaming).</li>
         <li>Flow analysis splits the period at the midpoint; real seasonality needs finer grain.</li>
-        <li>Narrative check tolerates ±3% and ignores figures below 10 (list ordinals); a derived sum like "46%" is flagged, not auto-resolved.</li>
+        <li>Narrative check uses ±3% <em>relative</em> tolerance — at 28.5% that's roughly ±0.85 percentage points, not ±3 points.</li>
+        <li>Bare integers below 10 are skipped (list ordinals); figures with %, decimals or a currency sign are always checked.</li>
+        <li>The check proves each figure has a computed origin — not that it's bound to the right entity. "USA 28.5%" passes if 28.5 exists anywhere in the outputs.</li>
+        <li>Number-words ("half", "three of five") aren't checked at all; derived sums are flagged rather than auto-resolved.</li>
         <li>Without an API key the pipeline still runs end-to-end — the narrative falls back to a template and the query agent is disabled.</li>
         <li>The "Ask the data" demo on this page uses keyword routing, not the LLM — same tools, same data.</li>
       </ul>
@@ -150,6 +155,16 @@
   <script src="ask-demo.js"></script>
   <script>
     // Live excerpts from the committed pipeline outputs.
+    fetch('output/narrative_check.json').then(r => r.ok ? r.text() : Promise.reject())
+      .then(t => {
+        document.getElementById('check-excerpt').textContent =
+          JSON.stringify(JSON.parse(t), null, 2);
+      })
+      .catch(() => {
+        document.getElementById('check-excerpt').textContent =
+          'narrative_check.json not found — run the pipeline first (or view this page on GitHub Pages).';
+      });
+
     fetch('output/audit_trail.jsonl').then(r => r.ok ? r.text() : Promise.reject())
       .then(t => {
         const lines = t.trim().split('\n').slice(-6);
@@ -157,7 +172,7 @@
       })
       .catch(() => {
         document.getElementById('audit-excerpt').textContent =
-          'audit_trail.jsonl not found — run the pipeline first.';
+          'audit_trail.jsonl not found — run the pipeline first (or view this page on GitHub Pages).';
       });
 
     function parseCsvLine(l) {
@@ -177,7 +192,7 @@
         const rows = t.trim().split('\n').map(parseCsvLine);
         const h = rows[0];
         const pick = rows.slice(1).map(r => Object.fromEntries(h.map((k, i) => [k, r[i]])))
-          .sort((a, b) => +b.churn_risk - +a.churn_risk)[0];
+          .sort((a, b) => +b.churn_risk - +a.churn_risk || +b.total_revenue - +a.total_revenue)[0];
         if (!pick) throw 0;
         document.getElementById('nba-card').innerHTML =
           '<p><strong>' + pick.customerName + '</strong> — ' + pick.country +
