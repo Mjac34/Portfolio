@@ -1,8 +1,8 @@
 # Pipeline documentation
 
-Run id: `8bf72e75b894`
+Run id: `79b7198a1f30`
 
-Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CRMCustomerProfileAgent -> AnalysisAgent -> InsightAgent -> FlowAnalysisAgent -> LLMInsightAgent -> BIExportAgent -> DocumentationAgent
+Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CRMCustomerProfileAgent -> AnalysisAgent -> InsightAgent -> FlowAnalysisAgent -> LLMInsightAgent -> NarrativeCheckAgent -> BIExportAgent -> DocumentationAgent
 
 ## Semantic model
 
@@ -467,22 +467,22 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
 ## AI narrative
 
 ## Executive Summary  
-Revenue surged from **$460,262** in the first half to **$805,531** in the second half of the period – a **75 % growth** (+$345,269). The uplift was driven primarily by the **High‑Value customer segment** (69 % of the change) and strong performance in the **USA, Germany, and Brazil** markets, as well as in **Dairy Products, Seafood, and Beverages** categories. While overall sales volume rose, a higher average net price also contributed substantially to the gain.
+Revenue surged 75 % in the second half of the period, rising from **$460,262** to **$805,531** (+$345,269). The uplift was driven primarily by the **High‑Value customer segment** (69 % of the change) and strong performance in the **USA** and **Germany** markets, while both volume and price mix contributed positively.
 
 ### Key Insights  
-- **Customer segment impact:** High‑Value customers added $238,227 (≈ 69 % of total growth); Low‑Value and Medium‑Value segments contributed $55,742 and $51,300 respectively.  
-- **Geographic drivers:**  
-  - USA: +$98,410 (28.5 % of change)  
-  - Germany: +$60,703 (17.6 % of change)  
-  - Brazil: +$40,541 (11.7 % of change)  
-- **Category contribution:**  
-  - Dairy Products: +$69,693 (20.2 % of change)  
-  - Seafood: +$57,644 (16.7 % of change)  
-  - Beverages: +$55,824 (16.2 % of change)  
-- **Volume vs. price mix:** Volume effect added $244,536, while price‑mix (higher average net price) added $100,733, indicating both more units sold and a shift to higher‑priced items.  
-- **Concentration & churn:** Top‑5 customers’ share rose from **31.1 %** to **34.8 %**, and churn risk remains low for most (73 low‑risk, only 5 critical).  
+- **Customer segment impact:** High‑Value customers generated a $238,227 increase (≈ 69 % of total growth); Low‑ and Medium‑Value segments added $55,742 and $51,300 respectively.  
+- **Geographic drivers:** USA contributed $98,410 (28.5 % of change) and Germany $60,703 (17.6 %). Brazil, Austria, and Sweden together added another ~ 27 % of the lift.  
+- **Category performance:** Dairy Products (+$69,693, 20.2 % of change) and Seafood (+$57,644, 16.7 %) were the top‑growing categories, followed closely by Beverages and Meat/Poultry.  
+- **Product mix:** Thüringer Rostbratwurst (+$36,192, 10.5 % of change) and Raclette Courdavault (+$24,786, 7.2 %) were the biggest product contributors to the revenue jump.  
+- **Volume vs. price:** Quantity rose from 20,273 to 31,044 units; average net price increased from $22.70 to $25.95. The volume effect ($244,536) outweighed the price‑mix effect ($100,733).  
+- **Customer concentration:** The top‑5 customers’ share grew from **31.1 %** to **34.8 %**, indicating rising reliance on a small group.  
+- **Churn risk:** While 73 customers are low‑risk, 16 are Medium, High, or Critical, representing a potential revenue threat.
 
 ### Recommended Actions  
-1. **Deepen engagement with High‑Value customers** through targeted upsell/cross‑sell campaigns and loyalty incentives to sustain their outsized contribution.  
-2. **Prioritize growth in USA and Germany** and expand the high‑performing Dairy, Seafood, and Beverages lines in these markets, leveraging the proven product mix (e.g., Thüringer Rostbratwurst, Raclette Courdavault).  
-3. **Monitor revenue concentration and at‑risk segments** (4 high, 5 critical churn risk) by instituting early‑warning retention programs and diversifying the customer base to mitigate dependence on the top five accounts.
+1. **Deepen engagement with High‑Value customers** in the USA, Germany, Brazil, and Austria through tailored promotions and loyalty programs to sustain the momentum.  
+2. **Mitigate concentration risk** by cross‑selling high‑growth products (e.g., Thüringer Rostbratwurst, Raclette Courdavault) to mid‑tier and at‑risk accounts, and by developing new accounts in under‑penetrated regions.  
+3. **Continue price optimization** while keeping discounts stable (≈ 5.6 % both halves); monitor price‑mix effects and explore modest price adjustments for top‑performing categories.
+
+## Narrative check
+
+29/31 numbers matched; unmatched: 27 %, 16

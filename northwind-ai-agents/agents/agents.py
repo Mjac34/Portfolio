@@ -15,6 +15,7 @@ Each agent accepts the previous agent's output (a dict) and returns a dict consu
 import os
 import glob
 import csv
+import re
 import statistics
 import json
 import logging
@@ -898,6 +899,120 @@ class LLMInsightAgent(Agent):
         }
 
 
+class NarrativeCheckAgent(Agent):
+    """Verifies the LLM narrative: every number it mentions must trace back to
+    the computed pipeline context (±3% tolerance for rounding, k-notation and
+    percent formatting). Turns 'never invents a number' from intent into a
+    checked property. Numbers below IGNORE_BELOW are skipped (list ordinals,
+    enumeration noise).
+    """
+
+    TOLERANCE = 0.03
+    IGNORE_BELOW = 10
+
+    def __init__(self, out_path: str = "output/narrative_check.json"):
+        super().__init__("NarrativeCheckAgent")
+        self.out_path = out_path
+
+    @staticmethod
+    def _collect_numbers(obj: Any, into: List[float]) -> None:
+        if isinstance(obj, bool):
+            return
+        if isinstance(obj, (int, float)):
+            into.append(float(obj))
+        elif isinstance(obj, dict):
+            for v in obj.values():
+                NarrativeCheckAgent._collect_numbers(v, into)
+        elif isinstance(obj, (list, tuple)):
+            for v in obj:
+                NarrativeCheckAgent._collect_numbers(v, into)
+
+    def _candidates(self, input_data: Dict[str, Any]) -> List[float]:
+        values: List[float] = []
+        self._collect_numbers(input_data.get("summary") or {}, values)
+        self._collect_numbers(input_data.get("insights") or {}, values)
+        self._collect_numbers(input_data.get("flow_analysis") or {}, values)
+        profiles = input_data.get("customer_profiles") or []
+        values.append(float(len(profiles)))
+        rfm_counts: Dict[str, int] = {}
+        churn_counts: Dict[str, int] = {}
+        for p in profiles:
+            rfm_counts[p.get("rfm_segment", "Unknown")] = rfm_counts.get(p.get("rfm_segment", "Unknown"), 0) + 1
+            churn_counts[p.get("churn_risk_label", "Unknown")] = churn_counts.get(p.get("churn_risk_label", "Unknown"), 0) + 1
+        self._collect_numbers(rfm_counts, values)
+        self._collect_numbers(churn_counts, values)
+        flow = input_data.get("flow_analysis") or {}
+        period = flow.get("period") or {}
+        for key in ("start", "midpoint", "end"):
+            year = str(period.get(key, ""))[:4]
+            if year.isdigit():
+                values.append(float(year))
+        return values
+
+    _NUMBER_RE = re.compile(r"\d[\d,]*(?:\.\d+)?\s*([kKmM%])?")
+
+    def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        narrative = input_data.get("llm_narrative") or ""
+        if not narrative.strip():
+            check = {"status": "skipped", "reason": "no narrative"}
+        else:
+            candidates = self._candidates(input_data)
+            checked, matched, unmatched = 0, 0, []
+            for m in self._NUMBER_RE.finditer(narrative):
+                token = m.group(0).strip()
+                suffix = m.group(1)
+                number_part = token[:-1].strip() if suffix else token
+                try:
+                    value = float(number_part.replace(",", "").replace(" ", ""))
+                except ValueError:
+                    continue
+                if suffix in ("k", "K"):
+                    value *= 1e3
+                elif suffix in ("m", "M"):
+                    value *= 1e6
+                if abs(value) < self.IGNORE_BELOW:
+                    continue
+                checked += 1
+                hit = any(
+                    abs(value - c) <= self.TOLERANCE * abs(c)
+                    or (suffix == "%" and abs(value / 100 - c) <= self.TOLERANCE * abs(c))
+                    for c in candidates if c
+                )
+                if hit:
+                    matched += 1
+                else:
+                    unmatched.append(token)
+            check = {
+                "status": "verified" if not unmatched else "partial",
+                "checked": checked,
+                "matched": matched,
+                "unmatched": unmatched,
+                "tolerance": self.TOLERANCE,
+                "ignored_below": self.IGNORE_BELOW,
+            }
+        try:
+            os.makedirs(os.path.dirname(self.out_path), exist_ok=True)
+            with open(self.out_path, "w", encoding="utf-8") as fh:
+                json.dump(check, fh, indent=2)
+        except OSError:
+            logger.exception(f"{self.name}: failed writing {self.out_path}")
+        logger.info(f"{self.name}: narrative check {check.get('status')} "
+                    f"({check.get('matched')}/{check.get('checked')} numbers matched)")
+        return {
+            "rows": input_data.get("rows", []),
+            "summary": input_data.get("summary"),
+            "insights": input_data.get("insights"),
+            "flow_analysis": input_data.get("flow_analysis"),
+            "llm_narrative": narrative,
+            "narrative_check": check,
+            "star_schema": input_data.get("star_schema"),
+            "semantic_model": input_data.get("semantic_model"),
+            "customer_profiles": input_data.get("customer_profiles"),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
+        }
+
+
 class BIExportAgent(Agent):
     def __init__(self, out_path: str = "output/bi_export.csv"):
         super().__init__("BIExportAgent")
@@ -930,6 +1045,7 @@ class BIExportAgent(Agent):
                 "insights": input_data.get("insights"),
                 "flow_analysis": input_data.get("flow_analysis"),
                 "llm_narrative": input_data.get("llm_narrative"),
+                "narrative_check": input_data.get("narrative_check"),
                 "customer_profiles": input_data.get("customer_profiles"),
                 "run_id": input_data.get("run_id"),
                 "agent_sequence": input_data.get("agent_sequence"),
@@ -945,6 +1061,7 @@ class BIExportAgent(Agent):
                 "insights": input_data.get("insights"),
                 "flow_analysis": input_data.get("flow_analysis"),
                 "llm_narrative": input_data.get("llm_narrative"),
+                "narrative_check": input_data.get("narrative_check"),
                 "customer_profiles": input_data.get("customer_profiles"),
                 "run_id": input_data.get("run_id"),
                 "agent_sequence": input_data.get("agent_sequence"),
@@ -980,12 +1097,24 @@ class DocumentationAgent(Agent):
         doc_lines.append(json.dumps(input_data.get("flow_analysis") or {}, indent=2))
         doc_lines.append("\n## AI narrative\n")
         doc_lines.append(input_data.get("llm_narrative") or "*Not generated — set LLM_API_KEY in .env*")
+        doc_lines.append("\n## Narrative check\n")
+        check = input_data.get("narrative_check") or {}
+        if check.get("status") == "verified":
+            doc_lines.append(f"All {check['checked']} numbers in the narrative match computed values "
+                             f"(tolerance ±{check['tolerance'] * 100:.0f}%).")
+        elif check.get("status") == "partial":
+            doc_lines.append(f"{check['matched']}/{check['checked']} numbers matched; "
+                             f"unmatched: {', '.join(check['unmatched'])}")
+        else:
+            doc_lines.append(json.dumps(check, indent=2))
         os.makedirs(os.path.dirname(self.doc_path), exist_ok=True)
         try:
             with open(self.doc_path, 'w', encoding='utf-8') as fh:
                 fh.write("\n".join(doc_lines))
             logger.info(f"{self.name}: wrote documentation to {self.doc_path}")
-            return {"doc_path": self.doc_path, "semantic_model": semantic_model}
+            return {"doc_path": self.doc_path, "semantic_model": semantic_model,
+                    "narrative_check": input_data.get("narrative_check")}
         except Exception:
             logger.exception(f"{self.name}: failed writing {self.doc_path}")
-            return {"doc_path": self.doc_path, "semantic_model": semantic_model}
+            return {"doc_path": self.doc_path, "semantic_model": semantic_model,
+                    "narrative_check": input_data.get("narrative_check")}

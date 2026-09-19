@@ -409,6 +409,17 @@ else:
     with health_kpi3:
         st.metric("Run id", str(health.get("run_id", "-")))
 
+    check = health.get("narrative_check") or {}
+    if check.get("status") == "verified":
+        st.markdown(f"**Narrative check:** {status_badge('VERIFIED', '#2ecc71')} "
+                    f"{check['matched']}/{check['checked']} figures match the computed outputs",
+                    unsafe_allow_html=True)
+    elif check.get("status"):
+        st.markdown(f"**Narrative check:** {status_badge(check['status'].upper(), '#f39c12')} "
+                    f"{check.get('matched')}/{check.get('checked')} figures matched — "
+                    f"unmatched: {', '.join(check.get('unmatched', []))}",
+                    unsafe_allow_html=True)
+
     agent_rows = health.get("agents") or []
     if agent_rows:
         st.subheader("Agent durations (s)")

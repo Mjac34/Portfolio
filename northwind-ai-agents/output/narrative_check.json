@@ -1,0 +1,11 @@
+{
+  "status": "partial",
+  "checked": 31,
+  "matched": 29,
+  "unmatched": [
+    "27\u202f%",
+    "16"
+  ],
+  "tolerance": 0.03,
+  "ignored_below": 10
+}

@@ -33,9 +33,11 @@
     <h1>Northwind AI Agents</h1>
     <p class="subtitle">A hybrid LLM pipeline — deterministic Python owns the numbers, the LLM owns the narrative</p>
     <p class="intro">
-      Ten sequential agents turn the classic Northwind CSVs into a star schema, CRM analytics and a BI export —
-      supervised by an orchestration layer that logs every run. An LLM writes the executive summary and answers
-      plain-English questions through tool calls — it never computes a number itself.
+      Eleven sequential pipeline agents plus a tool-calling query agent turn the classic Northwind CSVs into a
+      star schema, CRM analytics and a BI export — built for a sales team that wants to know which customers to
+      call first. An orchestration layer logs every run, an LLM writes the executive summary and answers
+      plain-English questions, and a separate check verifies that every figure in that narrative matches the
+      computed outputs.
     </p>
   </header>
 
@@ -99,6 +101,7 @@
           <tr><td><code>InsightAgent</code></td><td>Top-N products/customers/countries</td></tr>
           <tr><td><code>FlowAnalysisAgent</code></td><td>Decomposes the revenue change between period halves into drivers per dimension</td></tr>
           <tr><td><code>LLMInsightAgent</code></td><td>LLM-written executive summary, insights, recommendations</td></tr>
+          <tr><td><code>NarrativeCheckAgent</code></td><td>Verifies every figure in the narrative against the computed context</td></tr>
           <tr><td><code>BIExportAgent</code></td><td>Writes the BI-ready CSV to output/</td></tr>
           <tr><td><code>DocumentationAgent</code></td><td>Generates pipeline_documentation.md incl. AI narrative</td></tr>
       </table>
@@ -111,6 +114,30 @@
       <code>pipeline_health.json</code> manifest, and the query agent logs each question plus chosen tools to
       <code>question_log.jsonl</code> — a meta log of what the data gets asked. The dashboard surfaces all of it in a
       "Why did revenue change?" and a "Pipeline health" section.</p>
+      <p class="note"><code>NarrativeCheckAgent</code> makes "the LLM never invents a number" a checked property, not
+      just an intention: every figure in the executive summary must match a computed value within ±3% (rounding and
+      k-notation tolerated). Example from a real run: the narrative wrote "USA and Germany ≈46% of the change" —
+      a sum the LLM computed itself (28.5% + 17.6%) — and the check correctly flagged it as not present in the
+      outputs.</p>
+      <h3>Latest audit trail excerpt</h3>
+      <pre id="audit-excerpt" style="background:#f8fafc; border:1px solid var(--border); border-radius:0.5rem; padding:1rem; font-size:0.78rem; overflow-x:auto; white-space:pre-wrap;">loading…</pre>
+    </section>
+
+    <section>
+      <h2>Next-best-action — a real example</h2>
+      <div id="nba-card" class="chart-card"><p class="note">Loading the highest-risk customer from the latest pipeline run…</p></div>
+    </section>
+
+    <section class="about">
+      <h2>Limitations</h2>
+      <ul class="note" style="line-height:1.7;">
+        <li>Static CSV input — the orchestrator supervises runs but doesn't watch for new data (batch, not streaming).</li>
+        <li>Flow analysis splits the period at the midpoint; real seasonality needs finer grain.</li>
+        <li>Narrative check tolerates ±3% and ignores figures below 10 (list ordinals); a derived sum like "46%" is flagged, not auto-resolved.</li>
+        <li>Without an API key the pipeline still runs end-to-end — the narrative falls back to a template and the query agent is disabled.</li>
+        <li>The "Ask the data" demo on this page uses keyword routing, not the LLM — same tools, same data.</li>
+      </ul>
+      <p class="note">Code on GitHub: <a href="https://github.com/Mjac34/Portfolio/tree/main/northwind-ai-agents">Portfolio/northwind-ai-agents</a></p>
     </section>
 
     <section class="about">
@@ -121,6 +148,51 @@
   </main>
 
   <script src="ask-demo.js"></script>
+  <script>
+    // Live excerpts from the committed pipeline outputs.
+    fetch('output/audit_trail.jsonl').then(r => r.ok ? r.text() : Promise.reject())
+      .then(t => {
+        const lines = t.trim().split('\n').slice(-6);
+        document.getElementById('audit-excerpt').textContent = lines.join('\n');
+      })
+      .catch(() => {
+        document.getElementById('audit-excerpt').textContent =
+          'audit_trail.jsonl not found — run the pipeline first.';
+      });
+
+    function parseCsvLine(l) {
+      const out = []; let cur = '', q = false;
+      for (let i = 0; i < l.length; i++) {
+        const c = l[i];
+        if (q) { if (c === '"') { if (l[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+        else if (c === '"') q = true;
+        else if (c === ',') { out.push(cur); cur = ''; }
+        else cur += c;
+      }
+      out.push(cur); return out;
+    }
+
+    fetch('output/customer_profiles.csv').then(r => r.ok ? r.text() : Promise.reject())
+      .then(t => {
+        const rows = t.trim().split('\n').map(parseCsvLine);
+        const h = rows[0];
+        const pick = rows.slice(1).map(r => Object.fromEntries(h.map((k, i) => [k, r[i]])))
+          .sort((a, b) => +b.churn_risk - +a.churn_risk)[0];
+        if (!pick) throw 0;
+        document.getElementById('nba-card').innerHTML =
+          '<p><strong>' + pick.customerName + '</strong> — ' + pick.country +
+          ' · churn risk ' + pick.churn_risk + '/100 (' + pick.churn_risk_label + ')' +
+          ' · ' + pick.recency_days + ' days since last purchase · ' + pick.rfm_segment + '</p>' +
+          '<p>Revenue ' + (+pick.total_revenue).toLocaleString('en-US') +
+          ' over ' + pick.order_count + ' orders. Next-best-action: <em>' +
+          pick.next_best_action + '</em></p>' +
+          '<p class="note">From output/customer_profiles.csv — the file the sales team would actually work from.</p>';
+      })
+      .catch(() => {
+        document.getElementById('nba-card').innerHTML =
+          '<p class="note">customer_profiles.csv not found — run the pipeline first.</p>';
+      });
+  </script>
   <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
 </body>
 </html>

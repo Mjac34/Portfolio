@@ -23,6 +23,7 @@ means a discrete, inspectable pipeline stage — strictly speaking only the LLM 
 | **InsightAgent** | Extracts top-N products/customers/countries |
 | **FlowAnalysisAgent** | Decomposes the revenue change between period halves into drivers per dimension |
 | **LLMInsightAgent** | LLM-written executive summary, insights and recommendations |
+| **NarrativeCheckAgent** | Verifies every figure in the narrative against the computed context |
 | **BIExportAgent** | Writes a BI-ready CSV to `output/bi_export.csv` |
 | **DocumentationAgent** | Generates `output/pipeline_documentation.md` incl. the AI narrative |
 
@@ -36,6 +37,9 @@ the crew, not an agent in it). Each run produces:
 - `output/pipeline_health.json` — per-run health summary: status, duration, per-agent status
 - `output/question_log.jsonl` — meta log of every question asked via the query agent,
   including which tools it chose to call
+- `output/narrative_check.json` — every number in the LLM narrative checked against the
+  computed context (±3% tolerance for rounding/k-notation/percent formatting); "the model
+  never invents a number" is verified per run, not just intended
 
 ## The query agent
 

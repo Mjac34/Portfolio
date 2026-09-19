@@ -45,7 +45,8 @@ class Orchestrator:
             self.logger.exception("Failed writing audit event '%s'", event)
 
     def _write_health(self, status: str, started_at: datetime,
-                      agents_meta: List[Dict[str, Any]]) -> None:
+                      agents_meta: List[Dict[str, Any]],
+                      extra: Dict[str, Any] = None) -> None:
         finished_at = datetime.now(timezone.utc)
         health = {
             "run_id": self.run_id,
@@ -56,6 +57,8 @@ class Orchestrator:
             "agent_count": len(self.agents),
             "agents": agents_meta,
         }
+        if extra:
+            health.update(extra)
         try:
             os.makedirs(os.path.dirname(self.health_path), exist_ok=True)
             with open(self.health_path, "w", encoding="utf-8") as fh:
@@ -101,7 +104,8 @@ class Orchestrator:
                        output_keys=sorted(data.keys()))
 
         self._emit("pipeline_finished", status="ok")
-        self._write_health("ok", started_at, agents_meta)
+        self._write_health("ok", started_at, agents_meta,
+                           {"narrative_check": data.get("narrative_check")})
         return data
 
 

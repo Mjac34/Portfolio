@@ -20,6 +20,7 @@ from agents.agents import (
     InsightAgent,
     FlowAnalysisAgent,
     LLMInsightAgent,
+    NarrativeCheckAgent,
     BIExportAgent,
     DocumentationAgent,
 )
@@ -38,6 +39,7 @@ def main():
         InsightAgent(top_n=5),
         FlowAnalysisAgent(top_n=5),
         LLMInsightAgent(),
+        NarrativeCheckAgent(),
         BIExportAgent(out_path="output/bi_export.csv"),
         DocumentationAgent(doc_path="output/pipeline_documentation.md"),
     ])
