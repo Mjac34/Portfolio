@@ -20,9 +20,21 @@ dialogue.* The LLM never computes metrics — it selects tools and phrases answe
 | **CRMCustomerProfileAgent** | RFM segmentation, churn-risk scoring, next-best-action per customer |
 | **AnalysisAgent** | Computes statistics over score and sales |
 | **InsightAgent** | Extracts top-N products/customers/countries |
+| **FlowAnalysisAgent** | Decomposes the revenue change between period halves into drivers per dimension |
 | **LLMInsightAgent** | LLM-written executive summary, insights and recommendations |
 | **BIExportAgent** | Writes a BI-ready CSV to `output/bi_export.csv` |
 | **DocumentationAgent** | Generates `output/pipeline_documentation.md` incl. the AI narrative |
+
+## Orchestration & observability
+
+`agents/orchestrator.py` supervises the run (the "OrchestratorAgent" role — a layer around
+the crew, not an agent in it). Each run produces:
+
+- `output/audit_trail.jsonl` — append-only event log: pipeline start/finish, per-agent
+  start/finish/fail with durations and output keys, all keyed by `run_id`
+- `output/pipeline_health.json` — per-run health summary: status, duration, per-agent status
+- `output/question_log.jsonl` — meta log of every question asked via the query agent,
+  including which tools it chose to call
 
 ## The query agent
 
@@ -45,6 +57,8 @@ Try it via CLI (`python ask.py "which customers are about to churn?"`) or in the
 ## What I learned
 
 - Splitting a data pipeline into discrete, agent-like steps.
+- Adding an observability layer: audit trail, pipeline-health manifest and a meta log
+  over which questions the query agent receives and which tools it picks.
 - Building a star schema and a lightweight semantic model from raw CSVs.
 - RFM segmentation and churn scoring for CRM analytics.
 - Combining deterministic computation with an LLM where it adds value:

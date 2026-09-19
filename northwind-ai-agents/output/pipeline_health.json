@@ -1,0 +1,68 @@
+{
+  "run_id": "ca3b150bae48",
+  "status": "ok",
+  "started_at": "2026-09-19T13:23:51.255+00:00",
+  "finished_at": "2026-09-19T13:23:54.575+00:00",
+  "duration_s": 3.321,
+  "agent_count": 10,
+  "agents": [
+    {
+      "name": "DataLoaderAgent",
+      "status": "ok",
+      "duration_s": 0.009,
+      "rows_out": 3308
+    },
+    {
+      "name": "DataModelingAgent",
+      "status": "ok",
+      "duration_s": 0.012,
+      "rows_out": 2155
+    },
+    {
+      "name": "ModelAgent",
+      "status": "ok",
+      "duration_s": 0.002,
+      "rows_out": 2155
+    },
+    {
+      "name": "CRMCustomerProfileAgent",
+      "status": "ok",
+      "duration_s": 0.024,
+      "rows_out": 2155
+    },
+    {
+      "name": "AnalysisAgent",
+      "status": "ok",
+      "duration_s": 0.001,
+      "rows_out": 2155
+    },
+    {
+      "name": "InsightAgent",
+      "status": "ok",
+      "duration_s": 0.002,
+      "rows_out": 2155
+    },
+    {
+      "name": "FlowAnalysisAgent",
+      "status": "ok",
+      "duration_s": 0.02,
+      "rows_out": 2155
+    },
+    {
+      "name": "LLMInsightAgent",
+      "status": "ok",
+      "duration_s": 3.212,
+      "rows_out": 2155
+    },
+    {
+      "name": "BIExportAgent",
+      "status": "ok",
+      "duration_s": 0.016
+    },
+    {
+      "name": "DocumentationAgent",
+      "status": "ok",
+      "duration_s": 0.001
+    }
+  ]
+}

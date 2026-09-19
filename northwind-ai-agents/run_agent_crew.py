@@ -18,23 +18,25 @@ from agents.agents import (
     CRMCustomerProfileAgent,
     AnalysisAgent,
     InsightAgent,
+    FlowAnalysisAgent,
     LLMInsightAgent,
     BIExportAgent,
     DocumentationAgent,
 )
-from agents.orchestrator import AgentCrew
+from agents.orchestrator import Orchestrator
 
 
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
-    crew = AgentCrew([
+    crew = Orchestrator([
         DataLoaderAgent(csv_dir="csv"),
         DataModelingAgent(),
         ModelAgent(),
         CRMCustomerProfileAgent(output_path="output/customer_profiles.csv"),
         AnalysisAgent(),
         InsightAgent(top_n=5),
+        FlowAnalysisAgent(top_n=5),
         LLMInsightAgent(),
         BIExportAgent(out_path="output/bi_export.csv"),
         DocumentationAgent(doc_path="output/pipeline_documentation.md"),
@@ -51,6 +53,8 @@ def main():
     print("Pipeline finished.")
     print("Final result keys:", list(result.keys()))
     print("Semantic model saved to:", str(semantic_path))
+    print("Audit trail appended to: output/audit_trail.jsonl")
+    print("Pipeline health written to: output/pipeline_health.json")
 
 
 if __name__ == "__main__":

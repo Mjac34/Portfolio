@@ -1,0 +1,44 @@
+{"ts": "2026-09-19T13:20:43.442+00:00", "run_id": "c2f57986c6d0", "event": "pipeline_started", "agents": ["DataLoaderAgent", "DataModelingAgent", "ModelAgent", "CRMCustomerProfileAgent", "AnalysisAgent", "InsightAgent", "FlowAnalysisAgent", "LLMInsightAgent", "BIExportAgent", "DocumentationAgent"]}
+{"ts": "2026-09-19T13:20:43.443+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "DataLoaderAgent"}
+{"ts": "2026-09-19T13:20:43.539+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "DataLoaderAgent", "duration_s": 0.096, "output_keys": ["agent_sequence", "rows", "run_id", "source_files", "tables"]}
+{"ts": "2026-09-19T13:20:43.540+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "DataModelingAgent"}
+{"ts": "2026-09-19T13:20:43.550+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "DataModelingAgent", "duration_s": 0.01, "output_keys": ["agent_sequence", "dimensions", "fact_table", "rows", "run_id", "semantic_model", "source_files", "star_schema", "tables"]}
+{"ts": "2026-09-19T13:20:43.551+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "ModelAgent"}
+{"ts": "2026-09-19T13:20:43.556+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "ModelAgent", "duration_s": 0.004, "output_keys": ["agent_sequence", "rows", "run_id", "semantic_model", "star_schema"]}
+{"ts": "2026-09-19T13:20:43.557+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "CRMCustomerProfileAgent"}
+{"ts": "2026-09-19T13:20:43.589+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "CRMCustomerProfileAgent", "duration_s": 0.032, "output_keys": ["agent_sequence", "customer_profiles", "customer_profiles_path", "rows", "run_id", "semantic_model", "star_schema"]}
+{"ts": "2026-09-19T13:20:43.589+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "AnalysisAgent"}
+{"ts": "2026-09-19T13:20:43.591+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "AnalysisAgent", "duration_s": 0.001, "output_keys": ["agent_sequence", "customer_profiles", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:20:43.591+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "InsightAgent"}
+{"ts": "2026-09-19T13:20:43.594+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "InsightAgent", "duration_s": 0.002, "output_keys": ["agent_sequence", "customer_profiles", "insights", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:20:43.595+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "FlowAnalysisAgent"}
+{"ts": "2026-09-19T13:20:43.611+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "FlowAnalysisAgent", "duration_s": 0.015, "output_keys": ["agent_sequence", "customer_profiles", "flow_analysis", "insights", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:20:43.612+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "LLMInsightAgent"}
+{"ts": "2026-09-19T13:20:47.962+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "LLMInsightAgent", "duration_s": 4.349, "output_keys": ["agent_sequence", "customer_profiles", "flow_analysis", "insights", "llm_narrative", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:20:47.963+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "BIExportAgent"}
+{"ts": "2026-09-19T13:20:47.977+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "BIExportAgent", "duration_s": 0.014, "output_keys": ["agent_sequence", "customer_profiles", "exported", "flow_analysis", "insights", "llm_narrative", "path", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:20:47.978+00:00", "run_id": "c2f57986c6d0", "event": "agent_started", "agent": "DocumentationAgent"}
+{"ts": "2026-09-19T13:20:47.981+00:00", "run_id": "c2f57986c6d0", "event": "agent_finished", "agent": "DocumentationAgent", "duration_s": 0.002, "output_keys": ["doc_path", "semantic_model"]}
+{"ts": "2026-09-19T13:20:47.982+00:00", "run_id": "c2f57986c6d0", "event": "pipeline_finished", "status": "ok"}
+{"ts": "2026-09-19T13:23:51.255+00:00", "run_id": "ca3b150bae48", "event": "pipeline_started", "agents": ["DataLoaderAgent", "DataModelingAgent", "ModelAgent", "CRMCustomerProfileAgent", "AnalysisAgent", "InsightAgent", "FlowAnalysisAgent", "LLMInsightAgent", "BIExportAgent", "DocumentationAgent"]}
+{"ts": "2026-09-19T13:23:51.256+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "DataLoaderAgent"}
+{"ts": "2026-09-19T13:23:51.265+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "DataLoaderAgent", "duration_s": 0.009, "output_keys": ["agent_sequence", "rows", "run_id", "source_files", "tables"]}
+{"ts": "2026-09-19T13:23:51.267+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "DataModelingAgent"}
+{"ts": "2026-09-19T13:23:51.280+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "DataModelingAgent", "duration_s": 0.012, "output_keys": ["agent_sequence", "dimensions", "fact_table", "rows", "run_id", "semantic_model", "source_files", "star_schema", "tables"]}
+{"ts": "2026-09-19T13:23:51.281+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "ModelAgent"}
+{"ts": "2026-09-19T13:23:51.284+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "ModelAgent", "duration_s": 0.002, "output_keys": ["agent_sequence", "rows", "run_id", "semantic_model", "star_schema"]}
+{"ts": "2026-09-19T13:23:51.285+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "CRMCustomerProfileAgent"}
+{"ts": "2026-09-19T13:23:51.310+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "CRMCustomerProfileAgent", "duration_s": 0.024, "output_keys": ["agent_sequence", "customer_profiles", "customer_profiles_path", "rows", "run_id", "semantic_model", "star_schema"]}
+{"ts": "2026-09-19T13:23:51.311+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "AnalysisAgent"}
+{"ts": "2026-09-19T13:23:51.313+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "AnalysisAgent", "duration_s": 0.001, "output_keys": ["agent_sequence", "customer_profiles", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:23:51.314+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "InsightAgent"}
+{"ts": "2026-09-19T13:23:51.318+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "InsightAgent", "duration_s": 0.002, "output_keys": ["agent_sequence", "customer_profiles", "insights", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:23:51.319+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "FlowAnalysisAgent"}
+{"ts": "2026-09-19T13:23:51.339+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "FlowAnalysisAgent", "duration_s": 0.02, "output_keys": ["agent_sequence", "customer_profiles", "flow_analysis", "insights", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:23:51.340+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "LLMInsightAgent"}
+{"ts": "2026-09-19T13:23:54.553+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "LLMInsightAgent", "duration_s": 3.212, "output_keys": ["agent_sequence", "customer_profiles", "flow_analysis", "insights", "llm_narrative", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:23:54.554+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "BIExportAgent"}
+{"ts": "2026-09-19T13:23:54.571+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "BIExportAgent", "duration_s": 0.016, "output_keys": ["agent_sequence", "customer_profiles", "exported", "flow_analysis", "insights", "llm_narrative", "path", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:23:54.572+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "DocumentationAgent"}
+{"ts": "2026-09-19T13:23:54.574+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "DocumentationAgent", "duration_s": 0.001, "output_keys": ["doc_path", "semantic_model"]}
+{"ts": "2026-09-19T13:23:54.575+00:00", "run_id": "ca3b150bae48", "event": "pipeline_finished", "status": "ok"}

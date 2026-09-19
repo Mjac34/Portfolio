@@ -5,6 +5,7 @@ Agents:
 - ModelAgent: applies a simple transformation / scoring to rows
 - AnalysisAgent: computes basic summary statistics over scores
 - InsightAgent: selects top-N items and produces simple insights
+- FlowAnalysisAgent: decomposes the revenue change between period halves into drivers
 - BIExportAgent: exports the final rows to a CSV for BI consumption
 - DocumentationAgent: writes a short pipeline documentation file
 
@@ -58,7 +59,10 @@ class DataLoaderAgent(Agent):
             except Exception:
                 logger.exception(f"{self.name}: failed reading {path}")
         logger.info(f"{self.name}: loaded {len(data)} rows from {self.csv_dir}")
-        return {"rows": data, "tables": tables, "source_files": files}
+        input_data = input_data or {}
+        return {"rows": data, "tables": tables, "source_files": files,
+                "run_id": input_data.get("run_id"),
+                "agent_sequence": input_data.get("agent_sequence")}
 
 
 class DataModelingAgent(Agent):
@@ -242,6 +246,8 @@ class DataModelingAgent(Agent):
             "semantic_model": semantic_model,
             "dimensions": dimension_tables,
             "source_files": input_data.get("source_files", []),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
         }
         logger.info(f"{self.name}: built star schema with fact table '{fact_name}' and {len(dimension_tables)} dimensions")
         return output
@@ -314,7 +320,8 @@ class ModelAgent(Agent):
                 row['customer_segment'] = 'Low Value'
 
         logger.info(f"{self.name}: scored {len(rows)} rows and assigned customer segments")
-        return {"rows": rows, "star_schema": input_data.get("star_schema"), "semantic_model": input_data.get("semantic_model")}
+        return {"rows": rows, "star_schema": input_data.get("star_schema"), "semantic_model": input_data.get("semantic_model"),
+                "run_id": input_data.get("run_id"), "agent_sequence": input_data.get("agent_sequence")}
 
 
 class CRMCustomerProfileAgent(Agent):
@@ -546,6 +553,8 @@ class CRMCustomerProfileAgent(Agent):
             "customer_profiles_path": self.output_path,
             "star_schema": input_data.get("star_schema"),
             "semantic_model": input_data.get("semantic_model"),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
         }
 
 
@@ -574,6 +583,8 @@ class AnalysisAgent(Agent):
             "star_schema": input_data.get("star_schema"),
             "semantic_model": input_data.get("semantic_model"),
             "customer_profiles": input_data.get("customer_profiles"),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
         }
 
 
@@ -642,6 +653,154 @@ class InsightAgent(Agent):
             "star_schema": input_data.get("star_schema"),
             "semantic_model": input_data.get("semantic_model"),
             "customer_profiles": input_data.get("customer_profiles"),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
+        }
+
+
+class FlowAnalysisAgent(Agent):
+    """Deterministic 'why' layer: explains the revenue change between the
+    first and second half of the order period by decomposing it into
+    drivers per dimension (country, category, customer segment, product),
+    plus volume/value and customer-concentration shifts.
+    """
+
+    def __init__(self, top_n: int = 5, out_path: str = "output/flow_analysis.json"):
+        super().__init__("FlowAnalysisAgent")
+        self.top_n = top_n
+        self.out_path = out_path
+
+    @staticmethod
+    def _safe_float(value: Any) -> float:
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return 0.0
+
+    @staticmethod
+    def _parse_date(value: Any):
+        if value in (None, "", "nan"):
+            return None
+        candidate = str(value).strip()
+        if not candidate:
+            return None
+        for fmt in ("%Y-%m-%d %H:%M:%S.%f", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%Y/%m/%d"):
+            try:
+                return datetime.strptime(candidate, fmt)
+            except ValueError:
+                continue
+        try:
+            if candidate.endswith("Z"):
+                candidate = candidate[:-1] + "+00:00"
+            return datetime.fromisoformat(candidate)
+        except ValueError:
+            return None
+
+    def _drivers(self, early_rows: List[Dict[str, Any]], late_rows: List[Dict[str, Any]],
+                 key: str, total_change: float) -> List[Dict[str, Any]]:
+        early: Dict[str, float] = {}
+        late: Dict[str, float] = {}
+        for row in early_rows:
+            name = str(row.get(key) or "Unknown")
+            early[name] = early.get(name, 0.0) + self._safe_float(row.get("sales_amount"))
+        for row in late_rows:
+            name = str(row.get(key) or "Unknown")
+            late[name] = late.get(name, 0.0) + self._safe_float(row.get("sales_amount"))
+        drivers = []
+        for name in set(early) | set(late):
+            e, l = early.get(name, 0.0), late.get(name, 0.0)
+            drivers.append({
+                "name": name,
+                "first_half_revenue": round(e, 2),
+                "second_half_revenue": round(l, 2),
+                "delta": round(l - e, 2),
+                "share_of_change": round((l - e) / total_change, 3) if total_change else None,
+            })
+        drivers.sort(key=lambda d: abs(d["delta"]), reverse=True)
+        return drivers[: self.top_n]
+
+    def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        rows = input_data.get("rows", [])
+        dated = []
+        for row in rows:
+            dt = self._parse_date(row.get("orderDate"))
+            if dt is not None:
+                dated.append((dt, row))
+
+        if len(dated) < 2:
+            flow: Dict[str, Any] = {"available": False, "reason": "not enough dated rows"}
+        else:
+            start = min(d for d, _ in dated)
+            end = max(d for d, _ in dated)
+            midpoint = start + (end - start) / 2
+            early_rows = [r for d, r in dated if d <= midpoint]
+            late_rows = [r for d, r in dated if d > midpoint]
+
+            early_rev = sum(self._safe_float(r.get("sales_amount")) for r in early_rows)
+            late_rev = sum(self._safe_float(r.get("sales_amount")) for r in late_rows)
+            change = late_rev - early_rev
+
+            def _avg(rows: List[Dict[str, Any]], key: str):
+                if not rows:
+                    return None
+                return round(sum(self._safe_float(r.get(key)) for r in rows) / len(rows), 3)
+
+            def _top_share(rows: List[Dict[str, Any]], n: int = 5):
+                per_customer: Dict[str, float] = {}
+                total = 0.0
+                for r in rows:
+                    amount = self._safe_float(r.get("sales_amount"))
+                    name = str(r.get("customerID") or r.get("customerName") or "Unknown")
+                    per_customer[name] = per_customer.get(name, 0.0) + amount
+                    total += amount
+                top = sum(sorted(per_customer.values(), reverse=True)[:n])
+                return round(top / total, 3) if total else None
+
+            flow = {
+                "available": True,
+                "period": {
+                    "start": start.date().isoformat(),
+                    "midpoint": midpoint.date().isoformat(),
+                    "end": end.date().isoformat(),
+                },
+                "first_half_revenue": round(early_rev, 2),
+                "second_half_revenue": round(late_rev, 2),
+                "revenue_change": round(change, 2),
+                "growth_pct": round(change / early_rev * 100, 1) if early_rev else None,
+                "drivers": {
+                    "country": self._drivers(early_rows, late_rows, "shipCountry", change),
+                    "category": self._drivers(early_rows, late_rows, "categoryName", change),
+                    "customer_segment": self._drivers(early_rows, late_rows, "customer_segment", change),
+                    "product": self._drivers(early_rows, late_rows, "productName", change),
+                },
+                "volume_vs_value": {
+                    "quantity_first_half": round(sum(self._safe_float(r.get("quantity")) for r in early_rows), 1),
+                    "quantity_second_half": round(sum(self._safe_float(r.get("quantity")) for r in late_rows), 1),
+                    "avg_discount_first_half": _avg(early_rows, "discount"),
+                    "avg_discount_second_half": _avg(late_rows, "discount"),
+                },
+                "customer_concentration": {
+                    "top5_share_first_half": _top_share(early_rows),
+                    "top5_share_second_half": _top_share(late_rows),
+                },
+            }
+        try:
+            os.makedirs(os.path.dirname(self.out_path), exist_ok=True)
+            with open(self.out_path, "w", encoding="utf-8") as fh:
+                json.dump(flow, fh, indent=2)
+        except OSError:
+            logger.exception(f"{self.name}: failed writing {self.out_path}")
+        logger.info(f"{self.name}: flow analysis {'computed' if flow.get('available') else 'skipped — ' + flow.get('reason', '')}")
+        return {
+            "rows": rows,
+            "summary": input_data.get("summary"),
+            "insights": input_data.get("insights"),
+            "flow_analysis": flow,
+            "star_schema": input_data.get("star_schema"),
+            "semantic_model": input_data.get("semantic_model"),
+            "customer_profiles": input_data.get("customer_profiles"),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
         }
 
 
@@ -671,6 +830,7 @@ class LLMInsightAgent(Agent):
             "customer_count": len(profiles),
             "rfm_segments": segments,
             "churn_risk_distribution": churn,
+            "flow_analysis": input_data.get("flow_analysis") or {},
         }
 
     def _fallback_narrative(self, ctx: Dict[str, Any]) -> str:
@@ -684,6 +844,12 @@ class LLMInsightAgent(Agent):
         top = ctx.get("top_customers") or []
         if top:
             lines.append(f"- Top customer: {top[0]['customer']} ({top[0]['sales_amount']})")
+        flow = ctx.get("flow_analysis") or {}
+        if flow.get("available"):
+            lines.append(f"- Revenue change 2nd half vs 1st: {flow['revenue_change']:+} ({flow['growth_pct']}%)")
+            drivers = (flow.get("drivers") or {}).get("country") or []
+            if drivers:
+                lines.append(f"- Biggest country driver: {drivers[0]['name']} ({drivers[0]['delta']:+})")
         return "\n".join(lines)
 
     def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -697,7 +863,9 @@ class LLMInsightAgent(Agent):
                     "You are a BI analyst writing an executive summary of a Northwind sales "
                     "pipeline run. Write concise markdown: a 2-3 sentence executive summary, "
                     "then 3-5 bullet insights, then 2-3 recommended actions. Base everything "
-                    "on the provided numbers only — do not invent figures."
+                    "on the provided numbers only — do not invent figures. If a flow_analysis "
+                    "section is present, use it to explain what drove the revenue change "
+                    "between the first and second half of the period."
                 )},
                 {"role": "user", "content": json.dumps(ctx, indent=2)},
             ]
@@ -711,10 +879,13 @@ class LLMInsightAgent(Agent):
             "rows": input_data.get("rows", []),
             "summary": input_data.get("summary"),
             "insights": input_data.get("insights"),
+            "flow_analysis": input_data.get("flow_analysis"),
             "llm_narrative": narrative,
             "star_schema": input_data.get("star_schema"),
             "semantic_model": input_data.get("semantic_model"),
             "customer_profiles": input_data.get("customer_profiles"),
+            "run_id": input_data.get("run_id"),
+            "agent_sequence": input_data.get("agent_sequence"),
         }
 
 
@@ -748,8 +919,11 @@ class BIExportAgent(Agent):
                 "star_schema": input_data.get("star_schema"),
                 "summary": input_data.get("summary"),
                 "insights": input_data.get("insights"),
+                "flow_analysis": input_data.get("flow_analysis"),
                 "llm_narrative": input_data.get("llm_narrative"),
                 "customer_profiles": input_data.get("customer_profiles"),
+                "run_id": input_data.get("run_id"),
+                "agent_sequence": input_data.get("agent_sequence"),
             }
         except Exception:
             logger.exception(f"{self.name}: failed writing {self.out_path}")
@@ -760,8 +934,11 @@ class BIExportAgent(Agent):
                 "star_schema": input_data.get("star_schema"),
                 "summary": input_data.get("summary"),
                 "insights": input_data.get("insights"),
+                "flow_analysis": input_data.get("flow_analysis"),
                 "llm_narrative": input_data.get("llm_narrative"),
                 "customer_profiles": input_data.get("customer_profiles"),
+                "run_id": input_data.get("run_id"),
+                "agent_sequence": input_data.get("agent_sequence"),
             }
 
 
@@ -776,13 +953,22 @@ class DocumentationAgent(Agent):
         semantic_model = input_data.get("semantic_model") or input_data.get("star_schema") or {}
         doc_lines: List[str] = []
         doc_lines.append("# Pipeline documentation\n")
-        doc_lines.append("Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> AnalysisAgent -> InsightAgent -> BIExportAgent -> DocumentationAgent\n")
+        run_id = input_data.get("run_id")
+        if run_id:
+            doc_lines.append(f"Run id: `{run_id}`\n")
+        sequence = input_data.get("agent_sequence")
+        if sequence:
+            doc_lines.append("Agents run in sequence: " + " -> ".join(sequence) + "\n")
+        else:
+            doc_lines.append("Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> AnalysisAgent -> InsightAgent -> BIExportAgent -> DocumentationAgent\n")
         doc_lines.append("## Semantic model\n")
         doc_lines.append(json.dumps(semantic_model if isinstance(semantic_model, dict) else {}, indent=2))
         doc_lines.append("\n## Summary\n")
         doc_lines.append(json.dumps(summary, indent=2))
         doc_lines.append("\n## Insights\n")
         doc_lines.append(json.dumps(insights if isinstance(insights, dict) else {}, indent=2))
+        doc_lines.append("\n## Flow analysis\n")
+        doc_lines.append(json.dumps(input_data.get("flow_analysis") or {}, indent=2))
         doc_lines.append("\n## AI narrative\n")
         doc_lines.append(input_data.get("llm_narrative") or "*Not generated — set LLM_API_KEY in .env*")
         os.makedirs(os.path.dirname(self.doc_path), exist_ok=True)

@@ -1,6 +1,8 @@
 # Pipeline documentation
 
-Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> AnalysisAgent -> InsightAgent -> BIExportAgent -> DocumentationAgent
+Run id: `ca3b150bae48`
+
+Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CRMCustomerProfileAgent -> AnalysisAgent -> InsightAgent -> FlowAnalysisAgent -> LLMInsightAgent -> BIExportAgent -> DocumentationAgent
 
 ## Semantic model
 
@@ -297,19 +299,188 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> An
   ]
 }
 
+## Flow analysis
+
+{
+  "available": true,
+  "period": {
+    "start": "1996-07-04",
+    "midpoint": "1997-06-04",
+    "end": "1998-05-06"
+  },
+  "first_half_revenue": 460262.14,
+  "second_half_revenue": 805530.9,
+  "revenue_change": 345268.76,
+  "growth_pct": 75.0,
+  "drivers": {
+    "country": [
+      {
+        "name": "USA",
+        "first_half_revenue": 73587.23,
+        "second_half_revenue": 171997.39,
+        "delta": 98410.16,
+        "share_of_change": 0.285
+      },
+      {
+        "name": "Germany",
+        "first_half_revenue": 84790.69,
+        "second_half_revenue": 145493.94,
+        "delta": 60703.24,
+        "share_of_change": 0.176
+      },
+      {
+        "name": "Brazil",
+        "first_half_revenue": 33192.46,
+        "second_half_revenue": 73733.32,
+        "delta": 40540.86,
+        "share_of_change": 0.117
+      },
+      {
+        "name": "Austria",
+        "first_half_revenue": 49754.71,
+        "second_half_revenue": 78249.13,
+        "delta": 28494.42,
+        "share_of_change": 0.083
+      },
+      {
+        "name": "Sweden",
+        "first_half_revenue": 14051.89,
+        "second_half_revenue": 40443.24,
+        "delta": 26391.35,
+        "share_of_change": 0.076
+      }
+    ],
+    "category": [
+      {
+        "name": "Dairy Products",
+        "first_half_revenue": 82406.97,
+        "second_half_revenue": 152100.32,
+        "delta": 69693.36,
+        "share_of_change": 0.202
+      },
+      {
+        "name": "Seafood",
+        "first_half_revenue": 36808.93,
+        "second_half_revenue": 94452.81,
+        "delta": 57643.89,
+        "share_of_change": 0.167
+      },
+      {
+        "name": "Beverages",
+        "first_half_revenue": 106022.28,
+        "second_half_revenue": 161845.9,
+        "delta": 55823.62,
+        "share_of_change": 0.162
+      },
+      {
+        "name": "Meat/Poultry",
+        "first_half_revenue": 56815.36,
+        "second_half_revenue": 106207.0,
+        "delta": 49391.64,
+        "share_of_change": 0.143
+      },
+      {
+        "name": "Produce",
+        "first_half_revenue": 34406.56,
+        "second_half_revenue": 65578.02,
+        "delta": 31171.46,
+        "share_of_change": 0.09
+      }
+    ],
+    "customer_segment": [
+      {
+        "name": "High Value",
+        "first_half_revenue": 307217.26,
+        "second_half_revenue": 545444.5,
+        "delta": 238227.25,
+        "share_of_change": 0.69
+      },
+      {
+        "name": "Low Value",
+        "first_half_revenue": 45331.34,
+        "second_half_revenue": 101073.04,
+        "delta": 55741.7,
+        "share_of_change": 0.161
+      },
+      {
+        "name": "Medium Value",
+        "first_half_revenue": 107713.54,
+        "second_half_revenue": 159013.36,
+        "delta": 51299.81,
+        "share_of_change": 0.149
+      }
+    ],
+    "product": [
+      {
+        "name": "Th\u00fcringer Rostbratwurst",
+        "first_half_revenue": 22088.34,
+        "second_half_revenue": 58280.33,
+        "delta": 36191.99,
+        "share_of_change": 0.105
+      },
+      {
+        "name": "Raclette Courdavault",
+        "first_half_revenue": 23184.7,
+        "second_half_revenue": 47971.0,
+        "delta": 24786.3,
+        "share_of_change": 0.072
+      },
+      {
+        "name": "Manjimup Dried Apples",
+        "first_half_revenue": 12497.4,
+        "second_half_revenue": 29322.25,
+        "delta": 16824.85,
+        "share_of_change": 0.049
+      },
+      {
+        "name": "C\u00f4te de Blaye",
+        "first_half_revenue": 62807.86,
+        "second_half_revenue": 78588.88,
+        "delta": 15781.01,
+        "share_of_change": 0.046
+      },
+      {
+        "name": "Uncle Bob's Organic Dried Pears",
+        "first_half_revenue": 3211.8,
+        "second_half_revenue": 18832.5,
+        "delta": 15620.7,
+        "share_of_change": 0.045
+      }
+    ]
+  },
+  "volume_vs_value": {
+    "quantity_first_half": 20273.0,
+    "quantity_second_half": 31044.0,
+    "avg_discount_first_half": 0.056,
+    "avg_discount_second_half": 0.057
+  },
+  "customer_concentration": {
+    "top5_share_first_half": 0.311,
+    "top5_share_second_half": 0.348
+  }
+}
+
 ## AI narrative
 
 ## Executive Summary  
-The Northwind pipeline processed **2,155** transactions with an average score of **587.37** (median = 337.75). Sales are heavily concentrated among a few products, customers, and regions—​the top 5 products alone generated **≈ $382k**, and the top 5 customers accounted for **≈ $521k** of revenue. While most customers are low‑risk for churn (73 of 89), a small but critical segment (5 customers) requires immediate attention.
+The sales pipeline delivered a **75 % revenue surge**, rising from **$460,262** in the first half to **$805,531** in the second half (+$345,269). Growth was powered primarily by the **High‑Value customer segment** (69 % of the change) and strong performance in the **USA, Germany and Brazil** markets, while overall order volume increased by **53 %** with discounts remaining flat.
 
 ### Key Insights  
-- **Product concentration:** The leading product, *Côte de Blaye*, contributed **$141,396.73**, representing over **37%** of the top‑5 product sales.  
-- **Customer concentration:** The top three customers (*QUICK, ERNSH, SAVEA*) together generated **$319,514.24**, roughly **61%** of the top‑5 customer revenue.  
-- **Geographic focus:** The United States and Germany dominate sales, delivering **$245,584.61** and **$230,284.63** respectively—together accounting for **≈ 78%** of the top‑5 country sales.  
-- **RFM segmentation:** Only **27** customers are classified as “Champions” or “Loyal,” while **21** are already “Lost,” indicating a sizable at‑risk base.  
-- **Churn risk:** Although **73** customers are low‑risk, **5** are flagged as **Critical**, representing **≈ 5.6%** of the total customer base.
+- **Revenue drivers:**  
+  - High‑Value customers added **$238,227** (69 % of total change).  
+  - Country gains: USA (+$98,410, 28.5 % of change), Germany (+$60,703, 17.6 %), Brazil (+$40,541, 11.7 %).  
+  - Category gains: Dairy Products (+$69,693, 20.2 %), Seafood (+$57,644, 16.7 %), Beverages (+$55,824, 16.2 %).  
+- **Top performers:**  
+  - Product: *Côte de Blaye* led with **$141,397** sales; *Thüringer Rostbratwurst* grew fastest (+$36,192, 10.5 % of change).  
+  - Customer: *QUICK* contributed **$110,277**; the top 5 customers’ share rose from **31.1 %** to **34.8 %** of total revenue.  
+  - Country: USA topped with **$245,585** sales, followed by Germany (**$230,285**) and Austria (**$128,004**).  
+- **Volume vs. value:** Units sold jumped from **20,273** to **31,044** (≈ 53 % increase) while average discount stayed essentially unchanged (5.6 % → 5.7 %).  
+- **Customer health:** 73 customers are low‑risk, but there are **5 critical** and **4 high‑risk** accounts that could erode future growth.  
+- **RFM segmentation:** 20 % of customers are “Champions” and 7 % “Loyal,” yet 21 % are classified as “Lost,” indicating upside for re‑engagement.
 
 ### Recommended Actions  
-1. **Deep‑dive on high‑value accounts:** Conduct account reviews for the top 5 customers and the 5 critical‑risk customers to identify upsell opportunities and retention tactics.  
-2. **Diversify product mix:** Develop promotions for mid‑tier products to reduce reliance on the top 3 sellers and broaden revenue sources.  
-3. **Targeted regional campaigns:** Allocate additional marketing spend to the USA and Germany while launching growth pilots in under‑penetrated markets such as Brazil and Austria.
+1. **Deepen engagement with High‑Value customers** and replicate successful tactics (product mix, pricing) in the Low‑ and Medium‑Value segments to lift their contribution.  
+2. **Prioritize growth in the USA, Germany, and Brazil** by allocating additional sales resources and localized promotions, especially for top‑performing categories (Dairy, Seafood, Beverages).  
+3. **Activate churn mitigation** for the 5 critical and 4 high‑risk accounts—run targeted retention campaigns and monitor their purchase patterns closely.  
+
+*These steps aim to sustain the strong momentum while reducing concentration risk and protecting the pipeline from churn.*

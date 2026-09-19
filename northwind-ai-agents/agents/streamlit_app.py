@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -6,6 +7,8 @@ import streamlit as st
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = PROJECT_ROOT / "output" / "bi_export.csv"
 CRM_PATH = PROJECT_ROOT / "output" / "customer_profiles.csv"
+HEALTH_PATH = PROJECT_ROOT / "output" / "pipeline_health.json"
+FLOW_PATH = PROJECT_ROOT / "output" / "flow_analysis.json"
 
 
 @st.cache_data
@@ -14,6 +17,16 @@ def load_data(path: Path) -> pd.DataFrame:
         return pd.DataFrame()
     df = pd.read_csv(path)
     return df
+
+
+@st.cache_data
+def load_json(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
 
 
 def status_badge(label: str, color: str) -> str:
@@ -346,6 +359,60 @@ with insights_col2:
     top_customer_table.columns = ["Customer", "Revenue"]
     top_customer_table["Revenue"] = top_customer_table["Revenue"].map(lambda x: round(float(x), 2))
     st.dataframe(top_customer_table, use_container_width=True, hide_index=True)
+
+st.markdown("---")
+flow = load_json(FLOW_PATH)
+st.header("Why did revenue change?")
+if not flow.get("available"):
+    st.info("No flow analysis yet. Run: python run_agent_crew.py")
+else:
+    concentration = flow.get("customer_concentration") or {}
+    flow_kpi1, flow_kpi2, flow_kpi3 = st.columns(3)
+    with flow_kpi1:
+        st.metric("Revenue change (2nd half vs 1st)", f"{flow['revenue_change']:+,.0f}")
+    with flow_kpi2:
+        st.metric("Growth", f"{flow['growth_pct']}%")
+    with flow_kpi3:
+        share_late = concentration.get("top5_share_second_half") or 0
+        share_early = concentration.get("top5_share_first_half") or 0
+        st.metric("Top-5 customer share", f"{share_late * 100:.1f}%",
+                  delta=f"{(share_late - share_early) * 100:+.1f} pp")
+
+    flow_col1, flow_col2 = st.columns(2)
+    drivers = flow.get("drivers") or {}
+    for col, key, title in [
+        (flow_col1, "country", "Drivers by country"),
+        (flow_col2, "category", "Drivers by category"),
+    ]:
+        with col:
+            st.subheader(title)
+            driver_rows = drivers.get(key) or []
+            if driver_rows:
+                st.bar_chart(pd.DataFrame(driver_rows).set_index("name")[["delta"]])
+            else:
+                st.info("No driver data")
+
+st.markdown("---")
+health = load_json(HEALTH_PATH)
+st.header("Pipeline health")
+if not health:
+    st.info("No pipeline health data yet. Run: python run_agent_crew.py")
+else:
+    status = str(health.get("status", "unknown"))
+    status_color = "#2ecc71" if status == "ok" else "#e74c3c"
+    health_kpi1, health_kpi2, health_kpi3 = st.columns(3)
+    with health_kpi1:
+        st.markdown(f"**Status:** {status_badge(status.upper(), status_color)}",
+                    unsafe_allow_html=True)
+    with health_kpi2:
+        st.metric("Duration", f"{health.get('duration_s', 0)} s")
+    with health_kpi3:
+        st.metric("Run id", str(health.get("run_id", "-")))
+
+    agent_rows = health.get("agents") or []
+    if agent_rows:
+        st.subheader("Agent durations (s)")
+        st.bar_chart(pd.DataFrame(agent_rows).set_index("name")[["duration_s"]])
 
 st.markdown("---")
 with st.expander("Raw data"):

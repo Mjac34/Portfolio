@@ -8,6 +8,7 @@ import csv
 import json
 import logging
 import os
+from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List
 
 try:
@@ -229,30 +230,60 @@ _SYSTEM_PROMPT = (
 )
 
 
+QUESTION_LOG = os.path.join(OUTPUT_DIR, "question_log.jsonl")
+
+
+def _log_question(entry: Dict[str, Any]) -> None:
+    """Append a question + tool-call trace to the meta log (JSONL)."""
+    try:
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+        with open(QUESTION_LOG, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(entry, default=str) + "\n")
+    except OSError:
+        logger.exception("Failed writing question log")
+
+
 def ask(question: str, max_rounds: int = 4) -> str:
-    if not llm_client.is_configured():
-        return "LLM_API_KEY is not set — add it to .env to use the query agent."
-    messages: List[Dict[str, Any]] = [
-        {"role": "system", "content": _SYSTEM_PROMPT},
-        {"role": "user", "content": question},
-    ]
-    for _ in range(max_rounds):
-        message = llm_client.chat(messages, tools=TOOLS)
-        if not getattr(message, "tool_calls", None):
-            return message.content or "(no answer)"
-        messages.append(message)
-        for call in message.tool_calls:
-            impl = _TOOL_IMPL.get(call.function.name)
-            try:
-                args = json.loads(call.function.arguments or "{}")
-                result = impl(**args) if impl else {"error": "unknown tool"}
-            except Exception as exc:
-                result = {"error": str(exc)}
-            messages.append({
-                "role": "tool", "tool_call_id": call.id,
-                "content": json.dumps(result, default=str),
-            })
-    return "The agent did not finish within the tool-call limit."
+    entry: Dict[str, Any] = {
+        "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "question": question,
+        "tool_calls": [],
+        "answer": None,
+    }
+    try:
+        if not llm_client.is_configured():
+            entry["answer"] = "LLM_API_KEY is not set — add it to .env to use the query agent."
+            return entry["answer"]
+        messages: List[Dict[str, Any]] = [
+            {"role": "system", "content": _SYSTEM_PROMPT},
+            {"role": "user", "content": question},
+        ]
+        for _ in range(max_rounds):
+            message = llm_client.chat(messages, tools=TOOLS)
+            if not getattr(message, "tool_calls", None):
+                entry["answer"] = message.content or "(no answer)"
+                return entry["answer"]
+            messages.append(message)
+            for call in message.tool_calls:
+                entry["tool_calls"].append({
+                    "name": call.function.name,
+                    "arguments": call.function.arguments,
+                })
+                impl = _TOOL_IMPL.get(call.function.name)
+                try:
+                    args = json.loads(call.function.arguments or "{}")
+                    result = impl(**args) if impl else {"error": "unknown tool"}
+                except Exception as exc:
+                    result = {"error": str(exc)}
+                messages.append({
+                    "role": "tool", "tool_call_id": call.id,
+                    "content": json.dumps(result, default=str),
+                })
+        entry["answer"] = "The agent did not finish within the tool-call limit."
+        return entry["answer"]
+    finally:
+        entry["answered"] = entry["answer"] is not None
+        _log_question(entry)
 
 
 class QueryAgent:
