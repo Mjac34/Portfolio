@@ -1,6 +1,6 @@
 # Malin Jacobsson — Portfolio
 
-A selection of my work in BI, data analysis, SQL, Power BI, machine learning and cloud data engineering.
+A selection of my work in BI, data analysis, SQL, Power BI, machine learning, agentic AI and cloud data engineering.
 
 ## Projects
 
@@ -9,7 +9,7 @@ A selection of my work in BI, data analysis, SQL, Power BI, machine learning and
 - **azure-streaming-pipeline** — Real-time pipeline: Event Hub → Databricks (PySpark) → Azure SQL → Data Factory.
 - **azure-data-factory** — Cloud ETL from Blob Storage to Azure SQL via Data Factory.
 - **banking-etl-pipeline** — Raw banking CSVs → Python cleaning → star schema → Power BI report (+ SSIS).
-- **northwind-ai-agents** — Hybrid LLM pipeline: deterministic Python owns the numbers, an LLM writes narrative and answers questions via tool calls.
+- **northwind-ai-agents** — Hybrid multi-agent layer on top of a CRM analytics engine: nine sequential agents turn Northwind CSVs into a star schema, RFM segmentation and churn-risk scoring — deterministic Python owns the numbers, the LLM writes the narrative and answers questions via tool calls.
 - **bank-database** — Fictional bank database in T-SQL: schema, views and stored procedures.
 
 ## View the portfolio locally
