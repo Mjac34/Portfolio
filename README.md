@@ -1,6 +1,6 @@
 # Malin Jacobsson — Portfolio
 
-A selection of my work in BI, data analysis, SQL, Power BI, machine learning, agentic AI and cloud data engineering.
+A selection of my work in BI, data analysis, SQL, Power BI, machine learning, agentic AI and cloud data engineering — including a hybrid multi-agent layer on a CRM analytics engine.
 
 ## Projects
 
