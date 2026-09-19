@@ -1,6 +1,6 @@
 # Pipeline documentation
 
-Run id: `ca3b150bae48`
+Run id: `8bf72e75b894`
 
 Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CRMCustomerProfileAgent -> AnalysisAgent -> InsightAgent -> FlowAnalysisAgent -> LLMInsightAgent -> BIExportAgent -> DocumentationAgent
 
@@ -451,6 +451,10 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
   "volume_vs_value": {
     "quantity_first_half": 20273.0,
     "quantity_second_half": 31044.0,
+    "net_price_first_half": 22.7,
+    "net_price_second_half": 25.95,
+    "volume_effect": 244536.25,
+    "price_mix_effect": 100732.51,
     "avg_discount_first_half": 0.056,
     "avg_discount_second_half": 0.057
   },
@@ -463,24 +467,22 @@ Agents run in sequence: DataLoaderAgent -> DataModelingAgent -> ModelAgent -> CR
 ## AI narrative
 
 ## Executive Summary  
-The sales pipeline delivered a **75 % revenue surge**, rising from **$460,262** in the first half to **$805,531** in the second half (+$345,269). Growth was powered primarily by the **High‑Value customer segment** (69 % of the change) and strong performance in the **USA, Germany and Brazil** markets, while overall order volume increased by **53 %** with discounts remaining flat.
+Revenue surged from **$460,262** in the first half to **$805,531** in the second half of the period – a **75 % growth** (+$345,269). The uplift was driven primarily by the **High‑Value customer segment** (69 % of the change) and strong performance in the **USA, Germany, and Brazil** markets, as well as in **Dairy Products, Seafood, and Beverages** categories. While overall sales volume rose, a higher average net price also contributed substantially to the gain.
 
 ### Key Insights  
-- **Revenue drivers:**  
-  - High‑Value customers added **$238,227** (69 % of total change).  
-  - Country gains: USA (+$98,410, 28.5 % of change), Germany (+$60,703, 17.6 %), Brazil (+$40,541, 11.7 %).  
-  - Category gains: Dairy Products (+$69,693, 20.2 %), Seafood (+$57,644, 16.7 %), Beverages (+$55,824, 16.2 %).  
-- **Top performers:**  
-  - Product: *Côte de Blaye* led with **$141,397** sales; *Thüringer Rostbratwurst* grew fastest (+$36,192, 10.5 % of change).  
-  - Customer: *QUICK* contributed **$110,277**; the top 5 customers’ share rose from **31.1 %** to **34.8 %** of total revenue.  
-  - Country: USA topped with **$245,585** sales, followed by Germany (**$230,285**) and Austria (**$128,004**).  
-- **Volume vs. value:** Units sold jumped from **20,273** to **31,044** (≈ 53 % increase) while average discount stayed essentially unchanged (5.6 % → 5.7 %).  
-- **Customer health:** 73 customers are low‑risk, but there are **5 critical** and **4 high‑risk** accounts that could erode future growth.  
-- **RFM segmentation:** 20 % of customers are “Champions” and 7 % “Loyal,” yet 21 % are classified as “Lost,” indicating upside for re‑engagement.
+- **Customer segment impact:** High‑Value customers added $238,227 (≈ 69 % of total growth); Low‑Value and Medium‑Value segments contributed $55,742 and $51,300 respectively.  
+- **Geographic drivers:**  
+  - USA: +$98,410 (28.5 % of change)  
+  - Germany: +$60,703 (17.6 % of change)  
+  - Brazil: +$40,541 (11.7 % of change)  
+- **Category contribution:**  
+  - Dairy Products: +$69,693 (20.2 % of change)  
+  - Seafood: +$57,644 (16.7 % of change)  
+  - Beverages: +$55,824 (16.2 % of change)  
+- **Volume vs. price mix:** Volume effect added $244,536, while price‑mix (higher average net price) added $100,733, indicating both more units sold and a shift to higher‑priced items.  
+- **Concentration & churn:** Top‑5 customers’ share rose from **31.1 %** to **34.8 %**, and churn risk remains low for most (73 low‑risk, only 5 critical).  
 
 ### Recommended Actions  
-1. **Deepen engagement with High‑Value customers** and replicate successful tactics (product mix, pricing) in the Low‑ and Medium‑Value segments to lift their contribution.  
-2. **Prioritize growth in the USA, Germany, and Brazil** by allocating additional sales resources and localized promotions, especially for top‑performing categories (Dairy, Seafood, Beverages).  
-3. **Activate churn mitigation** for the 5 critical and 4 high‑risk accounts—run targeted retention campaigns and monitor their purchase patterns closely.  
-
-*These steps aim to sustain the strong momentum while reducing concentration risk and protecting the pipeline from churn.*
+1. **Deepen engagement with High‑Value customers** through targeted upsell/cross‑sell campaigns and loyalty incentives to sustain their outsized contribution.  
+2. **Prioritize growth in USA and Germany** and expand the high‑performing Dairy, Seafood, and Beverages lines in these markets, leveraging the proven product mix (e.g., Thüringer Rostbratwurst, Raclette Courdavault).  
+3. **Monitor revenue concentration and at‑risk segments** (4 high, 5 critical churn risk) by instituting early‑warning retention programs and diversifying the customer base to mitigate dependence on the top five accounts.

@@ -8,7 +8,8 @@ while an **LLM** writes the narrative insights and answers natural-language ques
 tool calls (any OpenAI-compatible provider — Groq, Gemini, OpenAI, Azure OpenAI).
 
 The design principle: *deterministic code owns the numbers, the model owns interpretation and
-dialogue.* The LLM never computes metrics — it selects tools and phrases answers.
+dialogue.* The LLM never computes metrics — it selects tools and phrases answers. "Agent" here
+means a discrete, inspectable pipeline stage — strictly speaking only the LLM steps are agentic.
 
 ## The agent crew
 

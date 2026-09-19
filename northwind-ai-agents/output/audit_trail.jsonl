@@ -42,3 +42,25 @@
 {"ts": "2026-09-19T13:23:54.572+00:00", "run_id": "ca3b150bae48", "event": "agent_started", "agent": "DocumentationAgent"}
 {"ts": "2026-09-19T13:23:54.574+00:00", "run_id": "ca3b150bae48", "event": "agent_finished", "agent": "DocumentationAgent", "duration_s": 0.001, "output_keys": ["doc_path", "semantic_model"]}
 {"ts": "2026-09-19T13:23:54.575+00:00", "run_id": "ca3b150bae48", "event": "pipeline_finished", "status": "ok"}
+{"ts": "2026-09-19T13:36:34.988+00:00", "run_id": "8bf72e75b894", "event": "pipeline_started", "agents": ["DataLoaderAgent", "DataModelingAgent", "ModelAgent", "CRMCustomerProfileAgent", "AnalysisAgent", "InsightAgent", "FlowAnalysisAgent", "LLMInsightAgent", "BIExportAgent", "DocumentationAgent"]}
+{"ts": "2026-09-19T13:36:34.989+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "DataLoaderAgent"}
+{"ts": "2026-09-19T13:36:34.997+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "DataLoaderAgent", "duration_s": 0.007, "output_keys": ["agent_sequence", "rows", "run_id", "source_files", "tables"]}
+{"ts": "2026-09-19T13:36:34.997+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "DataModelingAgent"}
+{"ts": "2026-09-19T13:36:35.009+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "DataModelingAgent", "duration_s": 0.011, "output_keys": ["agent_sequence", "dimensions", "fact_table", "rows", "run_id", "semantic_model", "source_files", "star_schema", "tables"]}
+{"ts": "2026-09-19T13:36:35.010+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "ModelAgent"}
+{"ts": "2026-09-19T13:36:35.013+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "ModelAgent", "duration_s": 0.002, "output_keys": ["agent_sequence", "rows", "run_id", "semantic_model", "star_schema"]}
+{"ts": "2026-09-19T13:36:35.013+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "CRMCustomerProfileAgent"}
+{"ts": "2026-09-19T13:36:35.035+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "CRMCustomerProfileAgent", "duration_s": 0.021, "output_keys": ["agent_sequence", "customer_profiles", "customer_profiles_path", "rows", "run_id", "semantic_model", "star_schema"]}
+{"ts": "2026-09-19T13:36:35.036+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "AnalysisAgent"}
+{"ts": "2026-09-19T13:36:35.037+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "AnalysisAgent", "duration_s": 0.001, "output_keys": ["agent_sequence", "customer_profiles", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:36:35.038+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "InsightAgent"}
+{"ts": "2026-09-19T13:36:35.040+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "InsightAgent", "duration_s": 0.001, "output_keys": ["agent_sequence", "customer_profiles", "insights", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:36:35.040+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "FlowAnalysisAgent"}
+{"ts": "2026-09-19T13:36:35.057+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "FlowAnalysisAgent", "duration_s": 0.017, "output_keys": ["agent_sequence", "customer_profiles", "flow_analysis", "insights", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:36:35.058+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "LLMInsightAgent"}
+{"ts": "2026-09-19T13:36:38.405+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "LLMInsightAgent", "duration_s": 3.346, "output_keys": ["agent_sequence", "customer_profiles", "flow_analysis", "insights", "llm_narrative", "rows", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:36:38.407+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "BIExportAgent"}
+{"ts": "2026-09-19T13:36:38.441+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "BIExportAgent", "duration_s": 0.03, "output_keys": ["agent_sequence", "customer_profiles", "exported", "flow_analysis", "insights", "llm_narrative", "path", "run_id", "semantic_model", "star_schema", "summary"]}
+{"ts": "2026-09-19T13:36:38.442+00:00", "run_id": "8bf72e75b894", "event": "agent_started", "agent": "DocumentationAgent"}
+{"ts": "2026-09-19T13:36:38.445+00:00", "run_id": "8bf72e75b894", "event": "agent_finished", "agent": "DocumentationAgent", "duration_s": 0.002, "output_keys": ["doc_path", "semantic_model"]}
+{"ts": "2026-09-19T13:36:38.447+00:00", "run_id": "8bf72e75b894", "event": "pipeline_finished", "status": "ok"}

@@ -745,6 +745,11 @@ class FlowAnalysisAgent(Agent):
                     return None
                 return round(sum(self._safe_float(r.get(key)) for r in rows) / len(rows), 3)
 
+            qty_early = sum(self._safe_float(r.get("quantity")) for r in early_rows)
+            qty_late = sum(self._safe_float(r.get("quantity")) for r in late_rows)
+            price_early = early_rev / qty_early if qty_early else 0.0
+            price_late = late_rev / qty_late if qty_late else 0.0
+
             def _top_share(rows: List[Dict[str, Any]], n: int = 5):
                 per_customer: Dict[str, float] = {}
                 total = 0.0
@@ -774,8 +779,12 @@ class FlowAnalysisAgent(Agent):
                     "product": self._drivers(early_rows, late_rows, "productName", change),
                 },
                 "volume_vs_value": {
-                    "quantity_first_half": round(sum(self._safe_float(r.get("quantity")) for r in early_rows), 1),
-                    "quantity_second_half": round(sum(self._safe_float(r.get("quantity")) for r in late_rows), 1),
+                    "quantity_first_half": round(qty_early, 1),
+                    "quantity_second_half": round(qty_late, 1),
+                    "net_price_first_half": round(price_early, 2),
+                    "net_price_second_half": round(price_late, 2),
+                    "volume_effect": round((qty_late - qty_early) * price_early, 2),
+                    "price_mix_effect": round(qty_late * (price_late - price_early), 2),
                     "avg_discount_first_half": _avg(early_rows, "discount"),
                     "avg_discount_second_half": _avg(late_rows, "discount"),
                 },

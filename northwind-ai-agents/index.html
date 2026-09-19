@@ -85,7 +85,9 @@
 
     <section>
       <h2>The agent crew</h2>
-      <p class="note">Sequential pipeline — each step is deterministic Python except the LLM narrative agent.</p>
+      <p class="note">Sequential pipeline — most steps are deterministic Python stages; strictly speaking only the
+      LLM-marked steps are agentic (the narrative writer and the tool-calling query agent). The agent naming keeps
+      every stage inspectable, logged and swappable.</p>
       <div class="chart-card"><img src="images/Northwind_Architecture.png" alt="Architecture: orchestrator supervising ten sequential agents" style="width:100%; border-radius:0.5rem;" /></div>
       <table>
         <tr><th>Agent</th><th>Responsibility</th></tr>

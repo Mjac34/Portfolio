@@ -148,6 +148,10 @@
   "volume_vs_value": {
     "quantity_first_half": 20273.0,
     "quantity_second_half": 31044.0,
+    "net_price_first_half": 22.7,
+    "net_price_second_half": 25.95,
+    "volume_effect": 244536.25,
+    "price_mix_effect": 100732.51,
     "avg_discount_first_half": 0.056,
     "avg_discount_second_half": 0.057
   },
