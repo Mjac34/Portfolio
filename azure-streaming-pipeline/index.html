@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-time Azure Pipeline — Malin Jacobsson</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; }
+    .shots img { width: 100%; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); }
+    th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    code { background: #f1f5f9; padding: 0.1rem 0.3rem; border-radius: 0.25rem; }
+    .files a { color: var(--accent); }
+    .flow { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; font-family: ui-monospace, monospace; font-size: 0.9rem; line-height: 1.8; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Real-time Azure Pipeline</h1>
+    <p class="subtitle">Trafikverket train events → Event Hub → Databricks → SQL → Data Factory</p>
+    <p class="intro">A real-time data pipeline built across four Azure services — lab from the Streaming Data & Cloud Solutions course at Nackademin (BI24).</p>
+  </header>
+  <main>
+    <a class="back" href="../index.html">← Back to portfolio</a>
+
+    <section>
+      <h2>Architecture</h2>
+      <div class="flow">Trafikverket API  ──►  Event Hub  ──►  Databricks (PySpark)  ──►  Azure SQL  ──►  Data Factory
+ TrainStationMessage   trafikverket-   spark.readStream          landing zone   orchestration
+                      events          streaming consumer</div>
+      <p class="note">Real-time ingestion of live train events — platform changes and announcements from Sweden's transport authority — through four Azure services.</p>
+    </section>
+
+    <section>
+      <h2>What it looks like</h2>
+      <div class="shots">
+        <div><img src="trafikverket-api.png" alt="Trafikverket API" /><p class="note"><strong>Data source</strong> — Trafikverket's open API delivering TrainStationMessage events as JSON.</p></div>
+        <div><img src="eventhub-overview.png" alt="Event Hub namespace" /><p class="note"><strong>Event Hub</strong> — the trafikverket-events hub, Kafka surface enabled, Sweden Central.</p></div>
+        <div><img src="eventhub-metrics.png" alt="Event Hub metrics" /><p class="note"><strong>Live traffic</strong> — incoming messages and bytes showing real data flowing through.</p></div>
+        <div><img src="databricks-readstream.png" alt="Databricks readStream" /><p class="note"><strong>Streaming consumer</strong> — PySpark <code>spark.readStream</code> with encrypted connection, consumer group and live JSON arriving.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Streaming decisions</h2>
+      <ul>
+        <li><strong>Consumer groups</strong> — a dedicated group (<code>'ny1'</code>) so the lab consumer reads independently</li>
+        <li><strong>Starting position</strong> — <code>@latest</code>: only new events, no replay of history</li>
+        <li><strong><code>failOnDataLoss: false</code></strong> — lab-friendly: keep streaming even if data expires out of retention</li>
+        <li><strong>SQL landing-zone schema</strong> — what to flatten from nested JSON vs. keep raw is a real modeling choice</li>
+      </ul>
+    </section>
+
+    <section class="about">
+      <h2>Lessons learned</h2>
+      <p>Streaming is different: consumer groups, starting positions and data-loss behavior are decisions you have to make
+      explicitly — there's no "just read the file" fallback. Debugging across four Azure services taught me more than any
+      single-service tutorial: when data doesn't land, the fault can sit anywhere in the chain.</p>
+    </section>
+
+  </main>
+  <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+</body>
+</html>

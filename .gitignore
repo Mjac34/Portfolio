@@ -6,6 +6,11 @@ __pycache__/
 .venv/
 venv/
 
+# Secrets
+.env
+*.env
+!.env.example
+
 # System
 .DS_Store
 Thumbs.db
@@ -16,7 +21,10 @@ desktop.ini
 .idea/
 
 # Personal schoolwork (not for public portfolio)
-Nackademin_BI24/MyBank/Dagbok_malin_jacobsson.pdf
+bank-database/Dagbok_malin_jacobsson.pdf
+
+# Office lock/temp files (OneDrive creates these)
+~$*
 
 # draw.io auto-backups
 .$*.bkp

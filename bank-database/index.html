@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Database in T-SQL — Malin Jacobsson</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; }
+    .shots img { width: 100%; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); }
+    th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    code { background: #f1f5f9; padding: 0.1rem 0.3rem; border-radius: 0.25rem; }
+    .files a { color: var(--accent); }
+    .flow { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; font-family: ui-monospace, monospace; font-size: 0.9rem; line-height: 1.8; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Bank Database in T-SQL</h1>
+    <p class="subtitle">Normalized schema, views and stored procedures for a fictional bank</p>
+    <p class="intro">School project from the database modeling course at Nackademin (BI24) — fully runnable via numbered scripts.</p>
+  </header>
+  <main>
+    <a class="back" href="../index.html">← Back to portfolio</a>
+
+    <section>
+      <h2>What it is</h2>
+      <p class="note">A fictional Swedish bank modeled in T-SQL (SQL Server): customers, accounts, cards, loans, access rights
+      and transactions — with stored procedures for salary deposits, credit-checked loan approvals and monthly annuity payments.</p>
+      <table>
+        <tr><th>Script</th><th>Contents</th></tr>
+        <tr><td><code>01_schema.sql</code></td><td>Database + all tables — PK/FK, CHECK constraints, soft delete</td></tr>
+        <tr><td><code>02_seed.sql</code></td><td>Demo data: 10 customers, 30 accounts, 17 cards, 3 loans</td></tr>
+        <tr><td><code>03_views.sql</code></td><td>Report views — active customers, maturing loans, outstanding debt</td></tr>
+        <tr><td><code>04_procedures.sql</code></td><td>Stored procedures (see below)</td></tr>
+        <tr><td><code>05_queries.sql</code></td><td>Demo executions + showcase queries — window functions, CTEs, RANK</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>The interesting parts</h2>
+      <ul>
+        <li><strong><code>ProcessMonthlyLoanPayments</code></strong> — generates annuity payments (amortization + interest) up to each loan's term.
+        Idempotent via a <code>NOT EXISTS</code> check per month, atomic via <code>TRAN</code>/<code>TRY/CATCH</code>, and only updates balances
+        for newly completed payments (<code>OUTPUT</code> clause). The screenshot below shows it: first run creates 115 payments, the re-run creates 0.</li>
+        <li><strong><code>GrantLoanWithTerms</code></strong> — approves loans after a credit check: age requirement, income requirement,
+        max existing loans, minimum balance. Everything in one transaction; the disbursement is posted as a transaction.</li>
+        <li><strong>Showcase queries</strong> — running balance per account (<code>SUM OVER ROWS UNBOUNDED PRECEDING</code>), customer ranking by
+        balance (<code>RANK</code>), monthly cash flow per account (CTE + conditional aggregation), debt-to-income ratio per borrower.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Proof it works</h2>
+      <div class="shots">
+        <div><img src="images/idempotent_payments.png" alt="Idempotent payment run" /><p class="note"><strong>Idempotency in action</strong> — same procedure run twice: 115 payments created, then 0. No duplicates, ever.</p></div>
+        <div><img src="images/unpaid_loans.png" alt="UnpaidLoans view" /><p class="note"><strong>UnpaidLoans view</strong> — outstanding balance per loan, straight from the report layer.</p></div>
+        <div><img src="images/conceptual_model.png" alt="Conceptual model" /><p class="note"><strong>Conceptual model</strong> — the domain design before implementation.</p></div>
+        <div><img src="images/implemented_erd.png" alt="Implemented ERD" /><p class="note"><strong>Implemented ERD</strong> — the schema as built in SQL Server.</p></div>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>Run it</h2>
+      <p><code>sqlcmd -S localhost -E -f 65001 -i 01_schema.sql</code> … through <code>05_queries.sql</code> — or run the files in order in SSMS / Azure Data Studio.</p>
+      <p class="note">School project from the database modeling course at Nackademin (BI24). The database is fictional; all data is seeded demo data.</p>
+    </section>
+
+  </main>
+  <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+</body>
+</html>

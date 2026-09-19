@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure Data Factory — Malin Jacobsson</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; }
+    .shots img { width: 100%; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); }
+    th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    code { background: #f1f5f9; padding: 0.1rem 0.3rem; border-radius: 0.25rem; }
+    .files a { color: var(--accent); }
+    .flow { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; font-family: ui-monospace, monospace; font-size: 0.9rem; line-height: 1.8; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Azure Data Factory</h1>
+    <p class="subtitle">Cloud ETL: Blob Storage → Data Factory → Azure SQL</p>
+    <p class="intro">A working Azure data integration with security configuration and encoding troubleshooting — lab from the Streaming Data & Cloud Solutions course at Nackademin (BI24).</p>
+  </header>
+  <main>
+    <a class="back" href="../index.html">← Back to portfolio</a>
+
+    <section>
+      <h2>Architecture</h2>
+      <div class="flow">Blob Storage (CSV)  ──►  Azure Data Factory  ──►  Azure SQL Database
+ municipalities          copy → script → load      landing_ku_Kommuner
+                        pipeline                   landing_ku_Region</div>
+      <p class="note">Swedish municipality contact data landed in Azure SQL via a multi-activity Data Factory pipeline — deliberately built on the free tier.</p>
+    </section>
+
+    <section>
+      <h2>What it looks like</h2>
+      <div class="shots">
+        <div><img src="adf-linked-services.png" alt="ADF linked services" /><p class="note"><strong>Linked services</strong> — connections to both Blob Storage and Azure SQL.</p></div>
+        <div><img src="adf-pipeline-run.png" alt="Successful pipeline run" /><p class="note"><strong>Pipeline run</strong> — copy, add columns, create table, load region: all activities green.</p></div>
+        <div><img src="sql-table-ddl.png" alt="CREATE TABLE for landing_ku_Kommuner" /><p class="note"><strong>Landing-zone DDL</strong> — KommunID as primary key, NVARCHAR for text fields.</p></div>
+        <div><img src="sql-landing-table.png" alt="Landing table populated" /><p class="note"><strong>Landed data</strong> — Swedish municipalities with contact details and region names.</p></div>
+        <div><img src="sql-user-permissions.png" alt="SQL user and role setup" /><p class="note"><strong>Security</strong> — the Data Factory gets its own external user with db_owner — no shared credentials.</p></div>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>Lessons learned</h2>
+      <ul>
+        <li><strong>Encoding matters.</strong> The municipality CSV used ISO-8859-1; without the right encoding setting, Swedish characters (å, ä, ö) broke on load.</li>
+        <li><strong>Cost awareness shaped the design</strong> — free-tier SQL Database meant small tables, simple pipelines, no unnecessary compute.</li>
+        <li>Working end-to-end in a real cloud tenant is different from local scripts: permissions, linked services and activity ordering all have to be right before anything moves.</li>
+      </ul>
+    </section>
+
+  </main>
+  <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+</body>
+</html>

@@ -81,7 +81,8 @@ h2 {
 
 .card img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   border: 1px solid var(--border);
@@ -89,6 +90,7 @@ h2 {
 
 .card h3 {
   font-size: 1.25rem;
+  color: var(--text);
   margin-bottom: 0.75rem;
 }
 

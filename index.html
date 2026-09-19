@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,91 +9,106 @@
 <body>
   <header class="hero">
     <h1>Malin Jacobsson</h1>
-    <p class="subtitle">Dataanalys, BI, SQL, Power BI, maskininlärning och AI-agenter</p>
+    <p class="subtitle">Business intelligence, data analysis, SQL & data modeling, Power BI, machine learning and agentic AI</p>
     <p class="intro">
-      Jag gillar att rensa oreda, hitta mönster och förklara vad datan egentligen betyder. Här är ett urval av projekt jag har byggt under min utbildning och på egen hand.
+      I like untangling messy data, finding patterns and explaining what the numbers actually mean — and I believe in working smarter, not harder: automate the boring parts, save the thinking for the interesting problems. Here's a selection of projects from my studies and my own experiments.
     </p>
   </header>
 
   <main>
     <section class="highlights">
-      <h2>Höjdpunkter</h2>
+      <h2>Highlights</h2>
       <div class="grid">
 
         <article class="card">
-          <img src="Larmanalys/figures/alarms_summary.png" alt="Sammanfattning av larmanalys" />
-          <h3>Larmanalys</h3>
+          <img src="alarm-analysis/figures/false_alarms_per_night.png" alt="False alarms per night before and after sensor move" />
+          <h3>Alarm Analysis</h3>
           <p>
-            En BI-analys av falska larm på ett äldreboende. Resultatet visar på drygt 92 % färre störande larm — och en tydlig beskrivning av vad som sparar både tid och oro för personalen.
+            A BI analysis of false alarms in elderly care. The result: roughly 92% fewer disruptive alarms — and a clear explanation of what saves both time and worry for staff.
           </p>
           <p class="tags"><span>Streamlit</span><span>Python</span><span>BI</span></p>
-          <a href="Larmanalys/">Se projektet</a>
+          <a href="alarm-analysis/">View project</a>
         </article>
 
         <article class="card">
-          <h3>Northwind Agentic Playground</h3>
+          <img src="northwind-ai-agents/images/Northwind_CRM.png" alt="CRM dashboard with RFM segments and churn-risk trend" />
+          <h3>Northwind AI Agents</h3>
           <p>
-            Ett experiment för att lära mig att orkestrera AI-agenter i en data-pipeline. Agenterna laddar data, bygger en stjärnmodell, analyserar, exporterar och dokumenterar — allt från CSV till BI-klar output.
+            A hybrid LLM pipeline with a CRM analytics layer on top: deterministic Python computes everything — star schema, RFM segmentation, churn risk, next-best-action — while the LLM writes the narrative and answers plain-English questions via tool calls.
           </p>
-          <p class="tags"><span>Python</span><span>AI-agenter</span><span>Star Schema</span></p>
-          <a href="Northwind_agentic_playground/">Se projektet</a>
+          <p class="tags"><span>Python</span><span>Agentic AI</span><span>CRM</span><span>LLM</span></p>
+          <a href="northwind-ai-agents/">View project</a>
         </article>
 
         <article class="card">
-          <h3>Statistisk programmering och ML</h3>
+          <img src="statistical-ml/images/q2-decision-tree.png" alt="Decision tree for project success" />
+          <h3>Statistical Programming & ML</h3>
           <p>
-            En avslutande ML-notebook med linjär och logistisk regression, decision trees, random forest, k-means-klustring, PCA och SVM — tränad på flera olika dataset.
+            Regression, trees, k-means by hand, PCA and SVM across four datasets — but the real lesson was the metrics: train R² 0.94 vs test R² −25 on ten rows. Dataset size constrains what a model can prove more than algorithm choice does.
           </p>
-          <p class="tags"><span>Python</span><span>ML</span><span>Klustring</span></p>
-          <a href="Nackademin_BI24/statistisk%20programmering%20och%20ML/">Se projektet</a>
+          <p class="tags"><span>Python</span><span>scikit-learn</span><span>ML</span></p>
+          <a href="statistical-ml/">View project</a>
         </article>
 
         <article class="card">
-          <h3>ETL-uppgift med Power BI</h3>
+          <img src="azure-streaming-pipeline/databricks-readstream.png" alt="Databricks notebook reading an Event Hub stream" />
+          <h3>Real-time Azure Pipeline</h3>
           <p>
-            En hel pipeline från råa CSV-filer via Python-rengöring och dimensions-/faktatabeller till en Power BI-rapport. Just nu är rapportsidan under omarbetning innan den publiceras.
+            The streaming side of Azure: live Trafikverket train events consumed the moment they arrive — Event Hub → Databricks (PySpark structured streaming) → Azure SQL. Consumer groups, starting positions and data-loss handling included.
+          </p>
+          <p class="tags"><span>Azure</span><span>Streaming</span><span>Databricks</span><span>PySpark</span></p>
+          <a href="azure-streaming-pipeline/">View project</a>
+        </article>
+
+        <article class="card">
+          <img src="azure-data-factory/adf-pipeline-run.png" alt="Successful pipeline run in Azure Data Factory" />
+          <h3>ETL in Azure Data Factory</h3>
+          <p>
+            The batch side of Azure: classic scheduled ETL — CSV in Blob Storage → Data Factory pipeline → Azure SQL landing tables. Schema design, security setup and encoding troubleshooting for Swedish characters.
+          </p>
+          <p class="tags"><span>Azure</span><span>Batch ETL</span><span>Data Factory</span><span>SQL</span></p>
+          <a href="azure-data-factory/">View project</a>
+        </article>
+
+        <article class="card">
+          <img src="banking-etl-pipeline/images/report-thumbnail.png" alt="Loan report: monthly transactions and account status" />
+          <h3>Banking ETL Pipeline</h3>
+          <p>
+            A full pipeline from raw banking CSVs through Python cleaning and a star schema to a finished Power BI report — plus the same flow as an SSIS package.
           </p>
           <p class="tags"><span>Python</span><span>ETL</span><span>Power BI</span></p>
-          <a href="Nackademin_BI24/ETL_Assignment_2/">Se projektet</a>
+          <a href="banking-etl-pipeline/">View project</a>
         </article>
 
         <article class="card">
-          <h3>SQL och databasdesign</h3>
+          <img src="bank-database/images/implemented_erd.png" alt="Implemented ERD for the bank database" />
+          <h3>Bank Database in T-SQL</h3>
           <p>
-            ERD och SQL-uppgifter från utbildningen, inklusive grupparbete med datamodellering och relationer.
+            A bank where the business rules live in the database itself: no loan without a credit check, and the monthly payment job is idempotent — run it a hundred times and every payment still posts exactly once.
           </p>
-          <p class="tags"><span>SQL</span><span>ERD</span></p>
-          <a href="Nackademin_BI24/SQL/">Se projektet</a>
-        </article>
-
-        <article class="card">
-          <h3>MyBank</h3>
-          <p>
-            En fiktiv bankdatabas i T-SQL: normaliserat schema, vyer och lagrade procedurer för kreditprövning och annuitetsbetalningar — helt körbar via numrerade skript.
-          </p>
-          <p class="tags"><span>SQL</span><span>T-SQL</span><span>Databasdesign</span></p>
-          <a href="Nackademin_BI24/MyBank/">Se projektet</a>
+          <p class="tags"><span>SQL</span><span>T-SQL</span><span>Database design</span></p>
+          <a href="bank-database/">View project</a>
         </article>
 
       </div>
     </section>
 
     <section class="about">
-      <h2>Om mig</h2>
+      <h2>About me</h2>
       <p>
-        Jag läser BI-utvecklare vid Nackademin (BI24) och söker roller där jag får jobba med att göra data begripligt — oavsett om det handlar om analys, visualisering, SQL eller att bygga smartare arbetsflöden.
+        I graduated as a Business Intelligence Analyst from Nackademin in May 2026, and I'm looking for roles where I get to make data understandable — whether that means wrangling data with SQL or Python, building something an LLM can reason over, or just staring at numbers until they make sense.
       </p>
       <p>
-        Starkast är jag när jag får koppla ihop tekniken med en verklig nytta: vad betyder den här siffran, och vad ska vi göra åt den?
+        I'm at my best connecting the tech to real-world value: what does this number actually mean, and what should we do about it?
       </p>
     </section>
 
     <section class="contact">
-      <h2>Kontakt</h2>
-      <p>Förfrågningar, frågor eller bara en kaffe? Hör av dig via LinkedIn eller mejl.</p>
+      <h2>Contact</h2>
+      <p>Questions, opportunities or just a coffee? Reach out via LinkedIn or email.</p>
       <p class="links">
-        <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:malin@example.com">Mejl</a>
+        <a href="https://www.linkedin.com/in/maalin-jacobsson" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:maalin.jacobsson@gmail.com">Email</a>
       </p>
     </section>
   </main>
