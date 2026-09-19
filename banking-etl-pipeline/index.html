@@ -8,10 +8,10 @@
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
     .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
-    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); min-width: 0; overflow: hidden; }
     .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; }
     .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.5rem; }
-    .shots img { width: 100%; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .shots img { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 0.5rem; }
     .note { color: var(--muted); font-size: 0.95rem; }
     table { width: 100%; border-collapse: collapse; background: var(--surface); }
     th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
