@@ -131,6 +131,29 @@
     </section>
 
     <section class="about">
+      <h2>How I thought about it</h2>
+      <p>It started smaller: five or six agents in a working pipeline — load, model, analyse, export.
+      Then I added an API token and it grew. Every addition forced a design question, and the answers
+      became the architecture:</p>
+      <ul class="note" style="line-height:1.7;">
+        <li><strong>Adding the LLM</strong> — where may the model touch numbers? Nowhere. That became the
+        design principle: deterministic code owns the numbers, the model owns the narrative. And eventually
+        a check agent that verifies it, because a rule you never test is just a hope.</li>
+        <li><strong>Security</strong> — the key lives in <code>.env</code>, never in the repo, and the pipeline
+        runs end-to-end without it. The query agent can only reach data through its tools, so it can neither
+        invent figures nor touch anything outside the exports.</li>
+        <li><strong>Error handling</strong> — a failing agent is logged with its error and marks the run failed
+        in <code>pipeline_health.json</code> rather than passing half-finished data downstream. No API key means
+        a template narrative, not a crash.</li>
+        <li><strong>Orchestration</strong> — once the crew grew past ten steps I wanted to see what a run
+        actually did: audit trail, per-agent durations, a health manifest. Observability as a layer
+        around the crew, not inside it.</li>
+        <li><strong>Flow analysis</strong> — "what changed" was easy; "why" needed decomposition into drivers.
+        Same lesson as the narrative check: if a figure is worth citing, it's worth computing deterministically.</li>
+      </ul>
+    </section>
+
+    <section class="about">
       <h2>Limitations</h2>
       <ul class="note" style="line-height:1.7;">
         <li>Static CSV input — the orchestrator supervises runs but doesn't watch for new data (batch, not streaming).</li>
