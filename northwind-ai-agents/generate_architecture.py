@@ -105,16 +105,18 @@ for i, (name, sub, kind) in enumerate(row2):
 # AnalysisAgent (rightmost row1) drops straight down into InsightAgent (rightmost row2)
 arrow(X0 + 5 * PITCH + W / 2, Y1, X0 + 5 * PITCH + W / 2, Y2 + H)
 
-# Outputs (written by BIExportAgent and DocumentationAgent — left half of row 2)
-box(0.45, 0.45, 7.5, 1.35, "Outputs",
-    "bi_export.csv · customer_profiles.csv · flow_analysis.json · narrative_check.json\npipeline_documentation.md · semantic_model.json",
+# Artifacts — labelled with the agent that actually writes each file
+box(0.45, 0.35, 7.5, 1.55, "Artifacts",
+    "bi_export.csv ← BIExportAgent · customer_profiles.csv ← CRMCustomerProfileAgent\n"
+    "flow_analysis.json ← FlowAnalysisAgent · narrative_check.json ← NarrativeCheckAgent\n"
+    "pipeline_documentation.md ← DocumentationAgent · semantic_model.json ← runner script",
     fill="#f8fafc")
-box(9.45, 0.45, 4.4, 1.35, "QueryAgent",
+box(9.45, 0.35, 4.4, 1.55, "QueryAgent",
     "tool calls over the exports\nquestion + tools → question_log.jsonl",
     fill=LLM_BG, edge=LLM, label_color=LLM)
 
-arrow(X0 + W / 2, Y2, X0 + W / 2, 1.8)                    # DocumentationAgent -> Outputs
-arrow(X0 + PITCH + W / 2, Y2, X0 + PITCH + W / 2, 1.8)    # BIExportAgent -> Outputs
+# one dashed arrow: the run produces the artifacts
+arrow(4.2, 2.5, 4.2, 1.9, dashed=True)
 
 # QueryAgent reads the exports
 arrow(7.95, 1.12, 9.45, 1.12, dashed=True)
