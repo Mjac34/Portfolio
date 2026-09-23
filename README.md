@@ -4,6 +4,7 @@ A selection of my work in BI, data analysis, SQL, Power BI, machine learning, ag
 
 ## Projects
 
+- **excelakuten** — *(work in progress)* automated repair pipeline for broken Excel files: seven logged stages, per-cell changelog, honest flagging of what can't be fixed. Python · FastAPI · openpyxl · LibreOffice.
 - **alarm-analysis** — BI analysis of false alarms in elderly care, with Python and Streamlit (~92% fewer false alarms).
 - **statistical-ml** — ML final assignment: regression, classification, clustering and PCA in scikit-learn.
 - **azure-streaming-pipeline** — Real-time pipeline: Event Hub → Databricks (PySpark) → Azure SQL → Data Factory.

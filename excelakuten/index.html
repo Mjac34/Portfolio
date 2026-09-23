@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excelakuten — Malin Jacobsson</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.04); min-width: 0; overflow: hidden; }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem; }
+    .shots img { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .shots figure { margin: 0; }
+    .shots figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    .files a { color: var(--accent); }
+    ol.steps li { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Excelakuten</h1>
+    <p class="subtitle">Automated repair for broken Excel files — with an audit trail</p>
+    <p class="intro">A seven-stage repair pipeline that takes a corrupted workbook in, fixes what it can,
+    and honestly reports what it can't. Work in progress — currently in external testing.</p>
+  </header>
+  <main>
+    <a class="back" href="../index.html">← Back to portfolio</a>
+
+    <section>
+      <h2>The problem</h2>
+      <p class="note">Every organisation has that one Excel file: 106k+ formulas, volatile INDIRECT/OFFSET
+      chains, circular references, hidden sheets feeding visible formulas, values pasted over live
+      formulas — and XML so corrupt Excel wants to "repair" it on every open. Nobody dares touch it.</p>
+      <p class="note">My test file: 106,000+ formulas (28,000 volatile), formulas pointing at deleted
+      sheets and dead network drives, 205 empty rows mid-table, 4 date formats in one column — and
+      a worksheet claiming 1,048,575 used rows because of three stray cells.</p>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><strong>Load</strong> — parses even corrupt files: CSV, legacy .xls/.ods via LibreOffice, sanitised XML</li>
+        <li><strong>Diagnose</strong> — error map: hidden sheets, external links, broken formula chains</li>
+        <li><strong>Structure</strong> — finds tables, data types and the file's actual data sources</li>
+        <li><strong>Clean</strong> — text dates → dates, Swedish "1 234,56" → numbers, duplicates out, IDs kept as text</li>
+        <li><strong>Repair</strong> — #REF! terms, circular references, pattern-based formula reconstruction</li>
+        <li><strong>Validate</strong> — LibreOffice recalculates every formula; new errors stop the file</li>
+        <li><strong>Export</strong> — clean .xlsx plus a changelog sheet listing every touched cell</li>
+      </ol>
+      <p class="note">Stateless FastAPI service — files are processed in memory and never stored.
+      A job API reports each stage in real time, so the UI shows actual progress instead of a spinner.</p>
+      <div class="shots">
+        <figure>
+          <img src="images/upload.png" alt="Upload page: drag a broken .xlsx here" />
+          <figcaption>Drag-and-drop upload — Swedish UI, API-key protected</figcaption>
+        </figure>
+        <figure>
+          <img src="images/progress.png" alt="Live progress: each pipeline stage lights up" />
+          <figcaption>Real per-stage progress via the job API</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Result on the torture file — 82 seconds</h2>
+      <ul>
+        <li><strong>10,708</strong> text values converted to numbers</li>
+        <li><strong>2,447</strong> text dates converted to real dates</li>
+        <li><strong>4,105</strong> circular references broken</li>
+        <li><strong>40,134</strong> formulas syntax-corrected</li>
+        <li><strong>102,132</strong> formulas recalculated — 0 new errors</li>
+      </ul>
+      <div class="shots">
+        <figure>
+          <img src="images/result.png" alt="Result view: clean with warnings, full fix list" />
+          <figcaption>Every repair listed in plain language</figcaption>
+        </figure>
+        <figure>
+          <img src="images/issues.png" alt="Remaining problems: flagged, not hidden" />
+          <figcaption>Remaining problems are flagged — never hidden</figcaption>
+        </figure>
+        <figure>
+          <img src="images/changelog.png" alt="The Ändringslogg sheet: before/after per cell" />
+          <figcaption>The changelog sheet: before/after + reason, per cell</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>Design choices</h2>
+      <p>Nothing is deleted silently: cells that can't be rebuilt are cleared and logged by reference.
+      An integrity check diffs every cell against the original — unexplained changes get flagged.
+      Sheet protection is preserved and reported; password-encrypted files get a clear error instead
+      of a crash.</p>
+      <p class="note files">The code is private (commercial prototype), but the project deck is here:
+      <a href="excelakuten-linkedin-en.pdf">English PDF</a> ·
+      <a href="excelakuten-linkedin-sv.pdf">Svensk PDF</a> ·
+      Stack: Python · FastAPI · openpyxl · LibreOffice · Docker-ready.</p>
+    </section>
+
+  </main>
+  <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+</body>
+</html>
