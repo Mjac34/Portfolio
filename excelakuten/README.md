@@ -44,7 +44,10 @@ reason. What can't be fixed is flagged — never hidden.
 
 The source code is private (commercial prototype).
 
-## Stack
+## Stack & deployment
 
-Python · FastAPI · openpyxl · LibreOffice · PyYAML · Docker-ready.
-Deployment path: Azure Container Apps.
+Python · FastAPI · openpyxl · LibreOffice · PyYAML.
+Deployed on **Azure Container Apps** (Sweden Central): scale-to-zero
+container, user-assigned managed identity for ACR pulls, API key as a
+Container App secret — infrastructure as code in Bicep
+(`infra/main.bicep`, deployed via `az deployment`).
