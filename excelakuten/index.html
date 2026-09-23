@@ -87,6 +87,17 @@
       </div>
     </section>
 
+    <section>
+      <h2>Why not the existing tools?</h2>
+      <p class="note">Established Excel repair tools are desktop utilities from another era: download an
+      .exe, feed it your file, get something back — with no explanation of what changed, no validation
+      that the repairs actually work, and no record you can show anyone. Excelakuten is built the
+      opposite way: a stateless web service that processes files in memory and stores nothing, validates
+      repairs by recalculating every formula, and returns a changelog listing each touched cell with
+      before/after values. The differentiator isn't that it fixes more — it's that it tells you exactly
+      what it did, and admits what it couldn't.</p>
+    </section>
+
     <section class="about">
       <h2>Design choices</h2>
       <p>Nothing is deleted silently: cells that can't be rebuilt are cleared and logged by reference.
