@@ -28,3 +28,6 @@ bank-database/Dagbok_malin_jacobsson.pdf
 
 # draw.io auto-backups
 .$*.bkp
+
+# Local GoatCounter exports
+stats/
