@@ -27,8 +27,20 @@ reason. What can't be fixed is flagged — never hidden.
   pattern-based reconstruction, legacy `;`-separator normalisation
 - Validation by full LibreOffice recalculation — new errors stop the
   file; per-cell integrity diff against the original
+- Range detection: aggregate formulas whose ranges don't cover
+  appended rows get flagged — a `SUM(B3:B41)` is valid syntax even
+  when it silently misses row 42
 - Stateless API (files processed in memory, never stored) with a job
   API that reports per-stage progress in real time
+
+## Correct, not just valid
+
+Validation isn't only "does it compute". A `SUM(B3:B41)` is
+perfectly valid Excel even when row 42 was appended later — the
+formula keeps returning a number, just the wrong one. Excelakuten
+detects aggregate ranges that miss rows appended to the table they
+summarise and flags them in the changelog, because *no errors* and
+*correct* aren't the same thing.
 
 ## Result on the torture file
 

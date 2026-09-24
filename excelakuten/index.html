@@ -45,7 +45,7 @@
         <li><strong>Structure</strong> — finds tables, data types and the file's actual data sources</li>
         <li><strong>Clean</strong> — text dates → dates, Swedish "1 234,56" → numbers, duplicates out, IDs kept as text</li>
         <li><strong>Repair</strong> — #REF! terms, circular references, pattern-based formula reconstruction</li>
-        <li><strong>Validate</strong> — LibreOffice recalculates every formula; new errors stop the file</li>
+        <li><strong>Validate</strong> — LibreOffice recalculates every formula; new errors stop the file and aggregate ranges that miss appended rows get flagged</li>
         <li><strong>Export</strong> — clean .xlsx plus a changelog sheet listing every touched cell</li>
       </ol>
       <p class="note">Stateless FastAPI service — files are processed in memory and never stored.
@@ -95,7 +95,9 @@
       opposite way: a stateless web service that processes files in memory and stores nothing, validates
       repairs by recalculating every formula, and returns a changelog listing each touched cell with
       before/after values. The differentiator isn't that it fixes more — it's that it tells you exactly
-      what it did, and admits what it couldn't.</p>
+      what it did, and admits what it couldn't. It also checks semantics, not just syntax: a
+      <code>SUM(B3:B41)</code> is perfectly valid Excel even when it silently misses row 42 — appended
+      after the range was written — so ranges like that get flagged instead of passing as "no errors".</p>
     </section>
 
     <section class="about">
@@ -115,5 +117,6 @@
 
   </main>
   <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+  <script data-goatcounter="https://mjac34.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
