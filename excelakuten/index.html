@@ -22,7 +22,7 @@
     <h1>Excelakuten</h1>
     <p class="subtitle">Automated repair for broken Excel files — with an audit trail</p>
     <p class="intro">A seven-stage repair pipeline that takes a corrupted workbook in, fixes what it can,
-    and honestly reports what it can't. Work in progress — currently in external testing.</p>
+    and honestly reports what it can't. Live on Azure Container Apps — scale-to-zero, Sweden Central.</p>
   </header>
   <main>
     <a class="back" href="../index.html">← Back to portfolio</a>
@@ -46,7 +46,7 @@
         <li><strong>Clean</strong> — text dates → dates, Swedish "1 234,56" → numbers, duplicates out, IDs kept as text</li>
         <li><strong>Repair</strong> — #REF! terms, circular references, pattern-based formula reconstruction</li>
         <li><strong>Validate</strong> — LibreOffice recalculates every formula; new errors stop the file and aggregate ranges that miss appended rows get flagged</li>
-        <li><strong>Export</strong> — clean .xlsx plus a changelog sheet listing every touched cell</li>
+        <li><strong>Export</strong> — clean .xlsx plus a Rapport verdict sheet, a "Granska dessa" sheet with every flagged problem's exact cell, and an Ändringslogg changelog</li>
       </ol>
       <p class="note">Stateless FastAPI service — files are processed in memory and never stored.
       A job API reports each stage in real time, so the UI shows actual progress instead of a spinner.</p>
@@ -63,7 +63,7 @@
     </section>
 
     <section>
-      <h2>Result on the torture file — 82 seconds</h2>
+      <h2>Result on the torture file — ≈90 seconds</h2>
       <ul>
         <li><strong>10,708</strong> text values converted to numbers</li>
         <li><strong>2,447</strong> text dates converted to real dates</li>
@@ -81,8 +81,12 @@
           <figcaption>Remaining problems are flagged — never hidden</figcaption>
         </figure>
         <figure>
-          <img src="images/changelog.png" alt="The Ändringslogg sheet: before/after per cell" />
-          <figcaption>The changelog sheet: before/after + reason, per cell</figcaption>
+          <img src="images/changelog.png" alt="The Ändringslogg sheet: guesses per cell, safe changes summarised" />
+          <figcaption>The changelog: uncertain changes per cell, safe ones summarised per sheet</figcaption>
+        </figure>
+        <figure>
+          <img src="images/rapport.png" alt="The Rapport sheet: verdict and audit summary, first in the file" />
+          <figcaption>The Rapport sheet — the verdict travels with the file</figcaption>
         </figure>
       </div>
     </section>

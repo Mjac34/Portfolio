@@ -1,7 +1,7 @@
 # Excelakuten
 
 **Automated repair for broken Excel files — with an audit trail.**
-Work in progress; currently in external testing.
+Live on Azure Container Apps (scale-to-zero, Sweden Central).
 
 Every organisation has that one Excel file: 106k+ formulas, volatile
 `INDIRECT`/`OFFSET` chains, circular references, hidden sheets feeding
@@ -11,9 +11,12 @@ Nobody dares touch it.
 
 Excelakuten is a seven-stage repair pipeline (FastAPI + openpyxl +
 LibreOffice): load → diagnose → structure → clean → repair →
-validate → export. The output is a clean `.xlsx` plus a changelog
-sheet listing **every touched cell** with before/after values and the
-reason. What can't be fixed is flagged — never hidden.
+validate → export. The output is a new `.xlsx` (the original is never
+touched) with three audit sheets: a printable `Rapport` verdict,
+a `Granska dessa` sheet listing every flagged problem's exact cell,
+and an `Ändringslogg` changelog — uncertain changes per cell, safe
+mechanical ones summarised per sheet. What can't be fixed is
+flagged — never hidden.
 
 ## Highlights
 
@@ -44,9 +47,11 @@ summarise and flags them in the changelog, because *no errors* and
 
 ## Result on the torture file
 
-82 seconds: 10,708 text values → numbers · 2,447 text dates → dates ·
+≈90 seconds: 10,708 text values → numbers · 2,447 text dates → dates ·
 4,105 circular references broken · 40,134 formulas syntax-corrected ·
-102,132 formulas recalculated with 0 new errors.
+102,132 formulas recalculated with 0 new errors — and 56,651 safe
+changes summarised into a handful of changelog rows while the 6
+uncertain ones are listed per cell.
 
 ## Artefacts
 
