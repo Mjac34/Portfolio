@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Excelakuten — Malin Jacobsson</title>
+  <title>Kalkylakuten — Malin Jacobsson</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
     .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
@@ -19,10 +19,12 @@
 </head>
 <body>
   <header class="hero">
-    <h1>Excelakuten</h1>
+    <h1>Kalkylakuten</h1>
     <p class="subtitle">Automated repair for broken Excel files — with an audit trail</p>
-    <p class="intro">A seven-stage repair pipeline that takes a corrupted workbook in, fixes what it can,
-    and honestly reports what it can't. Live on Azure Container Apps — scale-to-zero, Sweden Central.</p>
+    <p class="intro">A commercial web service: free diagnosis, then a repair pipeline that takes a
+    corrupted workbook in, fixes what it can, and honestly reports what it can't — 299 kr, refunded
+    automatically if the repair fails. Live on Azure Container Apps with Stripe payments,
+    scale-to-zero, Sweden Central.</p>
   </header>
   <main>
     <a class="back" href="../index.html">← Back to portfolio</a>
@@ -48,16 +50,22 @@
         <li><strong>Validate</strong> — LibreOffice recalculates every formula; new errors stop the file and aggregate ranges that miss appended rows get flagged</li>
         <li><strong>Export</strong> — clean .xlsx plus a Rapport verdict sheet, a "Granska dessa" sheet with every flagged problem's exact cell, and an Ändringslogg changelog</li>
       </ol>
-      <p class="note">Stateless FastAPI service — files are processed in memory and never stored.
-      A job API reports each stage in real time, so the UI shows actual progress instead of a spinner.</p>
+      <p class="note">FastAPI service — the free diagnosis runs before any payment, and jobs are
+      persisted in Azure Blob Storage (Sweden Central) so a paid repair survives restarts; files are
+      auto-deleted within two hours. A job API reports each stage in real time, so the UI shows
+      actual progress instead of a spinner.</p>
       <div class="shots">
         <figure>
-          <img src="images/upload.png" alt="Upload page: drag a broken .xlsx here" />
-          <figcaption>Drag-and-drop upload — Swedish UI, API-key protected</figcaption>
+          <img src="images/ui-landing.png" alt="Landing page: drag a broken .xlsx here" />
+          <figcaption>Drag-and-drop upload — Swedish UI, free diagnosis</figcaption>
         </figure>
         <figure>
-          <img src="images/progress.png" alt="Live progress: each pipeline stage lights up" />
+          <img src="images/ui-progress.png" alt="Live progress: each stage lights up during diagnosis" />
           <figcaption>Real per-stage progress via the job API</figcaption>
+        </figure>
+        <figure>
+          <img src="images/ui-diagnosis.png" alt="Diagnosis result: nine problem categories listed, repair CTA" />
+          <figcaption>The free diagnosis lists every finding — repair is 299 kr via Stripe Checkout</figcaption>
         </figure>
       </div>
     </section>
@@ -95,10 +103,10 @@
       <h2>Why not the existing tools?</h2>
       <p class="note">Established Excel repair tools are desktop utilities from another era: download an
       .exe, feed it your file, get something back — with no explanation of what changed, no validation
-      that the repairs actually work, and no record you can show anyone. Excelakuten is built the
-      opposite way: a stateless web service that processes files in memory and stores nothing, validates
-      repairs by recalculating every formula, and returns a changelog listing each touched cell with
-      before/after values. The differentiator isn't that it fixes more — it's that it tells you exactly
+      that the repairs actually work, and no record you can show anyone. Kalkylakuten is built the
+      opposite way: a web service that stores files briefly in Sweden and auto-deletes them within two
+      hours, validates repairs by recalculating every formula, and returns a changelog listing each
+      touched cell with before/after values. The differentiator isn't that it fixes more — it's that it tells you exactly
       what it did, and admits what it couldn't. It also checks semantics, not just syntax: a
       <code>SUM(B3:B41)</code> is perfectly valid Excel even when it silently misses row 42 — appended
       after the range was written — so ranges like that get flagged instead of passing as "no errors".</p>
@@ -111,11 +119,12 @@
       Sheet protection is preserved and reported; password-encrypted files get a clear error instead
       of a crash.</p>
       <p class="note files">The code is private (commercial prototype), but the project deck is here:
-      <a href="excelakuten-linkedin-en.pdf">English PDF</a> ·
-      <a href="excelakuten-linkedin-sv.pdf">Svensk PDF</a> ·
-      <a href="https://excelakuten.victoriousmoss-9ca9eab5.swedencentral.azurecontainerapps.io/">Live demo</a>
-      (key required — ask me) ·
-      Stack: Python · FastAPI · openpyxl · LibreOffice · deployed on Azure
+      <a href="kalkylakuten-linkedin-en.pdf">English PDF</a> ·
+      <a href="kalkylakuten-linkedin-sv.pdf">Svensk PDF</a> ·
+      <a href="https://kalkylakuten.se">Live</a>
+      (access code required — ask me) ·
+      Stack: Python · FastAPI · openpyxl · LibreOffice · Stripe Checkout + webhooks ·
+      Azure Blob Storage job persistence · deployed on Azure
       Container Apps — scale-to-zero, Sweden Central, infra as code in Bicep.</p>
     </section>
 

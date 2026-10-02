@@ -1,7 +1,9 @@
-# Excelakuten
+# Kalkylakuten
 
 **Automated repair for broken Excel files — with an audit trail.**
-Live on Azure Container Apps (scale-to-zero, Sweden Central).
+Live at [kalkylakuten.se](https://kalkylakuten.se) on Azure Container
+Apps (scale-to-zero, Sweden Central): free diagnosis, 299 kr repair,
+automatic refund on failure — Stripe Checkout.
 
 Every organisation has that one Excel file: 106k+ formulas, volatile
 `INDIRECT`/`OFFSET` chains, circular references, hidden sheets feeding
@@ -9,7 +11,7 @@ visible formulas, hardcoded values pasted over live formulas — and XML
 so corrupt that Excel itself wants to "repair" it on every open.
 Nobody dares touch it.
 
-Excelakuten is a seven-stage repair pipeline (FastAPI + openpyxl +
+Kalkylakuten is a seven-stage repair pipeline (FastAPI + openpyxl +
 LibreOffice): load → diagnose → structure → clean → repair →
 validate → export. The output is a new `.xlsx` (the original is never
 touched) with three audit sheets: a printable `Rapport` verdict,
@@ -33,8 +35,11 @@ flagged — never hidden.
 - Range detection: aggregate formulas whose ranges don't cover
   appended rows get flagged — a `SUM(B3:B41)` is valid syntax even
   when it silently misses row 42
-- Stateless API (files processed in memory, never stored) with a job
-  API that reports per-stage progress in real time
+- Paid repair behind Stripe Checkout — webhook-triggered, refunded
+  automatically if repair or validation fails
+- Job persistence in Azure Blob Storage: paid work survives restarts
+  and scale-to-zero; files auto-delete within two hours
+- A job API that reports per-stage progress in real time
 
 ## Correct, not just valid
 
@@ -44,6 +49,13 @@ formula keeps returning a number, just the wrong one. Excelakuten
 detects aggregate ranges that miss rows appended to the table they
 summarise and flags them in the changelog, because *no errors* and
 *correct* aren't the same thing.
+
+## Commercial model
+
+Diagnosis is free — you see every finding before deciding. Repair
+costs 299 kr (VAT included, handled by Stripe). Payment is confirmed
+via webhook before repair starts, and a failed repair or validation
+triggers an automatic refund. Clean files are never charged.
 
 ## Result on the torture file
 
@@ -55,16 +67,17 @@ uncertain ones are listed per cell.
 
 ## Artefacts
 
-- [Project deck (EN)](excelakuten-linkedin-en.pdf)
-- [Projektpresentation (SV)](excelakuten-linkedin-sv.pdf)
+- [Project deck (EN)](kalkylakuten-linkedin-en.pdf)
+- [Projektpresentation (SV)](kalkylakuten-linkedin-sv.pdf)
 - `images/` — UI screenshots
 
-The source code is private (commercial prototype).
+The source code is private — this is a live commercial product run
+as a Swedish sole proprietorship.
 
 ## Stack & deployment
 
-Python · FastAPI · openpyxl · LibreOffice · PyYAML.
+Python · FastAPI · openpyxl · LibreOffice · PyYAML · Stripe.
 Deployed on **Azure Container Apps** (Sweden Central): scale-to-zero
-container, user-assigned managed identity for ACR pulls, API key as a
-Container App secret — infrastructure as code in Bicep
-(`infra/main.bicep`, deployed via `az deployment`).
+container, user-assigned managed identity for ACR pulls, job state in
+**Azure Blob Storage** so paid work survives restarts — infrastructure
+as code in Bicep (`infra/main.bicep`, deployed via `az deployment`).
