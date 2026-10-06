@@ -70,8 +70,9 @@
         <li><strong>Decide</strong> — every warn flag becomes a numbered decision in
         <code>decisions.json</code>, stable across re-runs. A local web UI lets the reviewer click
         each flag straight through to its canonical source slice and its target table —
-        approve, reject or override — then regenerate all artifacts with the approved
-        overrides applied</li>
+        approve, reject or override. <strong>Each accepted decision mutates the model
+        and regenerates the migration</strong> — the review list isn't a report about the
+        work, it <em>is</em> the work</li>
         <li><strong>Load &amp; validate</strong> — the automatable part of the migration itself:
         generated INSERT SQL (snowflake JOINs, bridge loads) plus a paired validation harness —
         row counts, additive-measure checksums, foreign-key orphan checks — so generated SQL
@@ -156,11 +157,13 @@
         </figure>
       </div>
 
-      <h3 style="margin-top:2rem">The review loop — an interactive workspace</h3>
+      <h3 style="margin-top:2rem">The review loop — where reviewing <em>is</em> migrating</h3>
       <p class="note">The same <code>decisions.json</code> drives a local, zero-dependency web UI
       running entirely offline. Click a flag and see where the problem actually lives: the
       canonical source slice on top, the star-schema target below. Approve, reject or
-      override — then one click regenerates every artifact with the decisions applied.
+      override — and each accepted decision is written into the model itself; one click
+      regenerates every artifact with it applied. The queue emptying isn't paperwork
+      finishing — it's the migration being completed, decision by decision.
       The workbook stays as the exportable record for archiving and sign-off.</p>
       <div class="shots">
         <figure>
