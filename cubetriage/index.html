@@ -19,6 +19,11 @@
       font-weight: 600; margin-top: 0.8rem; }
     .now { color: var(--muted); font-size: 0.95rem; }
     .now li { margin-bottom: 0.3rem; }
+    .speed { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.5rem 0;
+      padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .speed div { display: flex; flex-direction: column; }
+    .speed strong { font-size: 1.5rem; color: var(--accent); }
+    .speed span { color: var(--muted); font-size: 0.85rem; }
   </style>
 </head>
 <body>
@@ -102,6 +107,15 @@
         <li><strong>101</strong> assumptions the engine had to make — each one documented</li>
         <li><strong>120</strong> human-review items — the workbook is the work order</li>
       </ul>
+      <div class="speed">
+        <div><strong>1.19&nbsp;s</strong><span>.xmla → all artifacts</span></div>
+        <div><strong>1.46&nbsp;s</strong><span>SSDT project folder (auto-merged) → all artifacts</span></div>
+        <div><strong>~1&nbsp;s</strong><span>regeneration with decisions applied</span></div>
+        <div><strong>0.13&nbsp;s</strong><span>the analysis itself (ingest + transform)</span></div>
+      </div>
+      <p class="note">All eleven artifacts — schema, load SQL, validation SQL, workbook,
+      diagram, decisions — from one file in about a second. The slowest steps are the
+      Excel render and the diagram, not the analysis.</p>
       <p class="note" style="margin-top:1.5rem"><strong>Tabular</strong> (Microsoft's AdventureWorks
       Internet Sales <code>.bim</code>, compatibility level 1400): with no
       <code>Dim*</code>/<code>Fact*</code> naming convention to lean on, the engine classified every
