@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CubeTriage — Malin Jacobsson</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem; }
+    .shots img { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .shots figure { margin: 0; }
+    .shots figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    .files a { color: var(--accent); }
+    ol.steps li { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>CubeTriage</h1>
+    <p class="subtitle">Automated diagnosis for legacy OLAP cubes — every trap found, flagged and quantified</p>
+    <p class="intro">A migration-assessment engine. Feed it an exported SSAS cube definition —
+    it reads the metadata, untangles the model and returns a proposed star schema, a quantified
+    complexity report, and an Excel workbook where every uncertainty is a reviewable decision.
+    Nothing is hidden, nothing is silently dropped.</p>
+  </header>
+  <main>
+    <a class="back" href="../index.html">← Back to portfolio</a>
+
+    <section>
+      <h2>The problem</h2>
+      <p class="note">Migrating a legacy SSAS cube to a modern relational model is weeks of a senior
+      consultant's time: untangling MDX measures, mapping role-playing dimensions, discovering the
+      KPIs, perspectives and security roles nobody documented. Before anyone can even price the
+      migration, somebody has to spend days just finding out what's in the cube.</p>
+      <p class="note">CubeTriage answers the question every engagement starts with — <em>how much
+      work is this cube, really?</em> — in seconds, from a single exported file. No cube data is
+      read, only metadata; credentials in the file are masked before parsing, and the whole run can
+      execute offline inside the customer's own network.</p>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><strong>Sniff</strong> — detects the input format: Tabular <code>.bim</code>/TMSL, a scripted
+        Multidimensional database (<code>.xmla</code>), or an SSDT project folder/<code>.zip</code>
+        (<code>.cube</code> + <code>.dim</code> files are merged automatically)</li>
+        <li><strong>Sanitize</strong> — passwords, connection strings and tokens are masked in the raw
+        text before parsing; the scrub count is reported in the run log</li>
+        <li><strong>Ingest</strong> — normalizes Tabular or Multidimensional metadata into a single
+        canonical model. Constructs the engine sees but cannot migrate are recorded in a
+        <em>dropped</em> channel — never ignored silently</li>
+        <li><strong>Transform</strong> — proposes the target star schema: facts, conformed dimensions,
+        bridge tables, physical types. Every inference lands in an <em>assumptions</em> channel;
+        every trap becomes a severity-graded <em>review</em> flag</li>
+        <li><strong>Render</strong> — emits SQL DDL with real types, a markdown report, an annotated
+        trap diagram, and an Excel workbook where each uncertainty is a row with a decision column</li>
+        <li><strong>Decide</strong> — every warn flag becomes a numbered decision in
+        <code>decisions.json</code>, stable across re-runs. A local web UI lets the reviewer click
+        each flag straight through to its canonical source slice and its target table —
+        approve, reject or override — then regenerate all artifacts with the approved
+        overrides applied</li>
+        <li><strong>Proposals</strong> (opt-in) — a backend interface can suggest resolutions for each
+        flag. Code verifiers check every suggestion against the model; the AI proposes, code
+        verifies, a human decides</li>
+      </ol>
+      <div class="shots">
+        <figure>
+          <img src="images/code-stages.png" alt="The stage dispatcher: fatal stages stop the pipeline, render artefacts are fault-tolerant" />
+          <figcaption>Teaser for the nerds: the stage runner — ingest/transform are fatal,
+          artefact rendering is fault-tolerant</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Result on real cubes — validated on both formats</h2>
+      <p class="note">Microsoft's own reference models — built to demonstrate enterprise SSAS
+      features — through the pipeline in seconds. <strong>Multidimensional</strong>
+      (Adventure Works 2019 Enterprise Edition, ASSL):</p>
+      <ul>
+        <li><strong>16</strong> dimensions, <strong>11</strong> measure groups, <strong>79</strong>
+        relationships, <strong>38</strong> measures — mapped automatically</li>
+        <li><strong>22</strong> calculated measures written in MDX — identified for manual
+        translation, not ignored</li>
+        <li><strong>29</strong> role-playing relationships, <strong>4</strong> parent-child
+        hierarchies, <strong>4</strong> reference dimensions, <strong>6</strong> many-to-many
+        bridge relationships</li>
+        <li><strong>31</strong> constructs that cannot migrate (KPIs, actions, perspectives,
+        translations, semi-additive measures) — reported, not lost</li>
+        <li><strong>101</strong> assumptions the engine had to make — each one documented</li>
+        <li><strong>120</strong> human-review items — the workbook is the work order</li>
+      </ul>
+      <p class="note" style="margin-top:1.5rem"><strong>Tabular</strong> (Microsoft's AdventureWorks
+      Internet Sales <code>.bim</code>, compatibility level 1400): with no
+      <code>Dim*</code>/<code>Fact*</code> naming convention to lean on, the engine classified every
+      table purely from the relationship graph — 4 dimensions (Customer+Geography,
+      Date, Product+Subcategory+Category, Employee) and 2 facts, with the
+      three-level snowflake chain folded and an RLS role caught in the dropped channel.</p>
+      <div class="shots">
+        <figure>
+          <img src="images/aw-trap-diagram.png" alt="Adventure Works star schema with migration traps marked: role-playing time dimension, parent-child hierarchies, m2m bridges" />
+          <figcaption>The trap diagram: yellow facts, blue dimensions, purple m2m bridges —
+          red boxes are trap-flagged</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin-top:2rem">The deliverable — a human-review workbook</h3>
+      <p class="note">Every uncertainty lands as a row with an empty decision column. The
+      consultant doesn't untangle the cube — they review a numbered list of concrete decisions.</p>
+      <div class="shots">
+        <figure>
+          <img src="images/workbook-overview.png" alt="Workbook overview sheet: cube metrics — 16 dimensions, 79 relationships, 120 hitl items" />
+          <figcaption>Översikt — the whole complexity report as numbers</figcaption>
+        </figure>
+        <figure>
+          <img src="images/workbook-dropped.png" alt="Dropped sheet: unary operators, semi-additive measures and unsupported aggregators listed with decision columns" />
+          <figcaption>Ej migrerat — observed but unmigratable, reported never lost</figcaption>
+        </figure>
+        <figure>
+          <img src="images/workbook-proposals.png" alt="Proposals sheet: each flagged item with a suggested resolution, code verifier results and backend provenance" />
+          <figcaption>Förslag — every suggestion carries its verifier results and provenance</figcaption>
+        </figure>
+        <figure>
+          <img src="images/workbook-assumptions.png" alt="Assumptions sheet: each inferred default value listed for human verification" />
+          <figcaption>Antaganden — every inferred default is documented for verification</figcaption>
+        </figure>
+        <figure>
+          <img src="images/workbook-schema.png" alt="Schema sheet: proposed star schema with physical column names and real types" />
+          <figcaption>Schema — the proposed target model with real physical types</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin-top:2rem">The review loop — an interactive workspace</h3>
+      <p class="note">The same <code>decisions.json</code> drives a local, zero-dependency web UI
+      running entirely offline. Click a flag and see where the problem actually lives: the
+      canonical source slice on top, the star-schema target below. Approve, reject or
+      override — then one click regenerates every artifact with the decisions applied.
+      The workbook stays as the exportable record for archiving and sign-off.</p>
+      <div class="shots">
+        <figure>
+          <img src="images/review-ui-detail.png" alt="CubeTriage review UI: flag list on the left, selected flag showing canonical source JSON, target table dbo_DimCustomer and Approve/Reject/Override buttons" />
+          <figcaption>Click a flag → see the source object and where it lands —
+          the orphan attribute <em>Date First Purchase</em> traced end to end</figcaption>
+        </figure>
+        <figure>
+          <img src="images/review-ui-calculated.png" alt="Review UI showing a calculated measure flag: the MDX expression in the canonical source, target table, decision buttons" />
+          <figcaption>A calculated MDX measure flagged for manual translation —
+          the expression itself is the evidence, the decision is one click</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why not the existing approach?</h2>
+      <p class="note">The status quo is a senior consultant with SSMS, a spreadsheet and six weeks.
+      CubeTriage inverts that: the deterministic engine does the inventory — same input, same
+      output, every time — and produces an auditable artefact instead of a verbal estimate.
+      "Six weeks of untangling" becomes "120 concrete decisions". The AI layer is deliberately
+      boxed in: it may <em>propose</em> resolutions to flagged items, but it can never modify the
+      source model, and code verifiers check every proposal before a human sees it.</p>
+      <p class="note">Regression is anchored in 18 synthetic fixture cubes engineered to carry every
+      trap class — plus this real one. When a construct can't be migrated, the report says so.</p>
+    </section>
+
+    <section class="about">
+      <h2>Design choices</h2>
+      <p>Provenance is structural: observed facts, inferred values, dropped constructs and
+      AI-generated proposals are four separate channels — a reviewer can always tell what the
+      engine <em>knows</em> from what it <em>guesses</em>. The engine is deterministic and offline-capable:
+      no network calls, no telemetry, designed to run as a container inside a customer's perimeter
+      so cube metadata never leaves their environment.</p>
+      <p class="note files">The code is private (commercial prototype), but the project deck is
+      here: <a href="cubetriage-deck-en.pdf">English PDF</a>.
+      Stack: Python · SSAS/OLAP (Tabular TMSL + Multidimensional ASSL) · openpyxl · matplotlib ·
+      LLM proposals behind a mockable backend interface.</p>
+    </section>
+
+  </main>
+  <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+  <script data-goatcounter="https://mjac34.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
