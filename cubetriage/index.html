@@ -161,21 +161,28 @@
       <h3 style="margin-top:2rem">The review loop — where reviewing <em>is</em> migrating</h3>
       <p class="note">The same <code>decisions.json</code> drives a local, zero-dependency web UI
       running entirely offline. Click a flag and see where the problem actually lives: the
-      canonical source slice on top, the star-schema target below. Approve, reject or
-      override — and each accepted decision is written into the model itself; one click
-      regenerates every artifact with it applied. The queue emptying isn't paperwork
-      finishing — it's the migration being completed, decision by decision.
+      canonical source slice on top, the star-schema target below. The buttons say the
+      <em>outcome</em>, not the process — Keep column, Drop column, Provide SQL — and each
+      accepted decision is written into the model itself; one click regenerates every
+      artifact with it applied. The queue emptying isn't paperwork finishing — it's the
+      migration being completed, decision by decision.
       The workbook stays as the exportable record for archiving and sign-off.</p>
       <div class="shots">
         <figure>
-          <img src="images/review-ui-detail.png" alt="CubeTriage review UI: flag list on the left, selected flag showing canonical source JSON, target table dbo_DimCustomer and Approve/Reject/Override buttons" />
-          <figcaption>Click a flag → see the source object and where it lands —
-          the orphan attribute <em>Date First Purchase</em> traced end to end</figcaption>
+          <img src="images/review-ui-decision.png" alt="CubeTriage review UI: flag list with warn badges, selected SCD2 flag showing canonical source JSON, target table and outcome-verb decision buttons" />
+          <figcaption>Click a flag → see the source and where it lands, then decide in
+          verbs: <em>Keep SCD2</em>, not "approve"</figcaption>
         </figure>
         <figure>
-          <img src="images/review-ui-calculated.png" alt="Review UI showing a calculated measure flag: the MDX expression in the canonical source, target table, decision buttons" />
-          <figcaption>A calculated MDX measure flagged for manual translation —
-          the expression itself is the evidence, the decision is one click</figcaption>
+          <img src="images/model-diagram.png" alt="Power BI-style model diagram drawn live from the star schema: fact and dimension table cards with columns, FK edges anchored at key rows, bridges dashed" />
+          <figcaption>The star drawn live, Power BI-style — FK edges anchored at the
+          actual key rows, flagged tables tinted red, rebuilt after every decision</figcaption>
+        </figure>
+        <figure>
+          <img src="images/manual-work.png" alt="Manual work view listing 22 calculated measures needing SQL and artifact notes to verify" />
+          <figcaption>Manual work — the honest backlog. 22 calculated measures need
+          SQL; each links to its decision. The counter in the header <em>is</em> the
+          remaining workload</figcaption>
         </figure>
       </div>
     </section>
@@ -193,6 +200,9 @@
         else stays advice</li>
         <li><strong>Done:</strong> load SQL + validation harness — 27 INSERTs and 101 paired checks
         generated from metadata alone</li>
+        <li><strong>Done:</strong> reviewer-tested UI — outcome verbs per flag, severity badges and
+        priority, a Power BI-style live model diagram, Provide SQL as a first-class
+        decision, and a Manual work view that counts the honest backlog</li>
         <li><strong>Next:</strong> the validation runner itself — executes the paired checks against a
         live source/target inside the customer's perimeter (pyodbc, opt-in)</li>
         <li><strong>Next:</strong> byte-level provenance — click a flag and land on the exact element
@@ -221,7 +231,8 @@
       no network calls, no telemetry, designed to run as a container inside a customer's perimeter
       so cube metadata never leaves their environment.</p>
       <p class="note files">The code is private (commercial prototype), but the project deck is
-      here: <a href="cubetriage-deck-en.pdf">English PDF</a>.
+      here: <a href="cubetriage-deck-en.pdf">English PDF</a> — and a how-to-use guide:
+      <a href="cubetriage-howto-en.pdf">quickstart PDF</a>.
       Stack: Python · SSAS/OLAP (Tabular TMSL + Multidimensional ASSL) · openpyxl · matplotlib ·
       LLM proposals behind a mockable backend interface.</p>
     </section>
