@@ -14,12 +14,18 @@
     .note { color: var(--muted); font-size: 0.95rem; }
     .files a { color: var(--accent); }
     ol.steps li { margin-bottom: 0.4rem; }
+    .status { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 1rem;
+      border: 1px solid var(--accent); color: var(--accent); font-size: 0.8rem;
+      font-weight: 600; margin-top: 0.8rem; }
+    .now { color: var(--muted); font-size: 0.95rem; }
+    .now li { margin-bottom: 0.3rem; }
   </style>
 </head>
 <body>
   <header class="hero">
     <h1>CubeTriage</h1>
     <p class="subtitle">Automated diagnosis for legacy OLAP cubes — every trap found, flagged and quantified</p>
+    <span class="status">In active development — verified results, unfinished edges</span>
     <p class="intro">A migration-assessment engine. Feed it an exported SSAS cube definition —
     it reads the metadata, untangles the model and returns a proposed star schema, a quantified
     complexity report, and an Excel workbook where every uncertainty is a reviewable decision.
@@ -61,6 +67,10 @@
         each flag straight through to its canonical source slice and its target table —
         approve, reject or override — then regenerate all artifacts with the approved
         overrides applied</li>
+        <li><strong>Load &amp; validate</strong> — the automatable part of the migration itself:
+        generated INSERT SQL (snowflake JOINs, bridge loads) plus a paired validation harness —
+        row counts, additive-measure checksums, foreign-key orphan checks — so generated SQL
+        is always shipped with its own proof</li>
         <li><strong>Proposals</strong> (opt-in) — a backend interface can suggest resolutions for each
         flag. Code verifiers check every suggestion against the model; the AI proposes, code
         verifies, a human decides</li>
@@ -150,6 +160,27 @@
           the expression itself is the evidence, the decision is one click</figcaption>
         </figure>
       </div>
+    </section>
+
+    <section>
+      <h2>Now building — follow along</h2>
+      <p class="note">The honest state of the project — verified on real cubes, extended piece by
+      piece. Everything below is designed the same way: what can be automated is, what can't
+      is reported instead of fabricated.</p>
+      <ul class="now">
+        <li><strong>Done:</strong> decisions.json + apply loop — approved overrides mutate the model
+        and every artifact regenerates (~1 s)</li>
+        <li><strong>Done:</strong> verified proposals are acceptable — an AI suggestion that survives
+        code verification <em>and</em> reduces to a canonical diff gets an Apply button; everything
+        else stays advice</li>
+        <li><strong>Done:</strong> load SQL + validation harness — 27 INSERTs and 101 paired checks
+        generated from metadata alone</li>
+        <li><strong>Next:</strong> the validation runner itself — executes the paired checks against a
+        live source/target inside the customer's perimeter (pyodbc, opt-in)</li>
+        <li><strong>Next:</strong> byte-level provenance — click a flag and land on the exact element
+        in the exported source file, not just the canonical slice</li>
+        <li><strong>Next:</strong> container packaging — the whole pipeline as one runnable image</li>
+      </ul>
     </section>
 
     <section>
