@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QueryTriage — Malin Jacobsson</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem; }
+    .shots img { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .shots figure { margin: 0; }
+    .shots figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    .files a { color: var(--accent); }
+    ol.steps li { margin-bottom: 0.4rem; }
+    .status { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 1rem;
+      border: 1px solid var(--accent); color: var(--accent); font-size: 0.8rem;
+      font-weight: 600; margin-top: 0.8rem; }
+    .now { color: var(--muted); font-size: 0.95rem; }
+    .now li { margin-bottom: 0.3rem; }
+    .speed { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.5rem 0;
+      padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 0.5rem; }
+    .speed div { display: flex; flex-direction: column; }
+    .speed strong { font-size: 1.5rem; color: var(--accent); }
+    .speed span { color: var(--muted); font-size: 0.85rem; }
+    .shots img { cursor: zoom-in; }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 100;
+      background: rgba(0, 0, 0, 0.88); overflow: auto; cursor: zoom-out;
+      align-items: center; justify-content: center; padding: 2rem; }
+    .lightbox.open { display: flex; }
+    .lightbox figure { margin: auto; text-align: center; }
+    .lightbox img { max-width: 95vw; max-height: 85vh; object-fit: contain;
+      border-radius: 0.5rem; cursor: zoom-in; }
+    .lightbox img.native { max-width: none; max-height: none; }
+    .lightbox figcaption { color: #ccc; font-size: 0.9rem; margin-top: 0.8rem;
+      max-width: 60rem; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>QueryTriage</h1>
+    <p class="subtitle">A decision-driven migration engine for legacy SQL — every trap found, flagged and priced</p>
+    <span class="status">In active development — verified results, unfinished edges</span>
+    <p class="intro">Feed it a folder of .sql files — it parses the procedures, views and
+    functions, builds the dependency graph and returns a layered DAG, a quantified risk
+    report, and an Excel workbook where every uncertainty is a reviewable decision.
+    What the parser cannot prove is marked inferred — never silently dropped. Same
+    engine family as CubeTriage, different domain.</p>
+  </header>
+  <main>
+    <a class="back" href="../index.html">← Back to portfolio</a>
+
+    <section>
+      <h2>The problem</h2>
+      <p class="note">Every legacy migration starts in the same place: a database full of
+      procedures, views and functions nobody has mapped. Circular references, dynamic
+      SQL, deprecated syntax and dead code hide in the corpus — and nobody knows the
+      load order. Before anyone can price the migration, somebody spends days just
+      finding out what's actually in the database.</p>
+      <p class="note">QueryTriage answers that question in seconds — from the .sql
+      files alone. No database connection is needed; credentials in scripts are masked
+      before parsing, and the whole run executes offline inside the customer's own
+      network.</p>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><strong>Sniff</strong> — detects a <code>.sql</code> file, a directory of
+        them, or a zip</li>
+        <li><strong>Sanitize</strong> — passwords, connection strings and tokens are
+        masked in the raw text before parsing</li>
+        <li><strong>Ingest</strong> — sqlglot builds an AST per object and extracts
+        dependency edges (<em>confidence=parsed</em>). Chunks that resist parsing fall
+        back to regex and are marked <em>confidence=inferred</em> — the chaos stays
+        visible, never hidden</li>
+        <li><strong>Transform</strong> — Tarjan cycle detection, topological layering,
+        and severity-graded review flags: circular refs, dynamic SQL, SELECT *,
+        deprecated syntax, temp-table contracts, external/missing refs, dead code</li>
+        <li><strong>Render</strong> — a markdown report, a mermaid + PNG dependency
+        DAG, and an Excel workbook where each finding is a row with a decision
+        column</li>
+        <li><strong>Decide</strong> — every warn flag becomes a numbered decision in
+        <code>decisions.json</code>. Ignore an object or an edge and the DAG is
+        recomputed — cycles visibly break. <strong>The review queue isn't a report
+        about the migration, it is the migration</strong></li>
+        <li><strong>Proposals</strong> (opt-in) — a backend interface can suggest
+        resolutions. Code verifiers check every suggestion; the AI proposes, code
+        verifies, a human decides</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Result on a real corpus — WideWorldImporters</h2>
+      <p class="note">Microsoft's sample OLTP database project (wwi-ssdt): 336 .sql
+      files of production-style T-SQL through the pipeline in ~22 seconds.</p>
+      <ul>
+        <li><strong>214</strong> objects · <strong>448</strong> dependency edges —
+        procs, views, functions, tables and externals mapped</li>
+        <li><strong>4</strong> circular dependencies — real cycles in Microsoft's own
+        reference code</li>
+        <li><strong>26</strong> dynamic SQL uses + <strong>138</strong> unresolvable
+        references — the traps that break naive migrations</li>
+        <li><strong>68%</strong> of edges regex-inferred rather than AST-parsed —
+        real code resists static analysis, and the report says so instead of
+        pretending</li>
+        <li><strong>84</strong> dropped constructs + <strong>57</strong> assumptions —
+        separate provenance channels, nothing silently lost</li>
+        <li><strong>218</strong> review findings — the workbook is the work order</li>
+      </ul>
+      <div class="speed">
+        <div><strong>21.9&nbsp;s</strong><span>336 .sql files → all artifacts</span></div>
+        <div><strong>~1&nbsp;s</strong><span>per decision cycle (apply + regenerate)</span></div>
+        <div><strong>11/11</strong><span>synthetic regression cases green</span></div>
+        <div><strong>3/3</strong><span>compact fixture cases green</span></div>
+      </div>
+      <div class="shots">
+        <figure>
+          <img src="images/sql-dag.png" alt="Layered dependency DAG of a SQL corpus: read/write/call edges, flagged objects tinted red" />
+          <figcaption>The dependency DAG drawn live — topological layers, read /
+          write / call edges, flagged objects tinted red</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Now building — follow along</h2>
+      <p class="note">The honest state of the project — verified on Microsoft's own
+      sample database, extended piece by piece.</p>
+      <ul class="now">
+        <li><strong>Done:</strong> decisions.json + apply loop — ignore an object or
+        edge and the DAG rebuilds without it (~1 s)</li>
+        <li><strong>Done:</strong> real-corpus validation — WideWorldImporters SSDT
+        project, 218 findings with honest parse-confidence reporting</li>
+        <li><strong>Done:</strong> 14-case regression corpus — synthetic spaghetti,
+        circular refs, dynamic SQL, production-horror shapes</li>
+        <li><strong>Next:</strong> stored-procedure parameter flow — @variables into
+        dynamic SQL deserve their own provenance channel</li>
+        <li><strong>Next:</strong> byte-level provenance — click a flag and land on
+        the exact line in the source .sql file</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Why not the existing approach?</h2>
+      <p class="note">The status quo is a senior consultant with SSMS, a text search
+      and a spreadsheet. QueryTriage inverts that: the deterministic engine does the
+      inventory — same input, same output — and produces an auditable artefact
+      instead of a verbal estimate. The AI layer is deliberately boxed in: it may
+      <em>propose</em> resolutions, but code verifiers check every proposal before a
+      human sees it.</p>
+    </section>
+
+    <section class="about">
+      <h2>Design choices</h2>
+      <p>Provenance is structural: parsed edges, inferred edges, dropped constructs
+      and AI proposals are separate channels — a reviewer can always tell what the
+      engine <em>knows</em> from what it <em>guesses</em>. The engine is deterministic
+      and offline-capable: no database connection, no telemetry, designed to run
+      inside a customer's perimeter so scripts never leave their environment.</p>
+      <p class="note files">The code is private (commercial prototype), but the project
+      deck is here: <a href="querytriage-deck-en.pdf">English PDF</a> — and a
+      how-to-use guide: <a href="querytriage-howto-en.pdf">quickstart PDF</a>.
+      Stack: Python · sqlglot (T-SQL AST) · openpyxl · matplotlib · LLM proposals
+      behind a mockable backend interface.</p>
+    </section>
+
+  </main>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true"
+       aria-label="Image viewer">
+    <figure>
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </div>
+  <script>
+    (function () {
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightbox-img');
+      var lbCap = document.getElementById('lightbox-cap');
+      function open(src, alt, cap) {
+        lbImg.src = src; lbImg.alt = alt; lbImg.classList.remove('native');
+        lbCap.textContent = cap;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.shots figure').forEach(function (fig) {
+        var img = fig.querySelector('img');
+        var cap = fig.querySelector('figcaption');
+        img.addEventListener('click', function () {
+          open(img.src, img.alt, cap ? cap.textContent : '');
+        });
+      });
+      lbImg.addEventListener('click', function (e) {
+        e.stopPropagation();
+        lbImg.classList.toggle('native');
+      });
+      lb.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') close();
+      });
+    })();
+  </script>
+  <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
+  <script data-goatcounter="https://mjac34.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
