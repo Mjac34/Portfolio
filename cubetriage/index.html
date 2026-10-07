@@ -24,6 +24,17 @@
     .speed div { display: flex; flex-direction: column; }
     .speed strong { font-size: 1.5rem; color: var(--accent); }
     .speed span { color: var(--muted); font-size: 0.85rem; }
+    .shots img { cursor: zoom-in; }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 100;
+      background: rgba(0, 0, 0, 0.88); overflow: auto; cursor: zoom-out;
+      align-items: center; justify-content: center; padding: 2rem; }
+    .lightbox.open { display: flex; }
+    .lightbox figure { margin: auto; text-align: center; }
+    .lightbox img { max-width: 95vw; max-height: 85vh; object-fit: contain;
+      border-radius: 0.5rem; cursor: zoom-in; }
+    .lightbox img.native { max-width: none; max-height: none; }
+    .lightbox figcaption { color: #ccc; font-size: 0.9rem; margin-top: 0.8rem;
+      max-width: 60rem; }
   </style>
 </head>
 <body>
@@ -138,19 +149,19 @@
       <div class="shots">
         <figure>
           <img src="images/workbook-overview.png" alt="Workbook overview sheet: cube metrics — 16 dimensions, 79 relationships, 120 hitl items" />
-          <figcaption>Översikt — the whole complexity report as numbers</figcaption>
+          <figcaption>Overview — the whole complexity report as numbers</figcaption>
         </figure>
         <figure>
           <img src="images/workbook-dropped.png" alt="Dropped sheet: unary operators, semi-additive measures and unsupported aggregators listed with decision columns" />
-          <figcaption>Ej migrerat — observed but unmigratable, reported never lost</figcaption>
+          <figcaption>Not migrated — observed but unmigratable, reported never lost</figcaption>
         </figure>
         <figure>
           <img src="images/workbook-proposals.png" alt="Proposals sheet: each flagged item with a suggested resolution, code verifier results and backend provenance" />
-          <figcaption>Förslag — every suggestion carries its verifier results and provenance</figcaption>
+          <figcaption>Proposals — every suggestion carries its verifier results and provenance</figcaption>
         </figure>
         <figure>
           <img src="images/workbook-assumptions.png" alt="Assumptions sheet: each inferred default value listed for human verification" />
-          <figcaption>Antaganden — every inferred default is documented for verification</figcaption>
+          <figcaption>Assumptions — every inferred default is documented for verification</figcaption>
         </figure>
         <figure>
           <img src="images/workbook-schema.png" alt="Schema sheet: proposed star schema with physical column names and real types" />
@@ -239,6 +250,45 @@
     </section>
 
   </main>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true"
+       aria-label="Image viewer">
+    <figure>
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </div>
+  <script>
+    (function () {
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightbox-img');
+      var lbCap = document.getElementById('lightbox-cap');
+      function open(src, alt, cap) {
+        lbImg.src = src; lbImg.alt = alt; lbImg.classList.remove('native');
+        lbCap.textContent = cap;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.shots figure').forEach(function (fig) {
+        var img = fig.querySelector('img');
+        var cap = fig.querySelector('figcaption');
+        img.addEventListener('click', function () {
+          open(img.src, img.alt, cap ? cap.textContent : '');
+        });
+      });
+      lbImg.addEventListener('click', function (e) {
+        e.stopPropagation();
+        lbImg.classList.toggle('native');
+      });
+      lb.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') close();
+      });
+    })();
+  </script>
   <footer><p>&copy; 2026 Malin Jacobsson</p></footer>
   <script data-goatcounter="https://mjac34.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
