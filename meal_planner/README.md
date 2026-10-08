@@ -83,7 +83,9 @@ with `beslut: approved` (screenshots below).
 Product names are mapped to canonical ingredients in two stages: regex
 hints first (high precision), then the trained `CanonicalMapper` as
 fallback for what regex misses (high recall at a confidence threshold —
-it can only *add* deals, never silently mislabel them). Live runs
+it can only *add* deals, never silently mislabel them). ML-mapped items
+are tagged `ML` in the shopping list and counted as `ml_mappade` in the
+agent trace, so the component is visible rather than implicit. Live runs
 typically land at 25–60 % deal coverage, which the critic flags
 honestly rather than hiding.
 
@@ -134,6 +136,13 @@ The critic node + conditional routing — the part that makes this
 multi-agent rather than a single call:
 
 ![Critique node and routing](images/code_critique.png)
+
+The ML training script — the split matters: singleton classes can't be
+stratified so they go straight into training, the rest get a 75/25
+holdout for honest metrics, and the comparison that counts is against
+the regex baseline on *all* 282 real product names:
+
+![Mapper training](images/code_train_mapper.png)
 
 ## Stack
 
