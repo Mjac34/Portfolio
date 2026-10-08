@@ -83,6 +83,11 @@ deliberately rough, and the natural place for an LLM node in a next iteration.
 Live runs typically land at 25–60 % deal coverage, which the critic flags
 honestly rather than hiding.
 
+**Nearby stores:** the store registry carries lat/lon, so `nearby_stores()`
+merges offers from every ICA within a chosen radius (haversine, deduped by
+offer id). Picking Maxi Bromma + everything within 5 km takes deal coverage
+from ~25 % to ~87 % — the difference between a gadget and a tool.
+
 ## Screenshots
 
 **Run start** — live ICA offers from the user's real store, `parse_preferences`
