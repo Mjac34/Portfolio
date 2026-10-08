@@ -44,13 +44,9 @@ The same graph runs both ways — a checkbox/`--hitl` flag inserts the
   + `MemorySaver` checkpoint). Approving resumes to `finish`; rejecting
   replans with the human's feedback folded into state.
 
-![Paused at human_review](images/hitl-paused-approval.png)
-
 The resume path is a second SSE stream (`/api/plan/resume`) that continues the
 *same* checkpointed run — the agent trace shows `human_review` as a real node
-with `beslut: approved`:
-
-![Approved, trace shows the decision](images/hitl-approved-trace.png)
+with `beslut: approved` (screenshots below).
 
 ## Why the design choices matter
 
