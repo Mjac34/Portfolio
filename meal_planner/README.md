@@ -85,36 +85,44 @@ honestly rather than hiding.
 
 **Nearby stores:** the store registry carries lat/lon, so `nearby_stores()`
 merges offers from every ICA within a chosen radius (haversine, deduped by
-offer id). Picking Maxi Bromma + everything within 5 km takes deal coverage
-from ~25 % to ~87 % — the difference between a gadget and a tool.
+offer id). In dense areas that lifts deal coverage markedly (a Sundbyberg run
+merged 4 stores → 65 offers, 55 % coverage) and the UI reports the honest
+split: *extra deal items only available nearby* vs *kr saved on overlapping
+deals*. Honestly a dense-city feature — on the countryside the radius usually
+contains just your own store, and the merge degrades gracefully to that.
 
 ## Screenshots
 
-**Run start** — live ICA offers from the user's real store, `parse_preferences`
-extracting a `ConstraintSpec` while the SSE stream animates the pipeline:
+**Controls** — live ICA, store search, nearby-radius, HITL toggle, demo tempo:
 
-![Running, parse_preferences active](images/run-parse-live-ica.png)
+![Controls](images/run-start-controls.png)
 
-**Critic evaluating** — every node produces structured state visible in the
-agent trace:
+**HITL pause** — the graph suspended in `human_review`; trace shows 4 merged
+store sources and the proposed plan awaiting approval:
 
-![Critic active](images/run-critique-live.png)
+![Paused at human_review](images/hitl-paused-nearby.png)
 
-**Result** — weekly menu with deal tags, total cost KPI, coverage/waste stats:
+**Approved** — `beslut: approved` lands in the trace and the graph resumes:
 
-![Menu + KPI](images/result-menu-kpi.png)
+![Approved](images/hitl-approved-v2.png)
 
-**Aggregated shopping list** — need vs. package count per item:
+**Result** — menu + KPI + the nearby-store stats ("2 extra deal items via
+nearby store · −8 kr on overlap"):
 
-![Shopping list](images/result-shopping.png)
+![Menu + KPI](images/result-menu-nearby.png)
+
+**Per-store shopping list** — each deal item tagged with the store where it's
+cheapest:
+
+![Shopping list with stores](images/result-shopping-per-store.png)
 
 **Waste model** — only perishables count as waste:
 
-![Waste tab](images/result-waste.png)
+![Waste tab](images/result-waste-v2.png)
 
 **Full agent trace** — every node's raw output, auditable:
 
-![Agent trace](images/result-agent-trace.png)
+![Agent trace](images/result-agent-trace-v2.png)
 
 ## The code
 
