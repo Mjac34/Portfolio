@@ -57,12 +57,22 @@
         </article>
 
         <article class="card">
+          <img src="meal_planner/images/hitl-paused-approval.png" alt="Meal plan agent paused at the human_review node awaiting approval" />
+          <h3>Meal Plan Agent</h3>
+          <p>
+            A graph-orchestrated multi-agent pipeline in LangGraph: Swedish free-text preferences + this week's real ICA offers → a weekly menu optimised for maximum deal coverage and minimum fresh-food waste. Critic↔planner feedback loop, optional human-in-the-loop pause via interrupt + checkpointing, and honest failure when a budget is impossible.
+          </p>
+          <p class="tags"><span>Python</span><span>LangGraph</span><span>Multi-agent</span><span>HITL</span><span>FastAPI + SSE</span></p>
+          <a href="meal_planner/">View project</a>
+        </article>
+
+        <article class="card">
           <img src="excelakuten/images/ui-diagnosis.png" alt="Kalkylakuten diagnosis view: every finding listed in plain language" />
           <h3>Kalkylakuten</h3>
           <p>
-            A live commercial service for broken Excel files: free diagnosis, then a repair pipeline that returns a validated, clean .xlsx plus a changelog listing every touched cell — 299 kr via Stripe, refunded automatically if repair fails. Built end-to-end and run as a sole proprietorship.
+            A live commercial service for broken Excel files: free diagnosis, then a repair pipeline that returns a validated, clean .xlsx plus a changelog listing every touched cell — 299 kr via Stripe, refunded automatically if repair fails. Deployed on Azure Container Apps with Blob Storage job state — infrastructure as code in Bicep. Built end-to-end and run as a sole proprietorship.
           </p>
-          <p class="tags"><span>Python</span><span>FastAPI</span><span>openpyxl</span><span>LibreOffice</span><span>Stripe</span><span>Azure</span><span>Live product</span></p>
+          <p class="tags"><span>Python</span><span>FastAPI</span><span>Stripe</span><span>Azure Container Apps</span><span>Bicep IaC</span><span>Live product</span></p>
           <a href="kalkylakuten/">View project</a>
         </article>
 
@@ -94,26 +104,6 @@
           </p>
           <p class="tags"><span>Python</span><span>scikit-learn</span><span>ML</span></p>
           <a href="statistical-ml/">View project</a>
-        </article>
-
-        <article class="card">
-          <img src="azure-streaming-pipeline/databricks-readstream.png" alt="Databricks notebook reading an Event Hub stream" />
-          <h3>Real-time Azure Pipeline</h3>
-          <p>
-            The streaming side of Azure: live Trafikverket train events consumed the moment they arrive — Event Hub → Databricks (PySpark structured streaming) → Azure SQL. Consumer groups, starting positions and data-loss handling included.
-          </p>
-          <p class="tags"><span>Azure</span><span>Streaming</span><span>Databricks</span><span>PySpark</span></p>
-          <a href="azure-streaming-pipeline/">View project</a>
-        </article>
-
-        <article class="card">
-          <img src="azure-data-factory/adf-pipeline-run.png" alt="Successful pipeline run in Azure Data Factory" />
-          <h3>ETL in Azure Data Factory</h3>
-          <p>
-            The batch side of Azure: classic scheduled ETL — CSV in Blob Storage → Data Factory pipeline → Azure SQL landing tables. Schema design, security setup and encoding troubleshooting for Swedish characters.
-          </p>
-          <p class="tags"><span>Azure</span><span>Batch ETL</span><span>Data Factory</span><span>SQL</span></p>
-          <a href="azure-data-factory/">View project</a>
         </article>
 
         <article class="card">
