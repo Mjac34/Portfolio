@@ -85,6 +85,13 @@
   #ovrFields { display:none; gap:6px; margin-top:8px; }
   #ovrFields.show { display:flex; }
   .empty { color:var(--muted); padding:40px; text-align:center; }
+  .mobile-note { display:none; }
+  @media (max-width: 820px) {
+    .mobile-note { display:block; padding:8px 16px; font-size:12px;
+        color:var(--warn); background:#141a23;
+        border-bottom:1px solid var(--border); }
+    #list { width:300px; }
+  }
 </style>
 </head>
 <body>
@@ -98,6 +105,9 @@
 </header>
 <div id="demoBar" style="display:none;padding:8px 16px;font-size:12px;
      color:var(--muted);background:#141a23;border-bottom:1px solid var(--border)"></div>
+<div class="mobile-note">Built for desktop — every feature works on a
+  phone, but this review workstation is cramped below tablet width.
+  Revisit on a laptop for the full experience.</div>
 <main>
   <div id="list">
     <div class="filters" id="filters"></div>
