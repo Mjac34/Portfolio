@@ -19,6 +19,11 @@
       font-weight: 600; margin-top: 0.8rem; }
     .now { color: var(--muted); font-size: 0.95rem; }
     .now li { margin-bottom: 0.3rem; }
+    .demo-cta { display: inline-block; margin: 0.3rem 0 1.2rem;
+      padding: 0.7rem 1.3rem; border: 2px solid var(--accent);
+      border-radius: 0.5rem; color: var(--accent); text-decoration: none;
+      font-weight: 700; font-size: 1.05rem; }
+    .demo-cta:hover { background: var(--accent); color: #fff; }
     .speed { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.5rem 0;
       padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 0.5rem; }
     .speed div { display: flex; flex-direction: column; }
@@ -42,7 +47,6 @@
     <h1>CubeTriage</h1>
     <p class="subtitle">A decision-driven migration engine for legacy OLAP cubes — every trap found, flagged and priced</p>
     <span class="status">In active development — verified results, unfinished edges</span>
-    <a class="status" href="demo/" style="text-decoration:none; margin-left:0.6rem">Try it live — real Adventure Works output, in your browser →</a>
     <p class="intro">Feed it an exported SSAS cube definition —
     it reads the metadata, untangles the model and returns a proposed star schema, a quantified
     complexity report, and an Excel workbook where every uncertainty is a reviewable decision.
@@ -105,6 +109,8 @@
 
     <section>
       <h2>Result on real cubes — validated on both formats</h2>
+      <p><a class="demo-cta" href="demo/">Try it yourself — the review
+      loop live on this exact Adventure Works output, in your browser →</a></p>
       <p class="note">Microsoft's own reference models — built to demonstrate enterprise SSAS
       features — through the pipeline in seconds. <strong>Multidimensional</strong>
       (Adventure Works 2019 Enterprise Edition, ASSL):</p>
