@@ -42,6 +42,7 @@
     <h1>CubeTriage</h1>
     <p class="subtitle">A decision-driven migration engine for legacy OLAP cubes — every trap found, flagged and priced</p>
     <span class="status">In active development — verified results, unfinished edges</span>
+    <a class="status" href="demo/" style="text-decoration:none; margin-left:0.6rem">Try it live — real Adventure Works output, in your browser →</a>
     <p class="intro">Feed it an exported SSAS cube definition —
     it reads the metadata, untangles the model and returns a proposed star schema, a quantified
     complexity report, and an Excel workbook where every uncertainty is a reviewable decision.
@@ -178,6 +179,11 @@
       artifact with it applied. The queue emptying isn't paperwork finishing — it's the
       migration being completed, decision by decision.
       The workbook stays as the exportable record for archiving and sign-off.</p>
+      <p class="note"><strong><a href="demo/">Try the review loop live</a></strong> —
+      the same UI running on the real Adventure Works output above: all 120
+      decisions are clickable, provenance slices included. Decide, rebuild,
+      watch the schema change. Everything runs in your browser — nothing is
+      uploaded, and no engine code is shipped.</p>
       <div class="shots">
         <figure>
           <img src="images/review-ui-decision.png" alt="CubeTriage review UI: flag list with warn badges, selected SCD2 flag showing canonical source JSON, target table and outcome-verb decision buttons" />
