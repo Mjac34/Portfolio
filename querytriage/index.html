@@ -35,6 +35,11 @@
     .lightbox img.native { max-width: none; max-height: none; }
     .lightbox figcaption { color: #ccc; font-size: 0.9rem; margin-top: 0.8rem;
       max-width: 60rem; }
+    .demo-cta { display: inline-block; margin: 0.5rem 0 0.5rem;
+      padding: 0.7rem 1.3rem; border-radius: 0.5rem; font-weight: 700;
+      font-size: 1rem; text-decoration: none; background: var(--accent);
+      color: var(--bg); }
+    .demo-cta:hover { filter: brightness(1.15); }
   </style>
 </head>
 <body>
@@ -93,24 +98,26 @@
 
     <section>
       <h2>Result on a real corpus — WideWorldImporters</h2>
+      <a class="demo-cta" href="demo/">Try it live — decide the actual flags
+      and break real cycles in your browser →</a>
       <p class="note">Microsoft's sample OLTP database project (wwi-ssdt): 336 .sql
-      files of production-style T-SQL through the pipeline in ~22 seconds.</p>
+      files of production-style T-SQL through the pipeline in ~56 seconds.</p>
       <ul>
-        <li><strong>214</strong> objects · <strong>448</strong> dependency edges —
+        <li><strong>217</strong> objects · <strong>454</strong> dependency edges —
         procs, views, functions, tables and externals mapped</li>
         <li><strong>4</strong> circular dependencies — real cycles in Microsoft's own
         reference code</li>
-        <li><strong>26</strong> dynamic SQL uses + <strong>138</strong> unresolvable
+        <li><strong>26</strong> dynamic SQL uses + <strong>140</strong> unresolvable
         references — the traps that break naive migrations</li>
-        <li><strong>68%</strong> of edges regex-inferred rather than AST-parsed —
+        <li><strong>69%</strong> of edges regex-inferred rather than AST-parsed —
         real code resists static analysis, and the report says so instead of
         pretending</li>
-        <li><strong>84</strong> dropped constructs + <strong>57</strong> assumptions —
+        <li><strong>85</strong> dropped constructs + <strong>58</strong> assumptions —
         separate provenance channels, nothing silently lost</li>
-        <li><strong>218</strong> review findings — the workbook is the work order</li>
+        <li><strong>361</strong> numbered decisions — the workbook is the work order</li>
       </ul>
       <div class="speed">
-        <div><strong>21.9&nbsp;s</strong><span>336 .sql files → all artifacts</span></div>
+        <div><strong>56.4&nbsp;s</strong><span>336 .sql files → all artifacts</span></div>
         <div><strong>~1&nbsp;s</strong><span>per decision cycle (apply + regenerate)</span></div>
         <div><strong>11/11</strong><span>synthetic regression cases green</span></div>
         <div><strong>3/3</strong><span>compact fixture cases green</span></div>
@@ -142,7 +149,7 @@
         <li><strong>Done:</strong> decisions.json + apply loop — ignore an object or
         edge and the DAG rebuilds without it (~1 s)</li>
         <li><strong>Done:</strong> real-corpus validation — WideWorldImporters SSDT
-        project, 218 findings with honest parse-confidence reporting</li>
+        project, 361 decisions with honest parse-confidence reporting</li>
         <li><strong>Done:</strong> 14-case regression corpus — synthetic spaghetti,
         circular refs, dynamic SQL, production-horror shapes</li>
         <li><strong>Next:</strong> stored-procedure parameter flow — @variables into

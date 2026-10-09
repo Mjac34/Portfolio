@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CubeTriage — review</title>
+<style>
+  :root { --bg:#0e1117; --panel:#161b24; --border:#262d3a; --text:#d5dae3;
+          --muted:#8a93a3; --warn:#e0a458; --ok:#5cb87a; --rej:#d66; --acc:#6d8dd8; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); height:100vh;
+         font:13px/1.5 ui-monospace, Consolas, monospace; display:flex;
+         flex-direction:column; overflow:hidden; }
+  header { display:flex; gap:16px; align-items:center; padding:10px 16px;
+           border-bottom:1px solid var(--border); background:var(--panel); }
+  header h1 { font-size:14px; margin:0; font-weight:600; }
+  .stats { color:var(--muted); }
+  header button { margin-left:auto; }
+  main { flex:1; display:flex; min-height:0; }
+  #list { width:420px; overflow-y:auto; border-right:1px solid var(--border); }
+  .filters { padding:8px; display:flex; gap:6px; position:sticky; top:0;
+             background:var(--bg); border-bottom:1px solid var(--border); }
+  .filters button, header button { background:var(--panel); color:var(--text);
+      border:1px solid var(--border); border-radius:4px; padding:4px 10px;
+      cursor:pointer; font:inherit; }
+  .filters button.active { border-color:var(--acc); color:var(--acc); }
+  .flag { padding:8px 12px; border-bottom:1px solid var(--border);
+          cursor:pointer; }
+  .flag:hover { background:var(--panel); }
+  .flag.sel { background:var(--panel); border-left:3px solid var(--acc); }
+  .flag .top { display:flex; gap:8px; align-items:baseline; }
+  .flag .id { color:var(--muted); font-size:11px; }
+  .flag .rule { color:var(--warn); }
+  .flag .obj { color:var(--muted); font-size:12px; margin-top:2px;
+               overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .badge { font-size:10px; padding:1px 6px; border-radius:3px; margin-left:auto; }
+  .sevtag { font-size:10px; padding:1px 6px; border-radius:3px;
+            background:#3a3020; color:var(--warn); }
+  .sevtag.dropped { background:#2a2030; color:#b78fd6; }
+  .infohdr { padding:8px 12px; color:var(--muted); cursor:pointer;
+             border-bottom:1px solid var(--border); font-size:12px; }
+  .infohdr:hover { color:var(--text); }
+  .tbl { margin:4px 0; }
+  .tbl .tname { color:var(--acc); font-weight:600; }
+  .tbl .tcols { color:var(--muted); font-size:12px; margin-left:12px; }
+  .tbl .tcols b { color:var(--text); font-weight:400; }
+  #canvas { position:relative; min-width:1200px; }
+  .tcard { position:absolute; width:195px; background:var(--panel);
+           border:1px solid var(--border); border-radius:6px;
+           overflow:hidden; z-index:1; font-size:11px; }
+  .tcard.trap { border-color:var(--rej); }
+  .tcard .th { padding:4px 8px; font-weight:600; white-space:nowrap;
+               overflow:hidden; text-overflow:ellipsis; }
+  .tcard.fact .th { background:#3a3020; color:var(--warn); }
+  .tcard.dim .th { background:#1e2a3a; color:var(--acc); }
+  .tcard.bridge .th { background:#2a2030; color:#b78fd6; }
+  .tcard.trap .th { color:var(--rej); }
+  .tcard .trow { padding:1px 8px; color:var(--muted); white-space:nowrap;
+                 overflow:hidden; text-overflow:ellipsis; }
+  .tcard .trow.key { color:var(--text); }
+  svg.edges { position:absolute; top:0; left:0; z-index:0; }
+  .b-open { background:#333a48; color:var(--muted); }
+  .b-approved { background:#1e3a2a; color:var(--ok); }
+  .b-rejected { background:#3a1e1e; color:var(--rej); }
+  .b-overridden { background:#22304a; color:var(--acc); }
+  #detail { flex:1; overflow:auto; padding:20px 24px; }
+  #detail h2 { font-size:15px; margin:0 0 4px; }
+  .kv { color:var(--muted); margin:2px 0; }
+  .kv b { color:var(--text); font-weight:600; }
+  pre { background:var(--panel); border:1px solid var(--border);
+        border-radius:6px; padding:10px; overflow-x:auto; font-size:12px;
+        max-height:280px; overflow-y:auto; }
+  .section { margin-top:18px; }
+  .section h3 { font-size:11px; text-transform:uppercase; letter-spacing:1px;
+                color:var(--muted); margin:0 0 6px; }
+  .actions { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .actions button { padding:7px 16px; border-radius:5px; border:1px solid
+      var(--border); cursor:pointer; font:inherit; background:var(--panel);
+      color:var(--text); }
+  .actions .ok { border-color:var(--ok); color:var(--ok); }
+  .actions .rej { border-color:var(--rej); color:var(--rej); }
+  .actions .ovr { border-color:var(--acc); color:var(--acc); }
+  input, textarea { background:var(--bg); border:1px solid var(--border);
+      color:var(--text); border-radius:4px; padding:6px 8px; font:inherit; }
+  textarea { width:100%; min-height:60px; margin-top:8px; }
+  #ovrFields { display:none; gap:6px; margin-top:8px; }
+  #ovrFields.show { display:flex; }
+  .empty { color:var(--muted); padding:40px; text-align:center; }
+  .mobile-note { display:none; }
+  @media (max-width: 820px) {
+    .mobile-note { display:block; padding:8px 16px; font-size:12px;
+        color:var(--warn); background:#141a23;
+        border-bottom:1px solid var(--border); }
+    #list { width:300px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="case">CubeTriage</h1>
+  <span class="stats" id="stats"></span>
+  <button onclick="showSchema()">Star schema</button>
+  <button onclick="showTodos()" id="todoBtn">Manual work</button>
+  <button onclick="download()">Download decisions.json</button>
+  <button onclick="regen()" title="Applies your decisions to the model and rebuilds schema.sql, load.sql, validation.sql, workbook and diagram (~1s)">Apply decisions → rebuild artifacts</button>
+</header>
+<div id="demoBar" style="display:none;padding:8px 16px;font-size:12px;
+     color:var(--muted);background:#141a23;border-bottom:1px solid var(--border)"></div>
+<div class="mobile-note">Built for desktop — every feature works on a
+  phone, but this review workstation is cramped below tablet width.
+  Revisit on a laptop for the full experience.</div>
+<main>
+  <div id="list">
+    <div class="filters" id="filters"></div>
+    <div id="flags"></div>
+  </div>
+  <div id="detail"><div class="empty">Select a flag on the left</div></div>
+</main>
+<script src="demo_data.js"></script>
+<script>
+let state = null, sel = null, filter = "open", cur = null, acts = [];
+
+// Per-rule decision verbs — the button says what happens, not the process.
+// [label, status, override?]  override.input => ask for a value first.
+const ACTIONS = {
+  orphan_attribute: [
+    ["Keep column", "approved"],
+    ["Drop column", "overridden", {field: "ignore", value: true}],
+  ],
+  calculated_measure: [
+    ["Leave as manual TODO", "approved"],
+    ["Provide SQL…", "overridden", {field: "sql", input: true, big: true}],
+  ],
+  inactive_relationship: [
+    ["Keep engine's pick", "approved"],
+  ],
+  parent_child_flattened: [
+    ["Accept flattening", "approved"],
+    ["Set max depth…", "overridden",
+     {field: "parent_child.max_depth", input: true}],
+  ],
+  scd2_incomplete: [
+    ["Not SCD2 — plain dimension", "overridden",
+     {field: "scd2", value: null}],
+  ],
+  scd2_dimension: [["Keep SCD2", "approved"]],
+  reference_dimension: [["Accept join path", "approved"]],
+  not_migrated: [["Acknowledge — stays dropped", "approved"]],
+  // --- sql domain (dependency-DAG flags) ---
+  circular_ref: [
+    ["Break cycle — drop first edge", "overridden",
+     {field: "ignore", value: true}],
+    ["Keep — document as known cycle", "approved"],
+  ],
+  unreferenced: [
+    ["Entry point — keep", "approved"],
+    ["Dead code — drop object", "overridden",
+     {field: "ignore", value: true}],
+  ],
+  unresolvable_ref: [
+    ["External — accept as-is", "approved"],
+    ["Dead link — drop node", "overridden",
+     {field: "ignore", value: true}],
+  ],
+  write_never_read: [
+    ["Written for external use — keep", "approved"],
+    ["Dead table — drop", "overridden", {field: "ignore", value: true}],
+  ],
+  dynamic_sql: [["Documented — will map manually", "approved"]],
+  select_star: [["Rewrite planned", "approved"]],
+  deprecated_syntax: [["Rewrite planned", "approved"]],
+  temp_dependency: [["Temp by design — accept", "approved"]],
+  external_ref: [["Confirmed external", "approved"]],
+  // --- ssis domain (control-flow flags) ---
+  circular_flow: [
+    ["Break cycle — drop first edge", "overridden",
+     {field: "ignore", value: true}],
+    ["Keep — intentional retrigger", "approved"],
+  ],
+  script_component: [["Manual rewrite planned", "approved"]],
+  expression_driven: [["Map expressions to target", "approved"]],
+  conditional_precedence: [["Map to target conditions", "approved"]],
+  project_connection: [["Connection migrated — approve", "approved"]],
+  external_integration: [["Has equivalent — approved", "approved"],
+    ["Drop task", "overridden", {field: "ignore", value: true}]],
+  exec_package: [["Resolve child package — approved", "approved"]],
+  loop_container: [["Iteration mapped — approved", "approved"]],
+  event_handler: [["Handler mapped — approved", "approved"]],
+  disabled_task: [["Stays disabled", "approved"],
+    ["Drop task", "overridden", {field: "ignore", value: true}]],
+  orphan_task: [["Entry point — keep", "approved"],
+    ["Dead task — drop", "overridden",
+     {field: "ignore", value: true}]],
+  external_dependency: [["Exists in target — confirmed", "approved"]],
+  inferred_assumption: [
+    ["Confirm inference", "approved"],
+    ["Wrong — flag for correction", "rejected"],
+  ],
+};
+const FALLBACK = [
+  ["Acknowledge — engine's default stands", "approved"],
+  ["Dismiss — not a real issue", "rejected"],
+];
+
+// ---- demo backend: same API surface as server.py, served from a
+// precomputed bundle (window.TRIAGE_DEMO). No engine ships — the bundle
+// is real pipeline output. Decisions persist in localStorage. ----
+let DEMO = window.TRIAGE_DEMO || null;
+let DEMO_CASES = null;
+if (DEMO && DEMO.cases) { DEMO_CASES = DEMO.cases; DEMO = DEMO_CASES[0]; }
+let LSKEY = DEMO ? "triage-demo-" + DEMO.case_id : null;
+let demoDec = null, demoApplied = false;
+
+function demoCase(i) {
+  DEMO = DEMO_CASES[i];
+  LSKEY = "triage-demo-" + DEMO.case_id;
+  demoApplied = false; sel = null; filter = "open";
+  demoInit(); boot();
+  document.getElementById("detail").innerHTML =
+    '<div class="empty">Select a flag on the left</div>';
+}
+
+function demoInit() {
+  demoDec = JSON.parse(JSON.stringify(DEMO.decisions));
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(LSKEY) || "{}"); }
+  catch (e) {}
+  demoApplied = saved._applied === true;
+  for (const d of demoDec) if (saved[d.id]) Object.assign(d, saved[d.id]);
+}
+
+function demoSave() {
+  const o = {_applied: demoApplied};
+  for (const d of demoDec)
+    if (d.status !== "open" || d.comment)
+      o[d.id] = {status: d.status, override: d.override,
+                 comment: d.comment, decided_at: d.decided_at};
+  try { localStorage.setItem(LSKEY, JSON.stringify(o)); } catch (e) {}
+}
+
+function demoLookup(id) {
+  return demoDec.find(d => d.id === id)
+      || DEMO.info_flags.find(f => f.id === id);
+}
+
+function demoSchema() {
+  // Bundle holds the pre-decision baseline. After "rebuild", decided
+  // overrides are applied to the view — the same observable effect as
+  // the engine's whitelisted apply path (ignore drops the column /
+  // edge / object, sql fills the measure).
+  const s = JSON.parse(JSON.stringify(DEMO.schema));
+  if (!demoApplied) return s;
+  if (s.star_schema) return demoSchemaCube(s);
+  if (s.dag) return demoSchemaDag(s);
+  return s;
+}
+
+function demoSchemaCube(s) {
+  const ss = s.star_schema;
+  const dropName = (arr, name) => (arr || []).filter(
+    x => (typeof x === "string" ? x : x.name) !== name);
+  for (const d of demoDec) {
+    if (d.status !== "overridden" || !d.override) continue;
+    const f = d.override.field, v = d.override.value;
+    const dot = d.flag.object.indexOf(".");
+    const head = dot < 0 ? d.flag.object : d.flag.object.slice(0, dot);
+    const tail = dot < 0 ? null : d.flag.object.slice(dot + 1);
+    const unflag = () => { const l = s.flags[head];
+      if (l) { const i = l.indexOf(d.flag.rule); if (i >= 0) l.splice(i, 1); } };
+    if (f === "ignore" && v === true) {
+      for (const dim of ss.dimensions || [])
+        if (tail && (dim.name === head || dim.source_dimension === head))
+          dim.columns = dropName(dim.columns, tail);
+      for (const fact of ss.facts || [])
+        if (tail && fact.name === head)
+          fact.measures = dropName(fact.measures, tail);
+      if (!tail) ss.facts = dropName(ss.facts, head);
+      unflag();
+    } else if (f === "sql" && tail) {
+      for (const fact of ss.facts || [])
+        for (const m of fact.measures || [])
+          if (m.name === tail) { m.sql = v; m.translation = "provided"; }
+      unflag();
+    }
+  }
+  return s;
+}
+
+// --- DAG domain (sql/ssis): ignore-decisions strip objects/edges, then
+// cycles + topological layers recompute — the same graph math the engine
+// runs (Tarjan SCC + condensation layering; standard algorithms, not the
+// engine's rules).
+function demoSchemaDag(s) {
+  const igObj = new Set(), igEdge = new Set();
+  const unflag = (name, rule) => { const l = s.flags[name];
+    if (l) { const i = l.indexOf(rule); if (i >= 0) l.splice(i, 1); } };
+  for (const d of demoDec) {
+    if (d.status !== "overridden" || !d.override
+        || d.override.field !== "ignore" || d.override.value !== true)
+      continue;
+    const parts = d.flag.object.split(" -> ");
+    if (parts.length >= 2) {           // cycle path: ignore first edge
+      igEdge.add(parts[0] + "\t" + parts[1]);
+      for (const m of new Set(parts)) unflag(m, d.flag.rule);
+    } else {
+      igObj.add(d.flag.object);
+      unflag(d.flag.object, d.flag.rule);
+    }
+  }
+  const dag = s.dag;
+  dag.objects = dag.objects.filter(o => !igObj.has(o.name));
+  for (const n of igObj) delete s.flags[n];
+  dag.edges = (dag.edges || []).filter(
+    e => !igEdge.has(e.from + "\t" + e.to)
+      && !igObj.has(e.from) && !igObj.has(e.to));
+  const names = dag.objects.map(o => o.name);
+  const flow = s.domain === "ssis"
+    ? dag.edges.filter(e => e.kind === "precedence") : dag.edges;
+  dag.cycles = jsSccs(names, flow);
+  dag.layers = jsLayers(names, flow, dag.cycles);
+  return s;
+}
+
+function jsSccs(names, edges) {   // iterative Tarjan, sorted like engine
+  const adj = {};
+  for (const e of edges) (adj[e.from] = adj[e.from] || []).push(e.to);
+  const index = {}, low = {}, onstk = new Set(), stk = [], out = [];
+  let counter = 0;
+  function strong(v) {
+    index[v] = low[v] = counter++; stk.push(v); onstk.add(v);
+    const work = [[v, (adj[v] || []).slice().sort(), 0]];
+    while (work.length) {
+      const top = work[work.length - 1], node = top[0], list = top[1];
+      let adv = false;
+      while (top[2] < list.length) {
+        const w = list[top[2]++];
+        if (!(w in index)) {
+          index[w] = low[w] = counter++; stk.push(w); onstk.add(w);
+          work.push([w, (adj[w] || []).slice().sort(), 0]);
+          adv = true; break;
+        } else if (onstk.has(w))
+          low[node] = Math.min(low[node], index[w]);
+      }
+      if (adv) continue;
+      work.pop();
+      if (work.length) {
+        const p = work[work.length - 1][0];
+        low[p] = Math.min(low[p], low[node]);
+      }
+      if (low[node] === index[node]) {
+        const scc = []; let x;
+        do { x = stk.pop(); onstk.delete(x); scc.push(x); }
+        while (x !== node);
+        if (scc.length > 1 || (adj[node] || []).includes(node))
+          out.push(scc.sort());
+      }
+    }
+  }
+  for (const v of names.slice().sort()) if (!(v in index)) strong(v);
+  return out.sort();
+}
+
+function jsLayers(names, edges, cycles) {
+  const sccOf = {};
+  cycles.forEach((cyc, i) => cyc.forEach(n => sccOf[n] = "@cycle" + i));
+  const nodeId = {};
+  for (const n of names) nodeId[n] = sccOf[n] ?? n;
+  const cadj = {};
+  for (const e of edges) {
+    const a = nodeId[e.from], b = nodeId[e.to];
+    if (a === undefined || b === undefined || a === b) continue;
+    (cadj[a] = cadj[a] || new Set()).add(b);
+  }
+  const depth = {};
+  function dep(n) {
+    if (n in depth) return depth[n];
+    depth[n] = 0;
+    const succ = [...(cadj[n] || [])].sort();
+    depth[n] = succ.length ? 1 + Math.max(...succ.map(dep)) : 0;
+    return depth[n];
+  }
+  [...new Set(Object.values(nodeId))].sort().forEach(dep);
+  const maxd = Math.max(0, ...Object.values(depth));
+  const layers = Array.from({length: maxd + 1}, () => []);
+  for (const n of names.slice().sort())
+    layers[maxd - depth[nodeId[n]]].push(n);
+  return layers;
+}
+
+function demoTodo() {
+  return {todos: DEMO.todo.todos.flatMap(t => {
+    const d = t.decision_id ? demoLookup(t.decision_id) : null;
+    if (t.kind === "sql" && demoApplied && d && d.override
+        && d.override.field === "sql")
+      return [];   // resolved by rebuild — measure got its expression
+    return [Object.assign({}, t, {status: d ? d.status : "open"})];
+  })};
+}
+
+async function api(path, method, body) {
+  if (DEMO) {
+    const m = path.match(/^\/api\/context\/([0-9A-Za-z]+)$/);
+    if (path === "/api/state")
+      return {case_id: DEMO.case_id, outdir: "demo", metrics: DEMO.metrics,
+              decisions: demoDec, info_flags: DEMO.info_flags};
+    if (path === "/api/schema") return demoSchema();
+    if (path === "/api/todo") return demoTodo();
+    if (m) {
+      const d = demoLookup(m[1]);
+      if (!d) return {error: "unknown id"};
+      const c = DEMO.contexts[m[1]] || {};
+      return {decision: d, source: c.source ?? null, target: c.target ?? null};
+    }
+    if (path === "/api/decisions" && method === "POST") {
+      const d = demoDec.find(x => x.id === body.id);
+      if (!d) return {error: "unknown id"};
+      d.status = body.status || d.status;
+      if ("override" in body) d.override = body.override;
+      if (body.comment !== undefined) d.comment = body.comment;
+      d.decided_at = new Date().toISOString();
+      demoSave();
+      return d;
+    }
+    if (path === "/api/regenerate" && method === "POST") {
+      demoApplied = true;
+      demoSave();
+      const s = demoSchema().star_schema || {};
+      const n = demoDec.filter(d => d.status === "overridden").length;
+      return {dimensions: (s.dimensions || []).length,
+              facts: (s.facts || []).length,
+              bridges: (s.bridges || []).length,
+              objects: (DEMO.schema.dag ? demoSchema().dag.objects : []).length,
+              demo_note: `Demo preview — ${n} decided override(s) applied to
+                the view below. In the licensed engine this also rebuilds
+                every artifact (SQL, workbook, diagrams) and re-runs all
+                flag rules (~1 s).`};
+    }
+    return {error: "unknown path"};
+  }
+  const r = await fetch(path, {method: method || "GET",
+    headers: {"Content-Type": "application/json"},
+    body: body ? JSON.stringify(body) : undefined});
+  return r.json();
+}
+
+function demoReset() {
+  try { localStorage.removeItem(LSKEY); } catch (e) {}
+  demoApplied = false;
+  demoInit();
+  sel = null; filter = "open"; boot();
+  document.getElementById("detail").innerHTML =
+    '<div class="empty">Select a flag on the left</div>';
+}
+
+async function boot() {
+  state = await api("/api/state");
+  document.getElementById("case").textContent =
+    (DEMO && DEMO.title) || state.case_id;
+  if (DEMO) {
+    const prod = {ssis: "PackageTriage", sql: "QueryTriage"}
+      [DEMO.schema.domain] || "CubeTriage";
+    const arts = (DEMO.artifacts || []).map(f =>
+      ` <a href="${f}" download style="color:var(--acc)">${f.split("_").pop()}</a>`).join(" ·");
+    const cases = DEMO_CASES ? "<br>Case: " + DEMO_CASES.map((c, i) =>
+      `<a href="#" onclick="demoCase(${i});return false" style="color:` +
+      (c === DEMO ? "var(--text);font-weight:700" : "var(--acc)") +
+      `">${c.title}</a>`).join(" · ") : "";
+    document.getElementById("demoBar").innerHTML =
+      `<b style="color:var(--text)">Interactive demo</b> — real ${prod}
+       output on ${DEMO.title}. Open a flag, decide, rebuild — the view
+       updates. Decisions stay in your browser; nothing is uploaded.
+       To run it on your own files the engine ships as a licensed
+       container —
+       <a href="https://www.linkedin.com/in/maalin-jacobsson" target="_blank"
+          rel="noopener" style="color:var(--acc)">LinkedIn</a> /
+       <a href="mailto:maalin.jacobsson@gmail.com"
+          style="color:var(--acc)">email</a>.
+       <br>Artifacts generated by the engine on this run:${arts}
+       · <a href="../index.html" style="color:var(--acc)">about ${prod}</a>
+       · <a href="#" onclick="demoReset();return false"
+          style="color:var(--acc)">reset decisions</a>${cases}`;
+    document.getElementById("demoBar").style.display = "block";
+  }
+  const f = document.getElementById("filters");
+  const counts = {};
+  state.decisions.forEach(d => counts[d.status] = (counts[d.status]||0)+1);
+  f.innerHTML = ["open","approved","rejected","overridden","all"].map(s =>
+    `<button class="${s===filter?'active':''}"
+      onclick="setFilter('${s}')">${s} ${s==='all' ? state.decisions.length : (counts[s]||0)}</button>`).join("");
+  renderList();
+  const dec = state.decisions.filter(d => d.status !== "open").length;
+  const ch = {};
+  state.decisions.forEach(d =>
+    ch[d.flag.channel] = (ch[d.flag.channel] || 0) + 1);
+  document.getElementById("stats").textContent =
+    `${dec} of ${state.decisions.length} decided — ` +
+    `${ch.review || 0} flags · ${ch.assumption || 0} assumptions · ` +
+    `${ch.dropped || 0} dropped`;
+  const t = await api("/api/todo");
+  document.getElementById("todoBtn").textContent =
+    `Manual work (${t.todos.length})`;
+}
+function setFilter(s) { filter = s; sel = null; boot();
+  document.getElementById("detail").innerHTML =
+    '<div class="empty">Select a flag on the left</div>'; }
+
+function renderList() {
+  const el = document.getElementById("flags");
+  el.innerHTML = state.decisions
+    .filter(d => filter === "all" || d.status === filter)
+    .map(d => `<div class="flag ${sel===d.id?'sel':''}" onclick="pick('${d.id}')">
+      <div class="top"><span class="id">${d.id}</span>
+        <span class="rule">${d.flag.rule}</span>
+        <span class="sevtag ${d.flag.channel === 'dropped' ? 'dropped' : ''}">
+          ${d.flag.channel === 'dropped' ? 'dropped' : 'warn'}</span>
+        <span class="badge b-${d.status}">${d.status}</span></div>
+      <div class="obj">${d.flag.object}</div></div>`).join("");
+  const n = (state.info_flags || []).length;
+  if (n && filter === "open")
+    el.innerHTML += `<div class="infohdr" onclick="toggleInfo()">
+        ▸ context only — ${n} info findings (no decision needed)</div>
+      <div id="infoList" style="display:none">` +
+      state.info_flags.map(f => `<div class="flag" onclick="pick('${f.id}')">
+        <div class="top"><span class="id">${f.id}</span>
+          <span class="rule">${f.rule}</span>
+          <span class="badge b-open">info</span></div>
+        <div class="obj">${f.object}</div></div>`).join("") + `</div>`;
+}
+
+function toggleInfo() {
+  const el = document.getElementById("infoList");
+  el.style.display = el.style.display === "none" ? "block" : "none";
+}
+
+async function pick(id) {
+  sel = id;
+  cur = await api("/api/context/" + id);
+  const ctx = cur;
+  renderList();
+  const d = ctx.decision;
+  if (!d.flag) {  // info flag: context, no decision
+    return document.getElementById("detail").innerHTML = `
+      <h2>${d.id} — ${d.rule}</h2>
+      <div class="kv"><b>${d.object}</b></div>
+      <div class="kv">${d.message || ""}</div>
+      <div class="section"><h3>Source — ${d.source_ref?.path || "—"}</h3>
+        <pre>${esc(JSON.stringify(ctx.source ?? "(not in canonical)", null, 2))}</pre></div>
+      <div class="section"><h3>Info finding — no decision required</h3>
+        <div class="kv">Recorded for transparency. If this looks wrong, that's a
+          bug in the engine — not something to approve here.</div></div>`;
+  }
+  const ref = d.flag.source_ref;
+  document.getElementById("detail").innerHTML = `
+    <h2>${d.id} — ${d.flag.rule}</h2>
+    <div class="kv"><b>${d.flag.object}</b></div>
+    <div class="kv">${d.flag.message || ""}</div>
+    <div class="section"><h3>Source — ${ref ? ref.path || ref.element : "—"}</h3>
+      <pre>${esc(JSON.stringify(ctx.source ?? "(not in canonical — that's the point)", null, 2))}</pre></div>
+    <div class="section"><h3>Target</h3>
+      <div class="kv">${ctx.target
+        ? `<b>${ctx.target.table}</b>${ctx.target.column ? "." + ctx.target.column : ""}`
+        : "does not land in the schema"}</div></div>
+    ${d.proposal ? `<div class="section"><h3>Proposal (${d.proposal.backend},
+        verified: ${d.proposal.verifications?.status ?? "?"})</h3>
+        <pre>${esc(d.proposal.proposal)}</pre>
+        ${d.proposal.apply ? `<div class="kv">Applicable change:
+          <b>${esc(d.proposal.apply.field)} = ${esc(JSON.stringify(d.proposal.apply.value))}</b>
+          <button class="ovr" onclick="decide('proposal')"
+            style="margin-left:8px">Accept proposal</button></div>` : ""}</div>` : ""}
+    <div class="section"><h3>Decision — current: ${d.status}</h3>
+      <div class="actions" id="actBtns"></div>
+      <div id="ovrFields"></div>
+      <textarea id="comment" placeholder="Comment…">${d.comment || ""}</textarea>
+      <div class="actions"><button onclick="decide(null)">Save comment</button>
+        <button onclick="decide('open')">Reopen</button></div></div>`;
+  acts = (ACTIONS[d.flag.rule] || FALLBACK).slice();
+  acts.push(["Custom override…", "custom"]);
+  const cls = s => s === "approved" ? "ok" : s === "rejected" ? "rej" : "ovr";
+  document.getElementById("actBtns").innerHTML = acts.map((a, i) =>
+    `<button class="${cls(a[1])}" onclick="act(${i})">${a[0]}</button>`).join("");
+}
+
+function act(i) {
+  const [label, status, ovr] = acts[i];
+  if (status === "custom" || (ovr && ovr.input)) {
+    const f = document.getElementById("ovrFields");
+    f.className = "show";
+    f.innerHTML = status === "custom"
+      ? `<input id="oField" placeholder="field (e.g. parent_child.max_depth)">
+         <input id="oValue" placeholder="value (JSON: 6, null, &quot;text&quot;)">
+         <button onclick="saveCustom()">Save override</button>`
+      : `${ovr.big ? '<textarea id="oValue" placeholder="SQL expression…" '
+             + 'style="min-height:80px;flex:1 1 100%"></textarea>'
+           : `<input id="oValue" placeholder="${ovr.field}">`}
+         <input type="hidden" id="oField" value="${ovr.field || ""}">
+         <button onclick="saveCustom()">${label}</button>`;
+    return;
+  }
+  decide(status, ovr);
+}
+
+function saveCustom() {
+  const raw = document.getElementById("oValue").value;
+  let v; try { v = JSON.parse(raw); } catch { v = raw; }
+  decide("overridden", {field: document.getElementById("oField").value,
+                        value: v});
+}
+
+async function decide(status, override) {
+  const body = {id: sel, comment: document.getElementById("comment").value};
+  if (status) body.status = status;
+  if (override) body.override = override;
+  if (status === "proposal") {
+    body.status = "overridden";
+    body.override = cur.decision.proposal.apply;
+  }
+  await api("/api/decisions", "POST", body);
+  await boot();
+  pick(sel);
+}
+
+async function showSchema(note) {
+  const s = await api("/api/schema");
+  if (s.dag) return showDag(note, s);
+  const ss = s.star_schema;
+  const tbl = (name, cols, extra) => `<div class="tbl">
+    <span class="tname">${name}</span> ${extra || ""}
+    <div class="tcols">${cols.map(c => `<b>${esc(c)}</b>`).join(" · ")}</div></div>`;
+  const dims = (ss.dimensions || []).map(d => tbl(d.name,
+    (d.columns || []).map(c => typeof c === "string" ? c : c.name || c),
+    [(d.flattened_hierarchies?.length ? "flattened" : ""),
+     (d.roles?.length ? d.roles.length + " roles" : "")]
+      .filter(Boolean).map(t => `<span class="sevtag">${t}</span>`).join(" ")
+    )).join("");
+  const facts = (ss.facts || []).map(f => tbl(f.name,
+    [...(f.foreign_keys || []).map(k => k.fact_key + " → " + k.dimension),
+     ...(f.measures || []).map(m => m.name + (m.sql ? " (sql)" : "")),
+     ...(f.degenerate_columns || [])])).join("");
+  const bridges = (ss.bridges || []).map(b =>
+    tbl(b.name, [b.connects?.join(" ↔ ") || ""])).join("");
+  document.getElementById("detail").innerHTML = `
+    <h2>Star schema — what your decisions produce</h2>
+    <div class="kv">${note ? `<b>${note}</b>` :
+      "This is the schema generated from the current canonical model + decided items."}</div>
+    <div class="kv">Decided overrides (dropped columns, provided SQL, overrides)
+      appear here after rebuild — watch the schema change as you decide.</div>
+    <div class="actions"><button onclick="showSchema()">List</button>
+      <button onclick="showDiagram()">Diagram — Power BI style</button></div>
+    <div class="section"><h3>Dimensions (${(ss.dimensions||[]).length})</h3>${dims}</div>
+    <div class="section"><h3>Facts (${(ss.facts||[]).length})</h3>${facts}</div>
+    ${bridges ? `<div class="section"><h3>Bridges (${(ss.bridges||[]).length})</h3>${bridges}</div>` : ""}`;
+}
+
+function showDag(note, s) {
+  const dag = s.dag, flags = s.flags || {};
+  const KINDC = {table: "#f1f5f9", view: "#dbeafe", proc: "#fed7aa",
+                 function: "#dcfce7", external: "#ede9fe", missing: "#ffffff"};
+  const EDGEC = {read: "#94a3b8", write: "#2563eb", call: "#d97706"};
+  const CW = 190, RH = 34, GAP = 10, LGAP = 90;
+  const layers = dag.layers || [];
+  const cyc = new Set((dag.cycles || []).flat());
+  const pos = {};
+  layers.forEach((lay, li) => lay.forEach((n, ni) => {
+    pos[n] = {x: 20 + li * (CW + LGAP), y: 20 + ni * (RH + GAP)};
+  }));
+  const W = 40 + layers.length * (CW + LGAP);
+  const H = 40 + Math.max(1, ...layers.map(l => l.length)) * (RH + GAP);
+  let edges = "";
+  for (const e of dag.edges || []) {
+    const a = pos[e.from], b = pos[e.to];
+    if (!a || !b) continue;
+    const x1 = a.x + CW, y1 = a.y + RH / 2, x2 = b.x, y2 = b.y + RH / 2;
+    const mx = (x1 + x2) / 2;
+    edges += `<path d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}"
+      fill="none" stroke="${EDGEC[e.kind] || "#94a3b8"}"
+      stroke-width="${e.kind === "call" ? 2.4 : 1.4}"
+      ${e.confidence === "inferred" ? 'stroke-dasharray="5 4"' : ""}
+      marker-end="url(#darr)"/>`;
+  }
+  let cards = "";
+  for (const o of dag.objects || []) {
+    const p = pos[o.name];
+    if (!p) continue;
+    const fl = flags[o.name] || [];
+    const bad = cyc.has(o.name) || fl.length;
+    cards += `<rect x="${p.x}" y="${p.y}" width="${CW}" height="${RH}" rx="6"
+      fill="${KINDC[o.kind] || "#fff"}"
+      stroke="${bad ? "#dc2626" : "#64748b"}" stroke-width="${bad ? 2 : 1}"
+      ${(o.kind === "missing" || o.kind === "external") ?
+        'stroke-dasharray="5 4"' : ""}/>
+      <text x="${p.x + 8}" y="${p.y + 14}" font-size="10.5"
+        font-weight="600">${esc(o.name)}</text>
+      <text x="${p.x + 8}" y="${p.y + 27}" font-size="9" fill="#64748b">
+        ${o.kind}${fl.length ? " · " + fl.join(", ") : ""}</text>`;
+  }
+  document.getElementById("detail").innerHTML = `
+    <h2>Dependency DAG — what your decisions produce</h2>
+    <div class="kv">${note || "Objects left to right in dependency order " +
+      "(topological layers). Dashed edges = inferred (regex fallback). " +
+      "Red border = flagged or in a cycle."}</div>
+    <div class="kv">Edges: <b style="color:#94a3b8">read</b> ·
+      <b style="color:#2563eb">write</b> ·
+      <b style="color:#d97706">call</b> —
+      cycles must be broken manually; ignoring an object/edge redraws this.</div>
+    <svg width="${W}" height="${H}" style="max-width:100%;overflow-x:auto">
+      <defs><marker id="darr" markerWidth="8" markerHeight="8"
+        refX="7" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/></marker></defs>
+      ${edges}${cards}</svg>`;
+}
+
+async function showDiagram() {
+  const s = await api("/api/schema");
+  if (s.dag) return showDag(null, s);
+  const ss = s.star_schema, flags = s.flags || {};
+  const ROW = 15, HDR = 22, CW = 195, GAP = 14, CAP = 10;
+  const W = Math.max(document.getElementById("detail").clientWidth - 48, 1200);
+  const dims = ss.dimensions || [], facts = ss.facts || [],
+        brs = ss.bridges || [];
+  const pos = {};   // name -> {x,y,h,rows,el}
+
+  const capRows = r => r.slice(0, CAP)
+    .concat(r.length > CAP ? ["… +" + (r.length - CAP) + " more"] : []);
+  const cardH = n => HDR + n * ROW + 6;
+  function stack(items, x, rowsFn, keyFn, cls) {
+    let y = 10;
+    for (const t of items) {
+      const rows = rowsFn(t);
+      pos[keyFn(t)] = {x, y, h: cardH(rows.length), rows, t, cls};
+      y += cardH(rows.length) + GAP;
+    }
+    return y;
+  }
+  const fkRows = f => capRows([
+    ...(f.foreign_keys || []).map(k => "fk  " + k.fact_key),
+    ...(f.measures || []).map(m => (m.sql ? "Σ  " : "") + m.name),
+    ...(f.degenerate_columns || []).map(c => "d  " + c)]);
+  const dimRows = d => capRows((d.columns || [])
+    .map(c => (c === d.key ? "pk  " : "") + (typeof c === "string" ? c : c.name || c)));
+
+  const half = Math.ceil(dims.length / 2);
+  let H = stack(dims.slice(0, half), 10, dimRows, d => d.name, "dim");
+  H = Math.max(H, stack(dims.slice(half), W - CW - 10, dimRows,
+                        d => d.name, "dim"));
+  H = Math.max(H, stack(facts, W / 2 - CW / 2, fkRows, f => f.name, "fact"));
+  H = Math.max(H, stack(brs, W / 2 - CW / 2 - CW - 30,
+                        b => capRows(b.connects || []),
+                        b => b.name, "bridge"));
+
+  // edges: fact -> dim per FK, anchor row = fk/pk row position
+  const dimByName = {};
+  dims.forEach(d => {
+    dimByName[d.name] = d;
+    if (d.source_dimension) dimByName[d.source_dimension] = d;
+  });
+  const resolveDim = n => dimByName[n] || dimByName[n.replace(/^dbo_/, "")]
+    || dims.find(d => (d.name || "").replace(/\W/g, "")
+           .endsWith(String(n).replace(/\W/g, "")));
+  let edges = "";
+  facts.forEach(f => (f.foreign_keys || []).forEach(k => {
+    const a = pos[f.name], b = pos[k.dimension];
+    if (!a || !b) return;
+    const ri = Math.max(Math.min(
+      a.rows.findIndex(r => r.endsWith(k.fact_key)), CAP - 1), 0);
+    const d = resolveDim(k.dimension);
+    const ki = d ? Math.max(
+      b.rows.findIndex(r => r.startsWith("pk")), 0) : 0;
+    const left = b.x < a.x;
+    const x1 = left ? a.x : a.x + CW, y1 = a.y + HDR + ri * ROW + ROW / 2;
+    const x2 = left ? b.x + CW : b.x, y2 = b.y + HDR + ki * ROW + ROW / 2;
+    const dx = (left ? -60 : 60);
+    edges += `<path d="M${x1} ${y1} C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}"
+      fill="none" stroke="#666" stroke-width="1.2" opacity=".7"/>
+      <text x="${x1 + (left ? 8 : -8)}" y="${y1 - 4}" fill="#999" font-size="11"
+        text-anchor="${left ? "start" : "end"}">*</text>
+      <text x="${x2 + (left ? -8 : 8)}" y="${y2 - 4}" fill="#999" font-size="11"
+        text-anchor="${left ? "end" : "start"}">1</text>`;
+  }));
+  brs.forEach(b => {
+    const bp = pos[b.name];
+    (b.connects || []).forEach(cn => {
+      const o = pos[cn] || pos[(resolveDim(cn) || {}).name];
+      if (!bp || !o) return;
+      const left = o.x < bp.x;
+      const x1 = left ? bp.x : bp.x + CW, y1 = bp.y + bp.h / 2;
+      const x2 = left ? o.x + CW : o.x, y2 = o.y + o.h / 2;
+      edges += `<path d="M${x1} ${y1} L${x2} ${y2}" fill="none"
+        stroke="#b78fd6" stroke-width="1.4" stroke-dasharray="4 3" opacity=".8"/>
+        <text x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 5}" fill="#b78fd6"
+          font-size="10" text-anchor="middle">*:*</text>`;
+    });
+  });
+
+  const cards = Object.values(pos).map(p => {
+    const trap = flags[p.t.name] || flags[p.t.source_dimension] || [];
+    return `<div class="tcard ${p.cls} ${trap.length ? "trap" : ""}"
+        style="left:${p.x}px;top:${p.y}px" title="${esc(trap.join(", "))}">
+      <div class="th">${esc(p.t.name)}</div>
+      ${p.rows.map(r => `<div class="trow ${r.startsWith("pk") || r.startsWith("fk") ? "key" : ""}">${esc(r)}</div>`).join("")}
+    </div>`;
+  }).join("");
+
+  document.getElementById("detail").innerHTML = `
+    <h2>Model diagram — the star, live</h2>
+    <div class="kv">FK edges marked *→1 · dashed purple = many-to-many bridge ·
+      red card = flagged table (hover for rules)</div>
+    <div class="actions"><button onclick="showSchema()">List</button>
+      <button onclick="showDiagram()">Diagram — Power BI style</button></div>
+    <div id="canvas" style="height:${H + 10}px">
+      <svg class="edges" width="${W}" height="${H + 10}">${edges}</svg>
+      ${cards}</div>`;
+}
+
+async function showTodos() {
+  const t = await api("/api/todo");
+  const sql = t.todos.filter(x => x.kind === "sql");
+  const notes = t.todos.filter(x => x.kind === "artifact");
+  document.getElementById("detail").innerHTML = `
+    <h2>Manual work — what's left for a human</h2>
+    <div class="kv">Everything the engine can't produce itself lands here.
+      Write the SQL via the decision (Provide SQL) or drop the item —
+      then rebuild.</div>
+    <div class="section"><h3>Calculated measures needing SQL (${sql.length})</h3>
+      ${sql.map(x => `<div class="flag" style="cursor:${x.decision_id ? "pointer" : "default"}"
+          ${x.decision_id ? `onclick="pick('${x.decision_id}')"` : ""}>
+        <div class="top"><span class="rule">${esc(x.object)}</span>
+          <span class="badge b-${x.status}">${x.status}</span></div>
+        <div class="obj">${x.what}${x.decision_id ? " → open decision" : ""}</div>
+      </div>`).join("") || '<div class="kv">none — all resolved</div>'}</div>
+    <div class="section"><h3>Artifact notes to verify (${notes.length})</h3>
+      ${notes.map(x => `<div class="kv">· ${esc(x.object)}</div>`).join("")
+        || '<div class="kv">none</div>'}</div>`;
+}
+
+async function regen() {
+  const r = await api("/api/regenerate", "POST");
+  if (r.error) { alert("Error: " + r.error); return; }
+  await boot();
+  showSchema(r.demo_note || `Rebuilt: ${r.dimensions} dims / ${r.facts} facts` +
+    (r.bridges ? ` / ${r.bridges} bridges` : "") +
+    " — all artifacts (schema.sql, load.sql, validation.sql, workbook, diagram)");
+}
+function download() {
+  const a = document.createElement("a");
+  a.href = "data:application/json," + encodeURIComponent(
+    JSON.stringify({case_id: state.case_id, decisions: state.decisions}, null, 2));
+  a.download = "decisions.json"; a.click();
+}
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+if (DEMO) demoInit();
+boot();
+</script>
+</body>
+</html>
