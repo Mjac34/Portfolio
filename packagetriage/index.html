@@ -35,6 +35,11 @@
     .lightbox img.native { max-width: none; max-height: none; }
     .lightbox figcaption { color: #ccc; font-size: 0.9rem; margin-top: 0.8rem;
       max-width: 60rem; }
+    .demo-cta { display: inline-block; margin: 0.5rem 0 0.5rem;
+      padding: 0.7rem 1.3rem; border-radius: 0.5rem; font-weight: 700;
+      font-size: 1rem; text-decoration: none; background: var(--accent);
+      color: var(--bg); }
+    .demo-cta:hover { filter: brightness(1.15); }
   </style>
 </head>
 <body>
@@ -94,21 +99,24 @@
 
     <section>
       <h2>Result on a real package — WideWorldImporters</h2>
+      <a class="demo-cta" href="demo/">Try it live — decide the actual flags
+      and break a real cycle in your browser →</a>
       <p class="note">Microsoft's sample ETL project (wwi-ssis): the 880 KB
-      DailyETLMain.dtsx through the pipeline in ~3 seconds.</p>
+      DailyETLMain.dtsx through the pipeline in ~2 seconds.</p>
       <ul>
-        <li><strong>123</strong> objects · <strong>236</strong> edges —
+        <li><strong>139</strong> objects · <strong>329</strong> edges —
         tasks, containers, data flows and connections mapped</li>
-        <li><strong>14</strong> sequence containers with nested executables —
+        <li><strong>13</strong> sequence containers with nested executables —
         the real structure, not a flat task list</li>
         <li><strong>15</strong> expression-driven tasks — runtime values a
         re-platform cannot guess</li>
         <li><strong>2</strong> project-level connections — strings live in
         .conmgr files, resolved via DTSID and flagged</li>
-        <li><strong>43</strong> review findings — the workbook is the work order</li>
+        <li><strong>59</strong> findings — 17 numbered decisions in the queue
+        plus 42 context rows</li>
       </ul>
       <div class="speed">
-        <div><strong>~3&nbsp;s</strong><span>880 KB .dtsx → all artifacts</span></div>
+        <div><strong>~2&nbsp;s</strong><span>880 KB .dtsx → all artifacts</span></div>
         <div><strong>~1&nbsp;s</strong><span>per decision cycle (apply + regenerate)</span></div>
         <div><strong>13</strong><span>flag rules covered by fixtures</span></div>
         <div><strong>2/2</strong><span>regression cases green</span></div>
